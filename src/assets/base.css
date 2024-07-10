@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.route-enter-active,
+.route-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.route-enter-from,
+.route-leave-to {
+  opacity: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+th {
+  @apply text-lg text-center;
+}
+
+td {
+  @apply text-center font-semibold;
+}
