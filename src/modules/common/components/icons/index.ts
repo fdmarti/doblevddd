@@ -17,3 +17,5 @@ export { default as LeftArrowIcon } from './LeftArrowIcon.vue';
 export { default as RightArrowIcon } from './RightArrowIcon.vue';
 export { default as BoxIcon } from './BoxIcon.vue';
 export { default as InfoIcon } from './InfoIcon.vue';
+export { default as EditIcon } from './EditIcon.vue';
+export { default as CategoryIcon } from './CategoryIcon.vue';

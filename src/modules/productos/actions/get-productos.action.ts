@@ -1,13 +1,13 @@
 import { isAxiosError } from 'axios';
 
 import { doblevApi } from '@/api/doblevApi';
-import { getHeaders } from '@/api/headersApi';
+import { headers } from '@/api/headersApi';
 import type { Producto, Productos } from '@productos/interfaces/productos.response';
 
 export const GetProductos = async (): Promise<Producto[] | []> => {
   try {
     const { data } = await doblevApi.get<Productos>('/productos', {
-      headers: getHeaders(),
+      headers,
     });
 
     return data.productos;

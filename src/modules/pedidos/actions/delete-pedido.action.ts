@@ -1,11 +1,11 @@
 import { isAxiosError } from 'axios';
 import { doblevApi } from '@/api/doblevApi';
-import { getHeaders } from '@/api/headersApi';
+import { headers } from '@/api/headersApi';
 
 export const DeletePedidoAction = async (pedidoId: number): Promise<Boolean> => {
   try {
     const { status } = await doblevApi.delete(`/ventas/${pedidoId}`, {
-      headers: getHeaders(),
+      headers,
     });
 
     if (status == 200) {

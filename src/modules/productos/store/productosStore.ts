@@ -11,6 +11,8 @@ import {
   GetProductosByID,
   SaveProducto,
   type ErrorProducto,
+  type ProductoError,
+  type ProductoSuccess,
   type SuccessProducto,
 } from '@productos/actions';
 
@@ -40,15 +42,16 @@ export const useProductosStore = defineStore('productos', () => {
     }
   };
 
-  const getProductById = async (productoId: string): Promise<boolean> => {
+  const getProductById = async (productoId: string): Promise<ProductoSuccess | ProductoError> => {
     isLoading.value = true;
 
     try {
       const result = await GetProductosByID(productoId);
-      console.log(result);
 
       if (!result.status) {
-        return false;
+        return {
+          status: false,
+        };
       }
 
       await sleep();
@@ -56,10 +59,15 @@ export const useProductosStore = defineStore('productos', () => {
       producto.value = result.producto;
       isLoading.value = false;
 
-      return true;
+      return {
+        producto: result.producto,
+        status: true,
+      };
     } catch (error) {
       resetProductoState();
-      return false;
+      return {
+        status: false,
+      };
     }
   };
 

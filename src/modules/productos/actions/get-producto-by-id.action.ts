@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 
 import { doblevApi } from '@/api/doblevApi';
-import { getHeaders } from '@/api/headersApi';
+import { headers } from '@/api/headersApi';
 import type { ProductoDetail } from '@productos/interfaces/producto.response';
 
 export interface ProductoSuccess {
@@ -18,7 +18,7 @@ export const GetProductosByID = async (
 ): Promise<ProductoSuccess | ProductoError> => {
   try {
     const { data } = await doblevApi.get<ProductoDetail>(`/productos/${productoId}`, {
-      headers: getHeaders(),
+      headers,
     });
 
     if (data) {

@@ -9,7 +9,9 @@
             <details>
                 <summary>Formularios</summary>
                 <ul class="p-2 bg-neutral">
-                    <li><a>Cateogiras</a></li>
+                    <li>
+                        <RouterLink :to="{ name: 'list-categories' }">Categorias</RouterLink>
+                    </li>
                     <li><a>Extras</a></li>
                     <li>
                         <RouterLink :to="{ name: 'list-products' }">Productos</RouterLink>

@@ -1,14 +1,10 @@
 import { doblevApi } from '@/api/doblevApi';
+import { headers } from '@/api/headersApi';
 
 export const CheckAuth = async (): Promise<boolean> => {
-  const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCALSTORAGE_NAME);
-
   try {
     await doblevApi.get('/configuracion/cotizacion', {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
+      headers,
     });
 
     return true;

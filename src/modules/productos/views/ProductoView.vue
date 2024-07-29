@@ -1,15 +1,21 @@
 <template>
     <div v-if="productoStore.isLoading">
-        Cargando...
+        <LoadingComponent />
     </div>
     <div class="flex flex-col justify-center items-center" v-else>
-        <h1 class="font-bold text-3xl">{{ productoStore.producto?.producto.descripcion }}</h1>
+        <section class="relative w-full">
+            <h1 class="font-bold text-3xl text-center">{{ productoStore.producto?.producto.descripcion }}</h1>
+            <div class="absolute right-0 top-0 flex gap-2">
+                <EditIcon @click="handleEditProduct(productoStore.producto!.producto.id)" />
+                <TrashIcon />
+            </div>
+        </section>
         <!-- Cotizaciones -->
         <div class="divider mt-10">
             <h2 class="font-semibold text-2xl mb-3">Cotización</h2>
         </div>
         <section class="w-full max-w-4xl text-center">
-            <div class="flex justify-between">
+            <div class="flex justify-between md:flex-row flex-col gap-4 md:gap-0">
                 <p class="text-lg font-semibold">
                     Tiempo <br> {{ productoStore.producto?.cotizacionTotal.totalHoras }}hrs
                     {{ productoStore.producto?.cotizacionTotal.totalMinutos }}m
@@ -39,6 +45,8 @@
         <section class="w-full max-w-6xl text-center mt-5">
             <ListExtrasProducto :extras="productoStore.producto?.extras" />
         </section>
+        <!-- Total -->
+        <TotalPrecioProducto :precio="productoStore.producto?.precio" />
     </div>
 </template>
 
@@ -46,17 +54,25 @@
 import { onMounted } from 'vue';
 import { ListPiezasProducto } from '@productos/components/piezas'
 import { ListExtrasProducto } from '@productos/components/extras'
+import { TotalPrecioProducto } from '@productos/components'
+import { TrashIcon, EditIcon } from '@common/components/icons'
+import LoadingComponent from '@common/components/LoadingComponent.vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
+const router = useRouter()
 
 import { useProductosStore } from '@productos/store/productosStore';
 const productoStore = useProductosStore()
 
 
-onMounted(() => {
+const handleEditProduct = (productId: number) => {
+    router.push({ name: 'form-product', query: { id: productId } })
+}
+
+onMounted(async () => {
     const { id } = route.params
-    productoStore.getProductById(id as string)
+    await productoStore.getProductById(id as string)
 })
 
 </script>

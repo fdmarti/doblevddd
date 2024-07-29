@@ -1,7 +1,8 @@
 <template>
     <section class="mb-5">
         <label class="input input-bordered flex items-center gap-2">
-            <input type="text" class="grow" placeholder="Buscar" v-model="productoStore.productosFilter" />
+            <input type="text" class="grow" placeholder="Buscar" v-model="productoStore.productosFilter"
+                name="product-search" id="product-search" />
             <SearchIcon />
         </label>
     </section>
@@ -41,7 +42,6 @@
                         <router-link class="btn" :to="{ name: 'product', params: { id: producto.id } }">
                             <InfoIcon />
                         </router-link>
-
                     </td>
                 </tr>
             </tbody>

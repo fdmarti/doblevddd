@@ -38,8 +38,6 @@ const props = defineProps<Props>()
 
 const calcTotalExtras = computed(() => {
     let total = 0
-    console.log(props.extras)
-
     props.extras?.forEach(extra => {
         total = total + extra.precio
     })

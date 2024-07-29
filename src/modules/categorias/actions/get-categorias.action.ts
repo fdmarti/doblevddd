@@ -1,16 +1,16 @@
 import { isAxiosError } from 'axios';
 
 import { doblevApi } from '@/api/doblevApi';
-import { getHeaders } from '@/api/headersApi';
-import type { Categorias } from '@categorias/interfaces/categorias.response';
+import { headers } from '@/api/headersApi';
+import type { Categoria, Categorias } from '@categorias/interfaces/categorias.response';
 
-export const GetCategorias = async (): Promise<Categorias | undefined> => {
+export const GetCategorias = async (): Promise<Categoria[] | []> => {
   try {
     const { data } = await doblevApi.get<Categorias>('/categorias', {
-      headers: getHeaders(),
+      headers,
     });
 
-    return data;
+    return data.categorias;
   } catch (error) {
     if (isAxiosError(error)) {
       throw {
@@ -18,5 +18,7 @@ export const GetCategorias = async (): Promise<Categorias | undefined> => {
         tokenExpired: true,
       };
     }
+
+    return [];
   }
 };
