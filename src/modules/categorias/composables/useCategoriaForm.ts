@@ -1,6 +1,5 @@
+import { Toast } from '@utils/index';
 import { reactive } from 'vue';
-import { useToast } from 'vue-toastification';
-
 import { useCategoriaStore } from '@categorias/store/categoriaStore';
 import type { NewCategoria } from '@categorias/interfaces/Categoria';
 import type { Categoria } from '@categorias/interfaces/categorias.response';
@@ -12,31 +11,30 @@ const categoriaInitialState = {
 };
 
 export const useCategoriaForm = () => {
-  const toast = useToast();
   const categoryStore = useCategoriaStore();
 
   const formData = reactive<NewCategoria>({ ...categoriaInitialState });
 
   const handleCateogriaForm = async (): Promise<boolean> => {
     if (formData.categoria.trim().length < 2) {
-      toast.error('El nombre de la categoria debe superar los 2 caracteres');
+      Toast.error('El nombre de la categoria debe superar los 2 caracteres');
       return false;
     }
 
     if (!formData.margen) {
-      toast.error('Debe ingresar un valor en el % del margen');
+      Toast.error('Debe ingresar un valor en el % del margen');
       return false;
     }
 
     const result = await categoryStore.saveCategoria(formData);
 
     if (!result) {
-      toast.error('Error al guardar la categoria');
+      Toast.error('Error al guardar la categoria');
       return false;
     }
 
     resetCateogoryForm();
-    toast.success('Cateogria guardada');
+    Toast.success('Cateogria guardada');
     return true;
   };
 

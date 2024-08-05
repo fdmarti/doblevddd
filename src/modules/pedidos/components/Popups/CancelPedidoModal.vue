@@ -20,14 +20,12 @@
 </template>
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { useToast } from 'vue-toastification';
-
+import { Toast } from '@utils/index'
 import BackgroundModal from '@common/components/content/BackgroundModal.vue';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
 const pedidoStore = usePedidosStore()
 const router = useRouter()
-const toast = useToast()
 
 interface Props {
     open: boolean;
@@ -43,7 +41,7 @@ const handleDeletePedido = async () => {
     if (result) {
         emits('close')
         router.replace({ name: 'pedidos' })
-        toast.success('Venta cancelada')
+        Toast.success('Venta cancelada')
     }
 
 }

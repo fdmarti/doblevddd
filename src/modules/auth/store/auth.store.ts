@@ -8,7 +8,11 @@ import { CheckAuth } from '@auth/actions/check-auth.action';
 
 export const useAuthStore = defineStore('auth', () => {
   const authStatus = ref(AuthStatus.unAuthenticated);
-  const token = ref(useStorage(import.meta.env.VITE_TOKEN_LOCALSTORAGE_NAME, ''));
+  const token = ref(
+    useStorage(import.meta.env.VITE_TOKEN_LOCALSTORAGE_NAME, '', localStorage, {
+      mergeDefaults: true,
+    }),
+  );
   const isLoading = ref(false);
 
   const login = async (username: string, password: string): Promise<boolean> => {
@@ -33,13 +37,14 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const checkAuthStatus = async () => {
-    const resp = await CheckAuth();
+    const status = await CheckAuth();
 
-    if (resp) {
-      authStatus.value = AuthStatus.Authenticated;
-    } else {
+    if (!status) {
       logout();
+      return;
     }
+
+    authStatus.value = AuthStatus.Authenticated;
   };
 
   const logout = () => {

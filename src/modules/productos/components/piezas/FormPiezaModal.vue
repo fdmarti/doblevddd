@@ -39,12 +39,11 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 
+import { Toast } from '@utils/index'
 import BackgroundModal from '@common/components/content/BackgroundModal.vue';
 import type { Pieza } from '@productos/interfaces/Pieza';
 import { PuzzleIcon } from '@common/components/icons'
 
-import { useToast } from 'vue-toastification';
-const toast = useToast()
 
 interface Props {
     open: boolean;
@@ -62,25 +61,24 @@ const piezaInitialState = {
 
 const formData = reactive<Pieza>({ ...piezaInitialState })
 
-
 const handlePiezaForm = () => {
     if (formData.descripcion.trim().length <= 3) {
-        toast.error('El nombre de la pieza debe ser mayor a 3')
+        Toast.error('El nombre de la pieza debe ser mayor a 3')
         return
     }
 
     if (!formData.horas) {
-        toast.error('Debe ingresar un numero de horas validas')
+        Toast.error('Debe ingresar un numero de horas validas')
         return
     }
 
     if (!formData.minutos) {
-        toast.error('Debe ingresar un numero de minutos validos')
+        Toast.error('Debe ingresar un numero de minutos validos')
         return
     }
 
     if (!formData.peso) {
-        toast.error('Debe ingresar un numero de peso valido.')
+        Toast.error('Debe ingresar un numero de peso valido.')
         return
     }
 

@@ -1,7 +1,12 @@
 import { computed, reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 
-import { GetCategorias, SaveCategory, DeleteCategoria } from '@categorias/actions';
+import {
+  GetCategorias,
+  SaveCategory,
+  DeleteCategoria,
+  ToggleStateCatalogo,
+} from '@categorias/actions';
 import type { Categoria } from '@categorias/interfaces/categorias.response';
 import type { NewCategoria } from '@categorias/interfaces/Categoria';
 
@@ -75,6 +80,18 @@ export const useCategoriaStore = defineStore('categoria', () => {
     }
   };
 
+  const toggleCategoriaCatalogo = async (categoryId: number) => {
+    try {
+      const result = await ToggleStateCatalogo(categoryId);
+
+      if (result.status) return true;
+
+      return false;
+    } catch (error) {
+      return false;
+    }
+  };
+
   const nextPageCategorias = () => {
     if (categoriasPagination.currentPage + 1 > categoriasPagination.totalPages) return;
     categoriasPagination.currentPage++;
@@ -119,5 +136,6 @@ export const useCategoriaStore = defineStore('categoria', () => {
     nextPageCategorias,
     prevPageCategorias,
     checkAmountPages,
+    toggleCategoriaCatalogo,
   };
 });

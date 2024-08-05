@@ -23,8 +23,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { useToast } from 'vue-toastification';
-const toast = useToast()
+import { Toast } from '@utils/index'
 
 import { EyeIcon, EyeOffIcon } from '@common/components/icons';
 
@@ -37,10 +36,8 @@ const authStore = useAuthStore();
 import { useRouter } from 'vue-router';
 const router = useRouter()
 
-
 const usernameInputRef = ref<HTMLInputElement | null>(null)
 const passwordInputRef = ref<HTMLInputElement | null>(null)
-
 
 const formData = reactive({
     username: '',
@@ -59,12 +56,11 @@ const onSubmitLogin = async () => {
     const resp = await authStore.login(formData.username, formData.password)
 
     if (!resp) {
-        toast.error('Credenciales incorrectas')
+        Toast.error('Credenciales incorrectas')
         return
     }
     router.replace({ name: 'pedidos' })
 }
-
 
 </script>
 

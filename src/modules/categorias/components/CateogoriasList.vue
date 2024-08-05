@@ -15,6 +15,7 @@
                     <th>Descripción</th>
                     <th>Productos</th>
                     <th>Margen</th>
+                    <th>Catalogo</th>
                     <th>Accion</th>
                 </tr>
             </thead>
@@ -27,7 +28,7 @@
             </tbody>
             <tbody v-else-if="categoryStore.categorias!.length === 0">
                 <tr>
-                    <td colspan="8">
+                    <td colspan="9">
                         No hay categorias
                     </td>
                 </tr>
@@ -38,6 +39,9 @@
                     <td>{{ categoria.descripcion }}</td>
                     <td>{{ categoria.productos }}</td>
                     <td>{{ categoria.margen }} % </td>
+                    <td>
+                        <CheckboxCatalogo :checked="categoria.catalogo" :categoryId="categoria.id" />
+                    </td>
                     <td class="flex justify-center gap-2">
                         <button class="btn" @click="emits('edit', categoria)">
                             <EditIcon />
@@ -62,7 +66,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { LoadingComponent } from '@common/components';
-import { ModalDeleteCategoria } from '@categorias/components'
+import { ModalDeleteCategoria, CheckboxCatalogo } from '@categorias/components'
 import { SearchIcon, EditIcon, TrashIcon } from '@common/components/icons'
 import { PaginationComponent } from '@common/components/pagination'
 import { useCategoriaStore } from '@categorias/store/categoriaStore';

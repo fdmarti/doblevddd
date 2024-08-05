@@ -12,7 +12,9 @@
                     <li>
                         <RouterLink :to="{ name: 'list-categories' }">Categorias</RouterLink>
                     </li>
-                    <li><a>Extras</a></li>
+                    <li>
+                        <RouterLink :to="{ name: 'list-extras' }">Extras</RouterLink>
+                    </li>
                     <li>
                         <RouterLink :to="{ name: 'list-products' }">Productos</RouterLink>
                     </li>

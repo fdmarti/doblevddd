@@ -1,13 +1,11 @@
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useToast } from 'vue-toastification';
-
+import { Toast } from '@utils/index';
 import type { Pieza } from '@productos/interfaces/Pieza';
 
 import { useProductosStore } from '@productos/store/productosStore';
 
 export const useFormProduct = () => {
-  const toast = useToast();
   const router = useRouter();
 
   const productosStore = useProductosStore();
@@ -38,28 +36,28 @@ export const useFormProduct = () => {
 
   const handleSubmitFormProducto = async () => {
     if (!product.productName.trim()) {
-      toast.error('Debe ingresar el nombre de producto');
+      Toast.error('Debe ingresar el nombre de producto');
       return;
     }
 
     if (product.piezas.length === 0) {
-      toast.error('Debe ingresar al menos 1 pieza');
+      Toast.error('Debe ingresar al menos 1 pieza');
       return;
     }
 
     if (!product.categoria) {
-      toast.error('Debe ingresar una categoria');
+      Toast.error('Debe ingresar una categoria');
       return;
     }
 
     const result = await productosStore.saveProducto(product);
 
     if (!result.status) {
-      toast.error('Error al guardar el producto');
+      Toast.error('Error al guardar el producto');
       return;
     }
 
-    toast.success('Producto guardado');
+    Toast.success('Producto guardado');
     router.replace({ name: 'product', params: { id: result.idproducto } });
   };
 
