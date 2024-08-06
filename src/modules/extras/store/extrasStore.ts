@@ -6,7 +6,7 @@ import { GetExtras, SaveExtra, DeleteExtra } from '@extras/actions';
 import type { Extra } from '@extras/interface/extras.response';
 
 export const useExtrasStore = defineStore('extra', () => {
-  const extras = ref<Extra[]>();
+  const extras = ref<Extra[]>([]);
   const extrasFilter = ref<string>('');
   const extrasPagination = reactive({
     currentPage: 1,

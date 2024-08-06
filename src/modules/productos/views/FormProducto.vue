@@ -21,6 +21,12 @@
                                 {{ categoria.descripcion }}
                             </option>
                         </select>
+                        <div class="divider"></div>
+                        <h2 class="mt-2 font-bold text-lg">Extras</h2>
+
+                        <CheckExtras :isLoading="extrasStore.isLoading" :extras="extrasStore.extrasAll"
+                            v-model="product.extras" />
+
                     </div>
                 </section>
                 <div class="divider divider-horizontal"></div>
@@ -46,10 +52,14 @@ import { onMounted } from 'vue';
 import LoadingComponent from '@common/components/LoadingComponent.vue'
 import { BoxIcon } from '@common/components/icons'
 import { CardPieza, FormPiezaModal } from '@productos/components/piezas'
-import { useFormProduct } from '@productos/composables/useFormProduct'
+import { CheckExtras } from '@productos/components/extras';
 
+import { useFormProduct } from '@productos/composables/useFormProduct'
+import { useExtrasStore } from '@extras/store/extrasStore';
 import { useCategoriaStore } from '@categorias/store/categoriaStore';
+
 const categoriaStore = useCategoriaStore()
+const extrasStore = useExtrasStore()
 
 import { useRoute } from 'vue-router';
 const route = useRoute()
@@ -58,6 +68,7 @@ const { handleDeletePieza, handleNewPieza, handleSubmitFormProducto, togglePopup
 
 onMounted(async () => {
     await categoriaStore.getCategories()
+    await extrasStore.getExtras()
 
     const { query } = route
     if (query.id) {

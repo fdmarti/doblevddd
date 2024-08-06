@@ -35,7 +35,9 @@
             <details>
                 <summary>Configuración</summary>
                 <ul class="p-2 bg-neutral">
-                    <li><a>Cotización</a></li>
+                    <li>
+                        <RouterLink :to="{ name: 'cotizacion-view' }">Cotización</RouterLink>
+                    </li>
                 </ul>
             </details>
         </li>

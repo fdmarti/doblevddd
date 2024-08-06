@@ -5,5 +5,5 @@ export interface Producto {
   productName: string;
   piezas: Pieza[];
   categoria: number;
-  extras: string[];
+  extras: number[];
 }

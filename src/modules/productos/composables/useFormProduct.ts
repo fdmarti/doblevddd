@@ -13,7 +13,7 @@ export const useFormProduct = () => {
     productName: '',
     piezas: [] as Pieza[],
     categoria: 0,
-    extras: [] as string[],
+    extras: [] as number[],
     productId: 0,
   });
 
@@ -78,7 +78,7 @@ export const useFormProduct = () => {
       product.productId = producto.producto.id;
 
       product.piezas = producto.piezas;
-      // product.extras = producto.extras;
+      product.extras = producto.extras.map((extra) => extra.id);
       isLoadingForm.value = false;
     } catch (error) {
       console.log(error);
