@@ -2,7 +2,7 @@ import { computed, reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { sleep } from '@/utils/sleep';
 
-import type { Producto } from '@/modules/productos/interfaces/productos.response';
+import type { Producto } from '@productos/interfaces/productos.response';
 import type { ProductoDetail } from '@productos/interfaces/producto.response';
 import type { Producto as ProductoFrom } from '@productos/interfaces';
 

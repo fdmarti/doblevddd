@@ -1,15 +1,18 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 
-import { GetPedidosActions, GetPedidoById } from '@pedidos/actions';
+import { GetPedidosActions, GetPedidoById, DeletePedidoAction } from '@pedidos/actions';
 import type { Venta, Pedido } from '@pedidos/interfaces';
+import type { NuevoPedido } from '@pedidos/interfaces/NuevoPedido';
 
 import { formatDate } from '@/utils';
-import { DeletePedidoAction } from '../actions/delete-pedido.action';
+
+import { newPedidoInitialState } from '@pedidos/utils/index';
 
 export const usePedidosStore = defineStore('pedidos', () => {
   const pedidos = ref<Venta[] | undefined>([]);
   const pedido = ref<Pedido | null>();
+  const newPedido = ref<NuevoPedido>({ ...newPedidoInitialState });
   const isLoading = ref(false);
 
   const getPedidos = async (): Promise<boolean> => {
@@ -87,6 +90,8 @@ export const usePedidosStore = defineStore('pedidos', () => {
         estadoActual,
       };
     }),
+
+    newPedido,
 
     getPedidos,
     getPedidoById,
