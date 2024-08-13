@@ -16,36 +16,36 @@
             <th>Codigo</th>
             <th>Descripción</th>
             <th>Categoria</th>
+            <th>Cantidad</th>
             <th>Precio</th>
             <th>Descuento</th>
             <th>Observación</th>
           </tr>
         </thead>
         <tbody>
-          <template v-for="(producto, index) in pedidosStore.newPedido.productos" :key="index">
-            <tr v-for="(produ, indexbi) in producto.cantidad" :key="indexbi">
-              <th># {{ producto.id }}</th>
-              <td>{{ producto.descripcion }}</td>
-              <td>{{ producto.categoria }}</td>
-              <td>$ {{ producto.preciounitario }}</td>
-              <td>
-                <input
-                  type="number"
-                  class="input input-bordered text-right"
-                  step="0.1"
-                  placeholder="0"
-                />
-              </td>
-              <td>
-                <input type="text" class="input input-bordered" placeholder="Observaciones" />
-              </td>
-            </tr>
-          </template>
+          <tr v-for="(producto, index) in pedidosStore.newPedido.productos" :key="index">
+            <th># {{ index + 1 }}</th>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>{{ producto.cantidad }}</td>
+            <td>$ {{ producto.preciounitario }}</td>
+            <td>
+              <input
+                type="number"
+                class="input input-bordered text-right"
+                step="0.1"
+                placeholder="0"
+              />
+            </td>
+            <td>
+              <input type="text" class="input input-bordered" placeholder="Observaciones" />
+            </td>
+          </tr>
         </tbody>
         <tfoot>
           <tr class="bg-base-100">
-            <td colspan="5" class="text-right font-bold text-xl">Total</td>
-            <td class="font-bold text-xl">$ 10000</td>
+            <td colspan="6" class="text-right font-bold text-xl">Total</td>
+            <td class="font-bold text-xl">$ 3000</td>
           </tr>
         </tfoot>
       </table>

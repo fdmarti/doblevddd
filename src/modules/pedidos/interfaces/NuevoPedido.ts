@@ -6,6 +6,7 @@ export interface NuevoPedido {
 
 export interface Producto {
   id: number;
+  uuid: string;
   descripcion: string;
   categoria: number;
   preciounitario: number;
