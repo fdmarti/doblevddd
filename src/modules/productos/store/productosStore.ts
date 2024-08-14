@@ -115,7 +115,10 @@ export const useProductosStore = defineStore('productos', () => {
     productos: computed(() => {
       const productName = productosFilter.value.toLowerCase();
       const filteredProducts = productos.value.filter((producto) => {
-        if (producto.descripcion.toLowerCase().includes(productName)) {
+        if (
+          producto.descripcion.toLowerCase().includes(productName) ||
+          producto.categoria.toLowerCase().includes(productName)
+        ) {
           return producto;
         }
       });
