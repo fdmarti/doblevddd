@@ -26,7 +26,6 @@
 
   <section class="flex justify-between">
     <button class="btn btn-outline" :disabled="currentStep === 0" @click="prevStep">Volver</button>
-
     <button class="btn btn-outline" @click="nextStep" v-if="currentStep !== maxSteps">
       Siguiente
     </button>
@@ -35,16 +34,26 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useSteps } from '@pedidos/composables/useSteps';
 import ProductosList from '@productos/components/ProductosList.vue';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 import { FormClientePedido, ConfirmarPedido, SideBarPedido } from '@pedidos/components';
 import { CartIcon } from '@common/components/icons';
 
+import { Toast } from '@utils/index';
+
 const pedidosStore = usePedidosStore();
 const { currentStep, maxSteps, nextStep, prevStep } = useSteps(2);
 
-const confirmarPedido = () => {
-  console.log('Confirmar Pedido');
+const router = useRouter();
+
+const confirmarPedido = async () => {
+  const result = await pedidosStore.confirmNewPedido();
+
+  if (result.status) {
+    Toast.success('Pedido generado');
+    router.replace({ name: 'pedido', params: { id: result.id } });
+  }
 };
 </script>

@@ -1,7 +1,14 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 
-import { GetPedidosActions, GetPedidoById, DeletePedidoAction } from '@pedidos/actions';
+import {
+  GetPedidosActions,
+  GetPedidoById,
+  DeletePedidoAction,
+  SavePedido,
+  type SavePedidoError,
+  type SavePedidoSuccess,
+} from '@pedidos/actions';
 import type { Venta, Pedido } from '@pedidos/interfaces';
 import type { NuevoPedido } from '@pedidos/interfaces/NuevoPedido';
 
@@ -56,10 +63,27 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }
   };
 
+  const confirmNewPedido = async (): Promise<SavePedidoSuccess | SavePedidoError> => {
+    try {
+      const result = await SavePedido(newPedido.value);
+
+      if (result.status) return result;
+
+      return {
+        status: false,
+      };
+    } catch (error) {
+      return {
+        status: false,
+      };
+    }
+  };
+
   const resetPedidosState = () => {
     pedidos.value = [];
     pedido.value = null;
     isLoading.value = false;
+    newPedido.value = { ...newPedidoInitialState };
   };
 
   const resetPedido = () => {
@@ -96,5 +120,6 @@ export const usePedidosStore = defineStore('pedidos', () => {
     getPedidos,
     getPedidoById,
     deletePedido,
+    confirmNewPedido,
   };
 });

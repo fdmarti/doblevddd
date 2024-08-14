@@ -42,7 +42,7 @@ const onHandleAddProductToPedido = () => {
     categoria: props.producto.idcategoria,
     descripcion: props.producto.descripcion,
     id: props.producto.id,
-    uuid: Uuid.generate(),
+    itemId: Uuid.generate(),
     observaciones: '',
     preciounitario: props.producto.preciounitario,
   });

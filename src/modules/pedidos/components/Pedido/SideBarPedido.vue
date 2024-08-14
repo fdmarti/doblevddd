@@ -7,16 +7,16 @@
         <TitleComponent text="Nuevo Pedido" />
         <div
           v-for="producto in pedidosStore.newPedido.productos"
-          :key="producto.uuid"
+          :key="producto.itemId"
           class="flex flex-col justify-start text-left gap-1 p-2 mb-5"
         >
           <section class="flex justify-between items-center">
-            <label class="font-semibold" :for="`input-cantidad-pedido-${producto.uuid}`">
+            <label class="font-semibold" :for="`input-cantidad-pedido-${producto.itemId}`">
               {{ producto.descripcion }}
             </label>
             <button
               class="btn btn-square btn-sm"
-              @click="onHandleDeleteProductoInPedido(producto.uuid)"
+              @click="onHandleDeleteProductoInPedido(producto.itemId)"
             >
               <TrashIcon :size="20" />
             </button>
@@ -26,7 +26,7 @@
             step="1"
             placeholder="Cantidad"
             v-model="producto.cantidad"
-            :id="`input-cantidad-pedido-${producto.uuid}`"
+            :id="`input-cantidad-pedido-${producto.itemId}`"
             class="input input-sm w-full text-right"
             @blur="validateCantidadAmount(producto)"
           />
@@ -43,9 +43,9 @@ import type { Producto } from '@pedidos/interfaces/NuevoPedido';
 
 const pedidosStore = usePedidosStore();
 
-const onHandleDeleteProductoInPedido = (productoUuid: string) => {
+const onHandleDeleteProductoInPedido = (itemId: string) => {
   pedidosStore.newPedido.productos = pedidosStore.newPedido.productos.filter(
-    (prod) => prod.uuid !== productoUuid,
+    (prod) => prod.itemId !== itemId,
   );
 };
 
