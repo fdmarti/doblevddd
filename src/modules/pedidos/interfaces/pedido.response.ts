@@ -6,7 +6,6 @@ export interface Pedido {
   id: number;
   preciototal: number;
   productos: Producto[];
-  resumen: any[];
   senia: number;
 }
 
@@ -24,23 +23,18 @@ export interface Actual {
 }
 
 export interface Producto {
-  adddata: string;
-  costototal: number;
+  cantidad: number;
   descripcion: string;
-  descuento: number;
-  estado: Estado;
-  ganancia: number;
-  id: number;
+  detalle: Detalle;
+  idproducto: number;
+  itemid: string;
   observaciones: string;
-  piezas: Pieza[];
-  preciounidad: number;
 }
 
-export interface Pieza {
-  descripcion: string;
-  horas: number;
-  id: number;
-  idproducto: number;
-  minutos: number;
-  peso: number;
+export interface Detalle {
+  cancelados: number;
+  errores: number;
+  imprimiendo: number;
+  listo: number;
+  pendiente: number;
 }

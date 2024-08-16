@@ -117,6 +117,17 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
     newPedido,
 
+    costoTotalPedido: computed(() => {
+      let total = 0;
+
+      newPedido.value.productos.forEach((prod) => {
+        const costoPerItem = prod.cantidad * prod.preciounitario;
+        total = total + costoPerItem;
+      });
+
+      return total;
+    }),
+
     getPedidos,
     getPedidoById,
     deletePedido,

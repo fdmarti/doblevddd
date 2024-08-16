@@ -6,7 +6,7 @@ import type { Pedido } from '@pedidos/interfaces/pedido.response';
 
 export const GetPedidoById = async (pedidoId: string) => {
   try {
-    const { data } = await doblevApi.get<Pedido>(`/ventas/${pedidoId}`, {
+    const { data } = await doblevApi.get<Pedido>(`/ventas/${pedidoId}/detalle`, {
       headers,
     });
 

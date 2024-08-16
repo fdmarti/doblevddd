@@ -8,6 +8,8 @@
         class="grow"
         placeholder="Nombre del cliente"
         v-model="pedidosStore.newPedido.cliente"
+        id="name-client"
+        name="name-client"
       />
     </label>
     <label class="input input-bordered flex items-center gap-2">
@@ -17,6 +19,8 @@
         class="grow"
         placeholder="Contacto"
         v-model="pedidosStore.newPedido.contacto"
+        id="contact-client"
+        name="contact-client"
       />
     </label>
   </section>

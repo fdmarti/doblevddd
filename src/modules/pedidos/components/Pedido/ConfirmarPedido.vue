@@ -35,17 +35,24 @@
                 class="input input-bordered text-right"
                 step="0.1"
                 placeholder="0"
+                :id="`producto-descuento-${index}`"
               />
             </td>
             <td>
-              <input type="text" class="input input-bordered" placeholder="Observaciones" />
+              <input
+                type="text"
+                class="input input-bordered"
+                placeholder="Observaciones"
+                :id="`producto-observaciones-${index}`"
+                v-model="producto.observaciones"
+              />
             </td>
           </tr>
         </tbody>
         <tfoot>
           <tr class="bg-base-100">
             <td colspan="6" class="text-right font-bold text-xl">Total</td>
-            <td class="font-bold text-xl">$ 3000</td>
+            <td class="font-bold text-xl">$ {{ pedidosStore.costoTotalPedido }}</td>
           </tr>
         </tfoot>
       </table>

@@ -1,45 +1,36 @@
 <template>
   <section class="flex flex-col gap-6">
     <section class="flex md:flex-row flex-col gap-5">
-      <CardDetail>
-        <div class="flex flex-col">
-          <span class="text-gray-400 uppercase text-xs mb-1 font-semibold">Cliente</span>
-          <span class="font-bold text-xl">{{ cliente }}</span>
-        </div>
-        <UserIcon />
-      </CardDetail>
-      <CardDetail>
-        <div class="flex flex-col">
-          <span class="text-gray-400 uppercase text-xs mb-1 font-semibold">Contacto</span>
-          <span class="font-bold text-xl">{{ contacto }}</span>
-        </div>
-        <AddressIcon />
-      </CardDetail>
+      <CardDetailLayout>
+        <CardDetailContent :componentIcon="UserIcon" title="Cliente" :text="cliente" />
+      </CardDetailLayout>
+
+      <CardDetailLayout>
+        <CardDetailContent :componentIcon="AddressIcon" title="Contacto" :text="contacto" />
+      </CardDetailLayout>
     </section>
 
     <section class="flex md:flex-row flex-col gap-5">
-      <CardDetail>
-        <div class="flex flex-col">
-          <span class="text-gray-400 uppercase text-xs mb-1 font-semibold">Precio total</span>
-          <span class="font-bold text-xl">$ {{ precio }}</span>
-        </div>
-        <PriceIcon />
-      </CardDetail>
-      <CardDetail>
-        <div class="flex flex-col">
-          <span class="text-gray-400 uppercase text-xs mb-1 font-semibold">Fecha solicitado</span>
-          <span class="font-bold text-xl">{{ formatDate(fecha) }}</span>
-        </div>
-        <CalendarStatsIcon />
-      </CardDetail>
+      <CardDetailLayout>
+        <CardDetailContent :componentIcon="PriceIcon" title="Precio total" :text="`$ ${precio}`" />
+      </CardDetailLayout>
+
+      <CardDetailLayout>
+        <CardDetailContent
+          :componentIcon="CalendarStatsIcon"
+          title="Fecha solicitado"
+          :text="formatDate(fecha)"
+        />
+      </CardDetailLayout>
     </section>
   </section>
 </template>
 
 <script setup lang="ts">
 import { formatDate } from '@/utils';
-import { CardDetail } from '@pedidos/components';
 import { AddressIcon, CalendarStatsIcon, PriceIcon, UserIcon } from '@common/components/icons';
+
+import { CardDetailContent, CardDetailLayout } from '@pedidos/components/Pedido/CardDetail';
 
 interface Props {
   cliente: string;
