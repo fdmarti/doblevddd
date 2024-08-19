@@ -19,6 +19,7 @@ export default defineConfig({
       '@gastos': fileURLToPath(new URL('./src/modules/gastos', import.meta.url)),
       '@pedidos': fileURLToPath(new URL('./src/modules/pedidos', import.meta.url)),
       '@productos': fileURLToPath(new URL('./src/modules/productos', import.meta.url)),
+      '@pagos': fileURLToPath(new URL('./src/modules/pagos', import.meta.url)),
     },
   },
 });

@@ -29,7 +29,6 @@
 <script setup lang="ts">
 import { formatDate } from '@/utils';
 import { AddressIcon, CalendarStatsIcon, PriceIcon, UserIcon } from '@common/components/icons';
-
 import { CardDetailContent, CardDetailLayout } from '@pedidos/components/Pedido/CardDetail';
 
 interface Props {

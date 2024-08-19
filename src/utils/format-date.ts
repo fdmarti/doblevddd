@@ -10,3 +10,12 @@ export const formatDate = (date: string | Date) => {
 
   return `${formattedDay}/${formattedMonth}/${year}`;
 };
+
+export const formatShortDate = (date: string | Date): string => {
+  if (typeof date === 'string') {
+    const fecha = date.split('-');
+    return fecha[2] + '/' + fecha[1] + '/' + fecha[0];
+  }
+
+  return formatDate(date);
+};

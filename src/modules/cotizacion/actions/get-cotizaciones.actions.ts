@@ -27,8 +27,6 @@ export const GetCotizaciones = async (): Promise<CotizacionSuccess | CotizacionE
     return {
       status: false,
     };
-
-    console.log(data);
   } catch (error) {
     return {
       status: false,

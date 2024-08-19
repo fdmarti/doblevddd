@@ -15,8 +15,6 @@ export const UpdateErrorsCountItem = async (
       { headers },
     );
 
-    console.log(data);
-
     if (!data.status) {
       return {
         status: false,

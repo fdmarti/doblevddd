@@ -24,8 +24,6 @@ export const SavePedido = async (
     return {
       status: false,
     };
-
-    console.log(data);
   } catch (error) {
     if (isAxiosError(error)) {
       throw {

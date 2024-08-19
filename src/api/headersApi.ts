@@ -6,7 +6,6 @@ export const headers = {
 };
 
 export const getHeaders = () => {
-  console.log(token);
   return {
     'Content-Type': 'application/json',
     'x-access-token': token,

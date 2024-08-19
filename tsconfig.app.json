@@ -16,7 +16,8 @@
       "@extras/*": ["./src/modules/extras/*"],
       "@gastos/*": ["./src/modules/gastos/*"],
       "@pedidos/*": ["./src/modules/pedidos/*"],
-      "@productos/*": ["./src/modules/productos/*"]
+      "@productos/*": ["./src/modules/productos/*"],
+      "@pagos/*": ["./src/modules/pagos/*"]
     }
   }
 }

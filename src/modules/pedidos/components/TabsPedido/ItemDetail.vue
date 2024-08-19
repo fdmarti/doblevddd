@@ -6,17 +6,22 @@
       :name="`check-item-${producto.itemid}`"
     />
     <div class="collapse-title flex items-center justify-between">
-      <section class="flex items-center gap-2">
-        <PuzzleCompleteIcon />
-        <h3 class="text-lg font-medium">{{ producto.descripcion }}</h3>
+      <section class="flex items-center justify-between w-full">
+        <section class="flex items-center">
+          <PuzzleCompleteIcon />
+          <h3 class="text-lg font-medium">{{ producto.descripcion }}</h3>
+          -
+          <span class="font-semibold">
+            Observaciones : <em>{{ producto.observaciones }}</em>
+          </span>
+        </section>
+
+        <RadialProgressComponent :value="calcPorcentajeItem" />
       </section>
     </div>
     <div class="collapse-content">
       <div>
         <section>
-          <p class="font-semibold">
-            Observaciones : <em>{{ producto.observaciones }}</em>
-          </p>
           <p class="font-semibold">
             Cantidad de productos : <em>{{ producto.cantidad }}</em>
           </p>
@@ -32,13 +37,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { PuzzleCompleteIcon } from '@common/components/icons';
 import { StackStatsPedido, ActionsPedido } from '@pedidos/components';
+import { RadialProgressComponent } from '@common/components/progress';
 import type { Producto } from '@pedidos/interfaces';
 
 interface Props {
   producto: Producto;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const calcPorcentajeItem = computed(() => {
+  return (props.producto.detalle.listo * 100) / props.producto.cantidad;
+});
 </script>

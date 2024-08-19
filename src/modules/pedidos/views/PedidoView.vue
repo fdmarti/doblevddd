@@ -13,15 +13,7 @@
       </div>
     </section>
     <div role="tablist" class="tabs tabs-md tabs-bordered py-6" v-if="pedidosStore.pedido">
-      <input
-        type="radio"
-        name="tab-detalle-pedido"
-        id="tab-detalle"
-        role="tab"
-        class="tab"
-        aria-label="Detalle del pedido"
-        checked
-      />
+      <RadioInputTab aria-label="Detalle del pedido" checked id="tab-detalle-pedido" />
       <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
         <PedidoDetail
           :cliente="pedidosStore.pedido.cliente"
@@ -31,14 +23,7 @@
         />
       </div>
 
-      <input
-        type="radio"
-        name="tab-detalle-pedido"
-        id="tab-productos"
-        role="tab"
-        class="tab"
-        aria-label="Productos"
-      />
+      <RadioInputTab aria-label="Productos" id="tab-productos-pedido" />
       <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
         <ItemDetail
           v-for="producto in pedidosStore.pedido.productos"
@@ -47,14 +32,12 @@
         />
       </div>
 
-      <input
-        type="radio"
-        name="tab-detalle-pedido"
-        id="tab-acciones"
-        role="tab"
-        class="tab"
-        aria-label="Acciones"
-      />
+      <RadioInputTab aria-label="Pagos" id="tab-pagos-pedido" />
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+        <PagosDetail :pedidoId="props.id" />
+      </div>
+
+      <RadioInputTab aria-label="Acciones" id="tab-acciones-pedido" />
       <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
         <AccionesDetail />
       </div>
@@ -71,7 +54,13 @@ import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 import LoadingComponent from '@common/components/LoadingComponent.vue';
-import { ItemDetail, PedidoDetail, AccionesDetail } from '@pedidos/components/TabsPedido';
+import {
+  ItemDetail,
+  PedidoDetail,
+  AccionesDetail,
+  PagosDetail,
+} from '@pedidos/components/TabsPedido';
+import { RadioInputTab } from '@pedidos/components/Pedido/Inputs';
 
 interface Props {
   id: string;
