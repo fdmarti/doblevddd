@@ -2,15 +2,7 @@ import { isAxiosError } from 'axios';
 import type { NuevoPedido } from '@pedidos/interfaces/NuevoPedido';
 import { doblevApi } from '@/api/doblevApi';
 import { headers } from '@/api/headersApi';
-
-export interface SavePedidoSuccess {
-  id: number;
-  status: true;
-}
-
-export interface SavePedidoError {
-  status: false;
-}
+import type { SavePedidoSuccess, SavePedidoError } from '@pedidos/interfaces/NuevoEstadoItem';
 
 export const SavePedido = async (
   newPedido: NuevoPedido,

@@ -6,11 +6,16 @@ import {
   GetPedidoById,
   DeletePedidoAction,
   SavePedido,
-  type SavePedidoError,
-  type SavePedidoSuccess,
+  UpdateStateItems,
+  UpdateErrorsCountItem,
+  type SuccessChangeStateItem,
+  type ErrorChangeStateItem,
 } from '@pedidos/actions';
+
+import type { SavePedidoSuccess, SavePedidoError } from '@pedidos/interfaces/NuevoEstadoItem';
 import type { Venta, Pedido } from '@pedidos/interfaces';
 import type { NuevoPedido } from '@pedidos/interfaces/NuevoPedido';
+import type { NewItemState } from '@pedidos/interfaces/NuevoEstadoItem';
 
 import { formatDate } from '@/utils';
 
@@ -79,6 +84,42 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }
   };
 
+  const updateItemsPedido = async (
+    itemId: string,
+    newState: NewItemState,
+  ): Promise<SuccessChangeStateItem | ErrorChangeStateItem> => {
+    if (!itemId) return { status: false };
+    if (!pedido.value?.id) return { status: false };
+
+    try {
+      const result = await UpdateStateItems(pedido.value.id, itemId, newState);
+
+      if (!result.status) return { status: false };
+
+      return result;
+    } catch (error) {
+      return { status: false };
+    }
+  };
+
+  const updateItemsErrores = async (
+    itemId: string,
+    newCantidad: number,
+  ): Promise<SuccessChangeStateItem | ErrorChangeStateItem> => {
+    if (!itemId) return { status: false };
+    if (!newCantidad || newCantidad <= 0) return { status: false };
+
+    try {
+      const result = await UpdateErrorsCountItem(pedido.value!.id, itemId, newCantidad);
+
+      if (!result.status) return { status: false };
+
+      return result;
+    } catch (error) {
+      return { status: false };
+    }
+  };
+
   const resetPedidosState = () => {
     pedidos.value = [];
     pedido.value = null;
@@ -132,5 +173,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     getPedidoById,
     deletePedido,
     confirmNewPedido,
+    updateItemsPedido,
+    updateItemsErrores,
   };
 });

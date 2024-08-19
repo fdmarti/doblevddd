@@ -26,7 +26,7 @@
       <div class="divider"></div>
       <StackStatsPedido :detalle="producto.detalle" />
       <div class="divider"></div>
-      <ActionsPedido />
+      <ActionsPedido :itemid="producto.itemid" />
     </div>
   </div>
 </template>
