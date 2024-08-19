@@ -6,16 +6,13 @@
   <component :is="componentIcon" v-if="componentIcon" />
 </template>
 <script lang="ts" setup>
-import type { DefineComponent } from 'vue';
+import type { Component } from 'vue';
 
 interface Props {
-  title?: string;
-  text?: string;
-  componentIcon?: DefineComponent;
+  title: string;
+  text: string;
+  componentIcon: Component;
 }
 
-withDefaults(defineProps<Props>(), {
-  text: 'Content Default',
-  title: 'Title default',
-});
+defineProps<Props>();
 </script>
