@@ -148,7 +148,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }),
 
     pedido: computed(() => {
-      const estadoActual = pedido.value?.estado.actual.estado;
+      const estadoActual = pedido.value?.estado;
 
       return {
         ...pedido.value,
