@@ -16,7 +16,6 @@
           class="grow"
           id="username"
           name="username"
-          ref="usernameInputRef"
           autocomplete="username"
           v-model="formData.username"
         />
@@ -29,7 +28,6 @@
           id="password"
           name="password"
           placeholder="Contraseña"
-          ref="passwordInputRef"
           autocomplete="current-password"
           v-model="formData.password"
         />
@@ -49,45 +47,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import { Toast } from '@utils/index';
-
 import { EyeIcon, EyeOffIcon } from '@common/components/icons';
-
 import { usePassword } from '@/modules/common/composables/usePassword';
-const { inputType, onChangeInputType, isPasswordType } = usePassword();
-
 import { useAuthStore } from '@auth/store/auth.store';
+import { useLoginForm } from '@auth/composables';
+
+const { inputType, onChangeInputType, isPasswordType } = usePassword();
 const authStore = useAuthStore();
-
-import { useRouter } from 'vue-router';
-const router = useRouter();
-
-const usernameInputRef = ref<HTMLInputElement | null>(null);
-const passwordInputRef = ref<HTMLInputElement | null>(null);
-
-const formData = reactive({
-  username: '',
-  password: '',
-});
-
-const onSubmitLogin = async () => {
-  if (formData.username === '') {
-    return usernameInputRef.value?.focus();
-  }
-
-  if (formData.password === '') {
-    return passwordInputRef.value?.focus();
-  }
-
-  const resp = await authStore.login(formData.username, formData.password);
-
-  if (!resp) {
-    Toast.error('Credenciales incorrectas');
-    return;
-  }
-  router.replace({ name: 'pedidos' });
-};
+const { formData, onSubmitLogin } = useLoginForm();
 </script>
-
-<style scoped></style>
