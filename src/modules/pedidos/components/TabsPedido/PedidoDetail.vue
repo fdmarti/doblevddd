@@ -2,24 +2,38 @@
   <section class="flex flex-col gap-6">
     <section class="flex md:flex-row flex-col gap-5">
       <CardDetailLayout>
-        <CardDetailContent :componentIcon="UserIcon" title="Cliente" :text="cliente" />
+        <CardDetailContent
+          :componentIcon="UserIcon"
+          primaryText="Cliente"
+          :primaryValue="pedido.cliente"
+        />
       </CardDetailLayout>
 
       <CardDetailLayout>
-        <CardDetailContent :componentIcon="AddressIcon" title="Contacto" :text="contacto" />
+        <CardDetailContent
+          :componentIcon="AddressIcon"
+          primaryText="Contacto"
+          :primaryValue="pedido.contacto"
+        />
       </CardDetailLayout>
     </section>
 
     <section class="flex md:flex-row flex-col gap-5">
       <CardDetailLayout>
-        <CardDetailContent :componentIcon="PriceIcon" title="Precio total" :text="`$ ${precio}`" />
+        <CardDetailContent
+          :componentIcon="PriceIcon"
+          primaryText="Precio total"
+          :primaryValue="pedido.preciototal"
+          :secondaryTitle="messageSecondarySenia"
+          :secondaryValue="pedido.preciototal - pedido.senia"
+        />
       </CardDetailLayout>
 
       <CardDetailLayout>
         <CardDetailContent
           :componentIcon="CalendarStatsIcon"
-          title="Fecha solicitado"
-          :text="formatDate(fecha)"
+          primaryText="Fecha solicitado"
+          :primaryValue="formatShortDate(pedido.fechacreacion)"
         />
       </CardDetailLayout>
     </section>
@@ -27,21 +41,27 @@
 </template>
 
 <script setup lang="ts">
-import { formatDate } from '@/utils';
+import { computed } from 'vue';
+import { formatShortDate } from '@/utils';
 import { AddressIcon, CalendarStatsIcon, PriceIcon, UserIcon } from '@common/components/icons';
 import { CardDetailContent, CardDetailLayout } from '@pedidos/components/Pedido/CardDetail';
+import type { Pedido } from '@pedidos/interfaces';
 
 interface Props {
-  cliente: string;
-  contacto: string;
-  precio: number;
-  fecha: Date | string;
+  pedido: Pedido;
 }
 
-withDefaults(defineProps<Props>(), {
-  cliente: 'Cliente NN',
-  contacto: 'mail@google.com',
-  precio: 1000,
-  fecha: '2024-01-01',
+const props = defineProps<Props>();
+
+const messageSecondarySenia = computed(() => {
+  switch (true) {
+    case props.pedido.senia != 0 && props.pedido.senia !== props.pedido.preciototal:
+      return 'Falta pagar';
+    case props.pedido.senia === props.pedido.preciototal:
+      return 'Pagado';
+
+    default:
+      return '';
+  }
 });
 </script>

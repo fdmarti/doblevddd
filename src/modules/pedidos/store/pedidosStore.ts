@@ -19,11 +19,11 @@ import type { NewItemState } from '@pedidos/interfaces/NuevoEstadoItem';
 
 import { formatDate } from '@/utils';
 
-import { newPedidoInitialState } from '@pedidos/utils/index';
+import { newPedidoInitialState, pedidoInit } from '@pedidos/utils/index';
 
 export const usePedidosStore = defineStore('pedidos', () => {
   const pedidos = ref<Venta[] | undefined>([]);
-  const pedido = ref<Pedido | null>();
+  const pedido = ref<Pedido>({ ...pedidoInit });
   const newPedido = ref<NuevoPedido>({ ...newPedidoInitialState });
   const isLoading = ref(false);
 
@@ -56,7 +56,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     try {
       const result = await DeletePedidoAction(pedido.value!.id);
       if (result) {
-        pedido.value = null;
+        pedido.value = { ...pedidoInit };
         return true;
       }
 
@@ -122,13 +122,13 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
   const resetPedidosState = () => {
     pedidos.value = [];
-    pedido.value = null;
+    pedido.value = { ...pedidoInit };
     isLoading.value = false;
     newPedido.value = { ...newPedidoInitialState };
   };
 
   const resetPedido = () => {
-    pedido.value = null;
+    pedido.value = { ...pedidoInit };
     isLoading.value = false;
   };
 
@@ -147,15 +147,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
       });
     }),
 
-    pedido: computed(() => {
-      const estadoActual = pedido.value?.estado;
-
-      return {
-        ...pedido.value,
-        estadoActual,
-      };
-    }),
-
+    pedido: computed(() => pedido.value),
     newPedido,
 
     costoTotalPedido: computed(() => {

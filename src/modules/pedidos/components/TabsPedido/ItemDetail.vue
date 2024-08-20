@@ -42,6 +42,7 @@ import { PuzzleCompleteIcon } from '@common/components/icons';
 import { StackStatsPedido, ActionsPedido } from '@pedidos/components';
 import { RadialProgressComponent } from '@common/components/progress';
 import type { Producto } from '@pedidos/interfaces';
+import { calcPercentage } from '@utils/index';
 
 interface Props {
   producto: Producto;
@@ -50,6 +51,6 @@ interface Props {
 const props = defineProps<Props>();
 
 const calcPorcentajeItem = computed(() => {
-  return (props.producto.detalle.listo * 100) / props.producto.cantidad;
+  return calcPercentage(props.producto.detalle.listo, props.producto.cantidad);
 });
 </script>

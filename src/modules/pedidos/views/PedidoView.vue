@@ -8,19 +8,14 @@
       <div>
         Estado :
         <span class="md:text-2xl text-lg font-semibold">
-          {{ pedidosStore.pedido.estadoActual }}
+          {{ pedidosStore.pedido.estado }}
         </span>
       </div>
     </section>
     <div role="tablist" class="tabs tabs-md tabs-bordered py-6" v-if="pedidosStore.pedido">
       <RadioInputTab aria-label="Detalle del pedido" checked id="tab-detalle-pedido" />
       <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-        <PedidoDetail
-          :cliente="pedidosStore.pedido.cliente"
-          :contacto="pedidosStore.pedido.contacto"
-          :precio="pedidosStore.pedido.preciototal"
-          :fecha="pedidosStore.pedido.fechacreacion"
-        />
+        <PedidoDetail :pedido="pedidosStore.pedido!" />
       </div>
 
       <RadioInputTab aria-label="Productos" id="tab-productos-pedido" />

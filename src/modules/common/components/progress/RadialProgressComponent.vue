@@ -1,6 +1,6 @@
 <template>
   <div :class="styleProgressByValue" :style="styleValueRadialProgress" role="progressbar">
-    {{ value.toFixed(0) }}%
+    {{ value }}%
   </div>
 </template>
 <script lang="ts" setup>
@@ -21,20 +21,22 @@ const styleValueRadialProgress = computed(() => {
 const styleProgressByValue = computed(() => {
   let defautColorText = '';
 
+  const propsFixed = Number(props.value.toFixed(0));
+
   switch (true) {
-    case props.value === 0:
+    case propsFixed === 0:
       defautColorText = '';
       break;
-    case props.value <= 25:
+    case propsFixed <= 25:
       defautColorText = 'text-error';
       break;
-    case props.value <= 50:
+    case propsFixed <= 50:
       defautColorText = 'text-warning';
       break;
-    case props.value <= 75:
+    case propsFixed > 50 && propsFixed < 100:
       defautColorText = 'text-info';
       break;
-    case props.value === 100:
+    case propsFixed === 100:
       defautColorText = 'text-success';
       break;
 
