@@ -1,24 +1,12 @@
 <template>
-  <div class="overflow-x-auto">
-    <table class="table table-xs">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Descripción</th>
-          <th>Fecha</th>
-          <th>Monto</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody v-if="pagosStore.isLoading">
-        <tr>
-          <td colspan="5">
-            <LoadingComponent :size="40" />
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else-if="pagosStore.pagos.length > 0">
-        <tr v-for="pago in pagosStore.pagos" :key="pago.id" class="hover">
+  <TableComponent
+    :arr-length="pagosStore.pagos.length"
+    :is-loading="pagosStore.isLoading"
+    :table-head-arr="thPagos"
+  >
+    <template #tbody>
+      <tbody>
+        <tr v-for="pago in pagosStore.pagos" :key="pago.id">
           <th># {{ pago.id }}</th>
           <td>{{ pago.descripcion }}</td>
           <td>{{ formatShortDate(pago.fechapago) }}</td>
@@ -30,21 +18,18 @@
           </td>
         </tr>
       </tbody>
-      <tbody v-else>
-        <tr>
-          <td colspan="5">No hay gastos registrados</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    </template>
+  </TableComponent>
 </template>
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 import { formatShortDate, Toast } from '@utils/index';
 import { usePagosStore } from '@pagos/store/pagosStore';
-import { LoadingComponent } from '@common/components';
 import { TrashIcon } from '@common/components/icons';
+import { TableComponent } from '@common/components/Table';
 const pagosStore = usePagosStore();
+
+const thPagos = ['Código', 'Descripción', 'Fecha', 'Monto', 'Acciones'];
 
 interface Props {
   pedidoId: string;

@@ -13,31 +13,13 @@
     </label>
   </section>
 
-  <div class="overflow-x-auto mb-10">
-    <table class="table bg-base-300">
-      <thead>
-        <tr>
-          <th>Codigo</th>
-          <th>Descripción</th>
-          <th>Productos</th>
-          <th>Margen</th>
-          <th>Catalogo</th>
-          <th>Accion</th>
-        </tr>
-      </thead>
-      <tbody v-if="categoryStore.isLoading">
-        <tr>
-          <td colspan="8">
-            <LoadingComponent />
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else-if="categoryStore.categorias!.length === 0">
-        <tr>
-          <td colspan="9">No hay categorias</td>
-        </tr>
-      </tbody>
-      <tbody v-else>
+  <TableComponent
+    :arr-length="categoryStore.categorias!.length"
+    :is-loading="categoryStore.isLoading"
+    :table-head-arr="thCategorias"
+  >
+    <template #tbody>
+      <tbody>
         <tr class="hover" v-for="categoria in categoryStore.categorias" :key="categoria.id">
           <th>#{{ categoria.id }}</th>
           <td>{{ categoria.descripcion }}</td>
@@ -56,8 +38,9 @@
           </td>
         </tr>
       </tbody>
-    </table>
-  </div>
+    </template>
+  </TableComponent>
+
   <section class="flex justify-center">
     <PaginationComponent
       :current-page="categoryStore.currentPage"
@@ -76,12 +59,14 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { LoadingComponent } from '@common/components';
+import { TableComponent } from '@common/components/Table';
 import { ModalDeleteCategoria, CheckboxCatalogo } from '@categorias/components';
 import { SearchIcon, EditIcon, TrashIcon } from '@common/components/icons';
-import { PaginationComponent } from '@common/components/pagination';
+import { PaginationComponent } from '@/modules/common/components/Pagination';
 import { useCategoriaStore } from '@categorias/store/categoriaStore';
 import type { Categoria } from '@categorias/interfaces/categorias.response';
+
+const thCategorias = ['Codigo', 'Descripción', 'Productos', 'Margen', 'Catalogo', 'Accion'];
 
 const categoryStore = useCategoriaStore();
 const { nextPageCategorias, prevPageCategorias } = categoryStore;

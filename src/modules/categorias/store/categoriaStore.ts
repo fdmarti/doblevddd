@@ -39,7 +39,7 @@ export const useCategoriaStore = defineStore('categoria', () => {
       if (!categorias.value) return false;
 
       if (!category.id) {
-        categorias.value!.push({
+        categorias.value.push({
           id: result.idcategoria,
           descripcion: category.categoria.toUpperCase(),
           categoria: category.categoria.toUpperCase(),
@@ -114,18 +114,23 @@ export const useCategoriaStore = defineStore('categoria', () => {
     categoriasAll: computed(() => categorias.value),
     categorias: computed(() => {
       const categoryName = categoriasFilter.value.toLowerCase();
-      const filteredCategories = categorias.value!.filter((categoria) => {
-        if (categoria.descripcion.toLowerCase().includes(categoryName)) {
-          return categoria;
-        }
-      });
 
-      checkAmountPages(filteredCategories);
+      if (categorias.value) {
+        const filteredCategories = categorias.value!.filter((categoria) => {
+          if (categoria.descripcion.toLowerCase().includes(categoryName)) {
+            return categoria;
+          }
+        });
 
-      return filteredCategories.slice(
-        (categoriasPagination.currentPage - 1) * categoriasPagination.amountCategorias,
-        categoriasPagination.amountCategorias * categoriasPagination.currentPage,
-      );
+        checkAmountPages(filteredCategories);
+
+        return filteredCategories.slice(
+          (categoriasPagination.currentPage - 1) * categoriasPagination.amountCategorias,
+          categoriasPagination.amountCategorias * categoriasPagination.currentPage,
+        );
+      }
+
+      return [];
     }),
     categoriasFilter,
     isLoading,

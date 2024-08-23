@@ -1,33 +1,14 @@
 <template>
   <TitleComponent text="Listado de Pedidos" />
-  <div class="overflow-x-auto">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Codigo</th>
-          <th>Cliente</th>
-          <th>Contacto</th>
-          <th>Fecha creación</th>
-          <th>Cantidad productos</th>
-          <th>Pago</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody v-if="pedidosStore.isLoading">
-        <tr>
-          <td colspan="8">
-            <LoadingComponent />
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else-if="pedidosStore.pedidos.length === 0">
-        <tr>
-          <td colspan="8" class="font-bold">No hay pedidos cargados</td>
-        </tr>
-      </tbody>
-      <tbody v-else>
-        <tr class="hover" v-for="pedido in pedidosStore.pedidos" :key="pedido.id">
+
+  <TableComponent
+    :arr-length="pedidosStore.pedidos.length"
+    :is-loading="pedidosStore.isLoading"
+    :table-head-arr="thPedido"
+  >
+    <template #tbody>
+      <tbody>
+        <tr v-for="pedido in pedidosStore.pedidos" :key="pedido.id">
           <th>#{{ pedido.id }}</th>
           <td>{{ pedido.cliente }}</td>
           <td>{{ pedido.contacto }}</td>
@@ -45,8 +26,8 @@
           </td>
         </tr>
       </tbody>
-    </table>
-  </div>
+    </template>
+  </TableComponent>
 
   <FabButton @click="onHandleNewPedido">
     <PlusIcon />
@@ -58,10 +39,22 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { LoadingComponent, TitleComponent } from '@common/components';
+import { TitleComponent } from '@common/components';
 import { FabButton } from '@common/components/Buttons';
 import { PlusIcon } from '@common/components/icons';
 import PaymentProgess from '@pedidos/components/PaymentProgress.vue';
+import { TableComponent } from '@common/components/Table';
+
+const thPedido = [
+  'Codigo',
+  'Cliente',
+  'Contacto',
+  'Fecha creación',
+  'Cantidad productos',
+  'Pago',
+  'Estado',
+  'Acciones',
+];
 
 const pedidosStore = usePedidosStore();
 const router = useRouter();

@@ -13,29 +13,14 @@
     </label>
   </section>
 
-  <div class="overflow-x-auto mb-10">
-    <table class="table bg-base-300">
-      <thead>
-        <tr>
-          <th>Codigo</th>
-          <th>Descripción</th>
-          <th>Precio</th>
-          <th>Accion</th>
-        </tr>
-      </thead>
-      <tbody v-if="extrasStore.isLoading">
-        <tr>
-          <td colspan="4">
-            <LoadingComponent />
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else-if="extrasStore.extras!.length === 0">
-        <tr>
-          <td colspan="4">No hay extras</td>
-        </tr>
-      </tbody>
-      <tbody v-else>
+  <TableComponent
+    v-if="extrasStore.extras"
+    :arr-length="extrasStore.extras.length"
+    :is-loading="extrasStore.isLoading"
+    :table-head-arr="['Codigo', 'Descripción', 'Precio', 'Accion']"
+  >
+    <template #tbody>
+      <tbody>
         <tr class="hover" v-for="extra in extrasStore.extras" :key="extra.id">
           <th>#{{ extra.id }}</th>
           <td>{{ extra.descripcion }}</td>
@@ -50,8 +35,9 @@
           </td>
         </tr>
       </tbody>
-    </table>
-  </div>
+    </template>
+  </TableComponent>
+
   <section class="flex justify-center">
     <PaginationComponent
       :current-page="extrasStore.currentPage"
@@ -66,10 +52,10 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { LoadingComponent } from '@common/components';
 import { SearchIcon, EditIcon, TrashIcon } from '@common/components/icons';
-import { PaginationComponent } from '@common/components/pagination';
+import { PaginationComponent } from '@/modules/common/components/Pagination';
 import { ExtraModalDelete } from '@extras/components';
+import { TableComponent } from '@common/components/Table';
 
 import type { Extra } from '@extras/interface/extras.response';
 
