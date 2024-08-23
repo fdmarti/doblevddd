@@ -40,7 +40,7 @@
 import { computed } from 'vue';
 import { PuzzleCompleteIcon } from '@common/components/icons';
 import { StackStatsPedido, ActionsPedido } from '@pedidos/components';
-import { RadialProgressComponent } from '@/modules/common/components/Progress';
+import { RadialProgressComponent } from '@/modules/common/components/progress';
 import type { Producto } from '@pedidos/interfaces';
 import { calcPercentage } from '@utils/index';
 
