@@ -53,7 +53,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { SearchIcon, EditIcon, TrashIcon } from '@common/components/icons';
-import { PaginationComponent } from '@common/components/Pagination';
+import { PaginationComponent } from '@common/components/Pagination/index';
 import { ExtraModalDelete } from '@extras/components';
 import { TableComponent } from '@common/components/Table';
 
