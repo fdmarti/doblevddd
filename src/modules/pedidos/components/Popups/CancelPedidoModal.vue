@@ -12,7 +12,7 @@
           class="btn btn-success"
           :disabled="pedidoStore.isLoading"
         >
-          <span v-if="pedidoStore.isLoading" class="loading loading-spinner"></span>
+          <LoadingSpinner v-if="pedidoStore.isLoading" />
           <span v-else>Confirmar</span>
         </button>
       </div>
@@ -24,6 +24,7 @@
 import { useRouter } from 'vue-router';
 import { Toast } from '@utils/index';
 import BackgroundModal from '@common/components/content/BackgroundModal.vue';
+import { LoadingSpinner } from '@common/components/Loading';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
 const pedidoStore = usePedidosStore();

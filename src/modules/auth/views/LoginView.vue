@@ -39,7 +39,7 @@
         class="btn btn-primary text-lg font-bold"
         :disabled="authStore.isLoading"
       >
-        <span v-if="authStore.isLoading" class="loading loading-spinner"></span>
+        <LoadingSpinner v-if="authStore.isLoading" />
         <span v-else>Ingresar</span>
       </button>
     </form>
@@ -48,7 +48,8 @@
 
 <script setup lang="ts">
 import { EyeIcon, EyeOffIcon } from '@common/components/icons';
-import { usePassword } from '@/modules/common/composables/usePassword';
+import { LoadingSpinner } from '@common/components/Loading';
+import { usePassword } from '@common/composables/usePassword';
 import { useAuthStore } from '@auth/store/auth.store';
 import { useLoginForm } from '@auth/composables';
 

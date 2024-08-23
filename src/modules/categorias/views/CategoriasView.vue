@@ -16,7 +16,7 @@
 import { reactive, ref } from 'vue';
 
 import { CateogoriasList, FormCategoria } from '@categorias/components';
-import { FabButton } from '@common/components';
+import { FabButton } from '@common/components/Buttons';
 import { CategoryIcon } from '@common/components/icons';
 
 import type { Categoria } from '@categorias/interfaces/categorias.response';

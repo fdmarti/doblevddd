@@ -12,7 +12,7 @@
 import { reactive, ref } from 'vue';
 
 import { ExtrasList, ExtrasForm } from '@extras/components';
-import { FabButton } from '@common/components';
+import { FabButton } from '@common/components/Buttons';
 import { ExtraIcon } from '@common/components/icons';
 import type { Extra } from '@extras/interface/extras.response';
 import { extrasInitialState } from '@extras/utils/ExtraInit';

@@ -29,7 +29,15 @@
     <button class="btn btn-outline" @click="nextStep" v-if="currentStep !== maxSteps">
       Siguiente
     </button>
-    <button class="btn btn-primary" @click="confirmarPedido" v-else>Confirmar Pedido</button>
+    <button
+      class="btn btn-primary"
+      @click="confirmarPedido"
+      v-else
+      :disabled="pedidosStore.isSaving"
+    >
+      <LoadingSpinner v-if="pedidosStore.isSaving" />
+      <span v-else>Confirmar Pedido</span>
+    </button>
   </section>
 </template>
 
@@ -40,6 +48,7 @@ import ProductosList from '@productos/components/ProductosList.vue';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 import { FormClientePedido, ConfirmarPedido, SideBarPedido } from '@pedidos/components';
 import { CartIcon } from '@common/components/icons';
+import { LoadingSpinner } from '@common/components/Loading';
 
 import { Toast } from '@utils/index';
 

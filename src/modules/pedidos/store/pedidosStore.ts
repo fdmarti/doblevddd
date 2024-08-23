@@ -26,6 +26,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
   const pedido = ref<Pedido>({ ...pedidoInit });
   const newPedido = ref<NuevoPedido>({ ...newPedidoInitialState });
   const isLoading = ref(false);
+  const isSaving = ref(false);
 
   const getPedidos = async (): Promise<boolean> => {
     isLoading.value = true;
@@ -69,8 +70,10 @@ export const usePedidosStore = defineStore('pedidos', () => {
   };
 
   const confirmNewPedido = async (): Promise<SavePedidoSuccess | SavePedidoError> => {
+    isSaving.value = true;
     try {
       const result = await SavePedido(newPedido.value);
+      isSaving.value = false;
 
       if (result.status) return result;
 
@@ -78,6 +81,8 @@ export const usePedidosStore = defineStore('pedidos', () => {
         status: false,
       };
     } catch (error) {
+      isSaving.value = false;
+
       return {
         status: false,
       };
@@ -134,6 +139,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
   return {
     isLoading,
+    isSaving,
     pedidos: computed(() => {
       return pedidos.value!.map((venta) => {
         const ventaFormat = { ...venta };

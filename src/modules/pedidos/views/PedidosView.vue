@@ -58,7 +58,8 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { FabButton, LoadingComponent, TitleComponent } from '@common/components';
+import { LoadingComponent, TitleComponent } from '@common/components';
+import { FabButton } from '@common/components/Buttons';
 import { PlusIcon } from '@common/components/icons';
 import PaymentProgess from '@pedidos/components/PaymentProgress.vue';
 
