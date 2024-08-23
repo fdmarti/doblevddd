@@ -47,7 +47,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useProductosStore } from '@productos/store/productosStore';
-import { PaginationComponent } from '@common/components/pagination';
+import PaginationComponent from '@common/components/PaginationComponent.vue';
 import { SearchIcon, InfoIcon } from '@common/components/icons';
 import { CheckProductoPedido } from '@pedidos/components';
 import { TableComponent } from '@common/components/Table';
