@@ -62,7 +62,7 @@ import { onMounted, ref } from 'vue';
 import { TableComponent } from '@common/components/Table';
 import { ModalDeleteCategoria, CheckboxCatalogo } from '@categorias/components';
 import { SearchIcon, EditIcon, TrashIcon } from '@common/components/icons';
-import { PaginationComponent } from '@common/components/Pagination/index';
+import PaginationComponent from '@common/components/PaginationComponent.vue';
 import { useCategoriaStore } from '@categorias/store/categoriaStore';
 import type { Categoria } from '@categorias/interfaces/categorias.response';
 
