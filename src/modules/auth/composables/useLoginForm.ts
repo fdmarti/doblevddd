@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Toast } from '@utils/index';
 import { useAuthStore } from '@auth/store/auth.store';
@@ -6,9 +6,6 @@ import { useAuthStore } from '@auth/store/auth.store';
 export const useLoginForm = () => {
   const authStore = useAuthStore();
   const router = useRouter();
-
-  const usernameInputRef = ref<HTMLInputElement | null>(null);
-  const passwordInputRef = ref<HTMLInputElement | null>(null);
 
   const formData = reactive({
     username: '',
@@ -37,8 +34,6 @@ export const useLoginForm = () => {
 
   return {
     formData,
-    usernameInputRef,
-    passwordInputRef,
 
     onSubmitLogin,
   };

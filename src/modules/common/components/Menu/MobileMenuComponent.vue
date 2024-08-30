@@ -27,7 +27,9 @@
         <summary>Finanzas</summary>
         <ul class="p-2 bg-neutral">
           <li><a>Balance</a></li>
-          <li><a>Gastos</a></li>
+          <li>
+            <RouterLink :to="{ name: 'list-gastos' }">Gastos</RouterLink>
+          </li>
           <li><a>Pagos</a></li>
         </ul>
       </details>

@@ -28,7 +28,7 @@ export const useCotizacionStore = defineStore('cotizacion', () => {
     isSaving.value = true;
     try {
       const result = await SaveCotizacion(cotizaciones);
-      if (result.status) return Toast.error('Cotización actualizada');
+      if (result.status) return Toast.success('Cotización actualizada');
 
       return Toast.error('Error al actualizar la cotización');
     } catch (error) {

@@ -4,7 +4,7 @@
       <TableHeader :tableHeadArr="tableHeadArr" />
       <tbody v-if="isLoading">
         <tr>
-          <td :colspan="arrLength">
+          <td :colspan="tableHeadArr.length">
             <LoadingComponent />
           </td>
         </tr>

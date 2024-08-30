@@ -27,7 +27,9 @@
           <summary>Finanzas</summary>
           <ul class="p-2 bg-base-100">
             <li @click="closeDropDown"><a>Balance</a></li>
-            <li @click="closeDropDown"><a>Gastos</a></li>
+            <li @click="closeDropDown">
+              <RouterLink :to="{ name: 'list-gastos' }">Gastos</RouterLink>
+            </li>
             <li @click="closeDropDown"><a>Pagos</a></li>
           </ul>
         </details>
