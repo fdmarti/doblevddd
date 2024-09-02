@@ -2,73 +2,54 @@
   <div v-if="productoStore.isLoading">
     <LoadingComponent />
   </div>
-  <div class="flex flex-col justify-center items-center" v-else>
-    <section class="relative w-full">
-      <h1 class="font-bold text-3xl text-center">
+  <div class="flex flex-col justify-between items-center w-full" v-else>
+    <section class="flex justify-between w-full items-center">
+      <h1 class="md:text-3xl text-xl font-bold">
         {{ productoStore.producto?.producto.descripcion }}
       </h1>
-      <div class="absolute right-0 top-0 flex gap-2">
+      <div class="flex gap-2">
         <EditIcon @click="handleEditProduct(productoStore.producto!.producto.id)" />
         <TrashIcon />
       </div>
     </section>
-    <!-- Cotizaciones -->
-    <div class="divider mt-10">
-      <h2 class="font-semibold text-2xl mb-3">Cotización</h2>
-    </div>
-    <section class="w-full max-w-4xl text-center">
-      <div class="flex justify-between md:flex-row flex-col gap-4 md:gap-0">
-        <p class="text-lg font-semibold">
-          Tiempo <br />
-          {{ productoStore.producto?.cotizacionTotal.totalHoras }}hrs
-          {{ productoStore.producto?.cotizacionTotal.totalMinutos }}m
-        </p>
-        <p class="text-lg font-semibold">
-          Costo Elaboración <br />
-          $ {{ productoStore.producto?.cotizacionTotal.costoElaboracion }}
-        </p>
-        <p class="text-lg font-semibold">
-          Costo Peso <br />
-          {{ productoStore.producto?.cotizacionTotal.totalPeso }}g
-        </p>
-        <p class="text-lg font-semibold">
-          Plastico <br />
-          $ {{ productoStore.producto?.cotizacionTotal.plastico }}
-        </p>
+    <div
+      role="tablist"
+      class="tabs tabs-md tabs-bordered py-6 w-full mt-3"
+      v-if="productoStore.producto"
+    >
+      <RadioInputTab aria-label="Detalle" checked id="tab-detalle-producto" />
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+        <DetalleProducto :cotizacion="productoStore.producto.cotizacionTotal" />
+        <TotalPrecioProducto :precio="productoStore.producto.precio" />
       </div>
-    </section>
-    <!-- Piezas -->
-    <div class="divider mt-10">
-      <h2 class="font-semibold text-2xl mb-3">Detalle de las Piezas</h2>
+
+      <RadioInputTab aria-label="Piezas y extras" id="tab-piezas-extras-producto" />
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+        <PiezasExtraProducto
+          :extras="productoStore.producto.extras"
+          :piezas="productoStore.producto.piezas"
+        />
+      </div>
     </div>
-    <section class="w-full max-w-6xl text-center mt-5">
-      <ListPiezasProducto :piezas="productoStore.producto?.piezas" />
-    </section>
-    <!-- Extras -->
-    <div class="divider mt-10">
-      <h2 class="font-semibold text-2xl mb-3">Detalle de los extras</h2>
+    <div v-else>
+      <p>Error al cargar el pedido</p>
     </div>
-    <section class="w-full max-w-6xl text-center mt-5">
-      <ListExtrasProducto :extras="productoStore.producto?.extras" />
-    </section>
-    <!-- Total -->
-    <TotalPrecioProducto :precio="productoStore.producto?.precio" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { ListPiezasProducto } from '@productos/components/piezas';
-import { ListExtrasProducto } from '@productos/components/extras';
-import { TotalPrecioProducto } from '@productos/components';
+import { useRoute, useRouter } from 'vue-router';
 import { TrashIcon, EditIcon } from '@common/components/icons';
 import LoadingComponent from '@common/components/LoadingComponent.vue';
+import { DetalleProducto, PiezasExtraProducto } from '@productos/components/TabsProductos';
+import RadioInputTab from '@pedidos/components/Pedido/Inputs/RadioInputTab.vue';
+import { useProductosStore } from '@productos/store/productosStore';
+import { TotalPrecioProducto } from '@productos/components';
 
-import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 
-import { useProductosStore } from '@productos/store/productosStore';
 const productoStore = useProductosStore();
 
 const handleEditProduct = (productId: number) => {

@@ -16,7 +16,7 @@
     </template>
     <template #tfoot>
       <tfoot>
-        <tr class="bg-base-100 font-bold uppercase text-base">
+        <tr class="bg-base-200 font-bold uppercase text-base">
           <th></th>
           <td>Total Extras</td>
           <td>$ {{ calcTotalExtras }}</td>

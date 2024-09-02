@@ -1,9 +1,10 @@
 <template>
-  <dialog id="modal-delete-gasto" class="modal" :open="open">
-    <div class="modal-box">
-      <div class="border-b border-blue-300 pb-5">
-        <h2 class="text-xl font-bold">Seleccione el mes para realizar la busqueda</h2>
-      </div>
+  <PopupComponent
+    id="modal-form-filtro-pagos"
+    :open="open"
+    title="Seleccione el mes para realizar la busqueda"
+  >
+    <template #body>
       <form class="my-5" @submit.prevent="handleFiltroPagosSubmit">
         <section class="text-lg font-semibold text-center pb-5">
           <label class="input input-bordered flex items-center gap-2">
@@ -19,17 +20,17 @@
           </label>
         </section>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-          <button @click="emits('close')" class="btn btn-error" type="button">Cancelar</button>
-          <button class="btn btn-success" type="submit">Confirmar</button>
+          <ButtonError @click="emits('close')">Cancelar</ButtonError>
+          <ButtonSuccess type="submit">Confirmar</ButtonSuccess>
         </div>
       </form>
-    </div>
-  </dialog>
-  <BackgroundModal v-if="open" />
+    </template>
+  </PopupComponent>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
-import BackgroundModal from '@common/components/content/BackgroundModal.vue';
+import { PopupComponent } from '@common/components/Popup';
+import { ButtonError, ButtonSuccess } from '@common/components/Buttons';
 import { CalendarStatsIcon } from '@common/components/icons';
 import { usePagosStore } from '@pagos/store/pagosStore';
 import { Toast } from '@/utils';
