@@ -1,10 +1,10 @@
 import { doblevApi } from '@/api/doblevApi';
 import { headers } from '@/api/headersApi';
-import type { Gasto, GastoForm } from '@gastos/interfaces/Gastos';
+import type { GastoForm } from '@gastos/interfaces/Gastos';
 
 interface SaveGastoSuccess {
   status: true;
-  gasto: Gasto;
+  id: number;
 }
 
 interface SaveGastoError {
@@ -17,7 +17,7 @@ export const SaveGasto = async (
   try {
     const { data } = await doblevApi.post<SaveGastoSuccess | SaveGastoError>(
       '/gastos',
-      [{ ...formData }],
+      { ...formData },
       { headers },
     );
 
@@ -29,7 +29,7 @@ export const SaveGasto = async (
 
     return {
       status: true,
-      gasto: data.gasto,
+      id: data.id,
     };
   } catch (error) {
     return {

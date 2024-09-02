@@ -30,7 +30,9 @@
             <li @click="closeDropDown">
               <RouterLink :to="{ name: 'list-gastos' }">Gastos</RouterLink>
             </li>
-            <li @click="closeDropDown"><a>Pagos</a></li>
+            <li @click="closeDropDown">
+              <RouterLink :to="{ name: 'list-pagos' }">Pagos</RouterLink>
+            </li>
           </ul>
         </details>
       </li>

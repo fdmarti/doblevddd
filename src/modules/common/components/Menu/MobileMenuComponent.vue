@@ -30,7 +30,9 @@
           <li>
             <RouterLink :to="{ name: 'list-gastos' }">Gastos</RouterLink>
           </li>
-          <li><a>Pagos</a></li>
+          <li>
+            <RouterLink :to="{ name: 'list-pagos' }">Pagos</RouterLink>
+          </li>
         </ul>
       </details>
     </li>

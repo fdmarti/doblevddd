@@ -1,22 +1,13 @@
-import { isAxiosError } from 'axios';
 import { doblevApi } from '@/api/doblevApi';
 import { headers } from '@/api/headersApi';
-
 import type { Pagos } from '@pagos/interfaces';
 
-export const GetPagos = async (pedidoId: string): Promise<Pagos[] | []> => {
+export const GetPagos = async (): Promise<Pagos[] | []> => {
   try {
-    const { data } = await doblevApi.get<Pagos[] | []>(`/ventas/${pedidoId}/pagos`, { headers });
+    const { data } = await doblevApi.get<Pagos[]>('/pagos', { headers });
 
     return data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw {
-        message: 'Token timeout',
-        tokenExpired: true,
-      };
-    }
-
     return [];
   }
 };

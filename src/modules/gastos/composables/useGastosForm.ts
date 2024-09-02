@@ -1,10 +1,11 @@
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import type { GastoForm } from '@gastos/interfaces/Gastos';
 import { useGastosStore } from '@gastos/store/gastosStore';
 import { Toast } from '@/utils';
 
 export const useGastosForm = (formData: GastoForm) => {
   const formGasto = reactive({ ...formData });
+  const isSaving = ref(false);
   const gastosStore = useGastosStore();
 
   const handleGastoFormSubmit = async () => {
@@ -23,9 +24,20 @@ export const useGastosForm = (formData: GastoForm) => {
       return;
     }
 
+    isSaving.value = true;
     const result = await gastosStore.saveGasto(formGasto);
-    Toast.success('Gasto agregado');
-    return true;
+
+    console.log(result);
+
+    if (result) {
+      Toast.success('Gasto agregado');
+      isSaving.value = false;
+      return true;
+    }
+
+    Toast.error('Ocurrio un error al guardar el gasto');
+    isSaving.value = false;
+    return false;
   };
 
   const handleClearForm = () => {
@@ -34,6 +46,7 @@ export const useGastosForm = (formData: GastoForm) => {
 
   return {
     formGasto,
+    isSaving,
 
     handleGastoFormSubmit,
     handleClearForm,

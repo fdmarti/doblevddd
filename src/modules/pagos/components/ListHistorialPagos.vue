@@ -49,6 +49,6 @@ const handleDeletePago = async (pagoId: number) => {
 };
 
 onMounted(async () => {
-  await pagosStore.getPagos(props.pedidoId);
+  await pagosStore.getPagosByPedido(props.pedidoId);
 });
 </script>

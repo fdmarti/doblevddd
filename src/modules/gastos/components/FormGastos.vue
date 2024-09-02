@@ -5,7 +5,7 @@
         <h2 class="text-xl font-bold">Nuevo gasto</h2>
       </div>
       <div class="my-5">
-        <form @submit.prevent="handleGastoFormSubmit" class="flex flex-col gap-2">
+        <form @submit.prevent="handleSubmit" class="flex flex-col gap-2">
           <label class="input input-bordered flex items-center gap-2">
             <input
               type="text"
@@ -45,7 +45,7 @@
 
           <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
             <button @click="closeGastosPopup" class="btn btn-error" type="button">Cancelar</button>
-            <button class="btn btn-success" type="submit">Guardar</button>
+            <button class="btn btn-success" :disabled="isSaving" type="submit">Guardar</button>
           </div>
         </form>
       </div>
@@ -59,7 +59,8 @@ import { DolarIcon } from '@common/components/icons';
 import { InitialGastoState, tiposGastos } from '@gastos/utils';
 import { useGastosForm } from '../composables/useGastosForm';
 
-const { formGasto, handleClearForm, handleGastoFormSubmit } = useGastosForm(InitialGastoState);
+const { formGasto, isSaving, handleClearForm, handleGastoFormSubmit } =
+  useGastosForm(InitialGastoState);
 
 interface Props {
   open: boolean;
@@ -67,6 +68,14 @@ interface Props {
 
 defineProps<Props>();
 const emits = defineEmits(['close']);
+
+const handleSubmit = async () => {
+  const result = await handleGastoFormSubmit();
+
+  if (result) {
+    closeGastosPopup();
+  }
+};
 
 const closeGastosPopup = () => {
   handleClearForm();

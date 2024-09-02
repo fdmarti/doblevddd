@@ -7,6 +7,7 @@ import { categoriasRoutes } from '@categorias/routes';
 import { extrasRoutes } from '@extras/routes';
 import { cotizacionRoutes } from '@cotizacion/routes';
 import { gastosRoutes } from '@gastos/routes';
+import { pagosRoutes } from '@pagos/routes';
 
 import NotFound from '../NotFound.vue';
 
@@ -18,5 +19,6 @@ export const routes: RouteRecordRaw[] = [
   ...extrasRoutes,
   ...cotizacionRoutes,
   ...gastosRoutes,
+  ...pagosRoutes,
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ];

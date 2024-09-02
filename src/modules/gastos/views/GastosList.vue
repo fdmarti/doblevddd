@@ -23,9 +23,9 @@
     </template>
     <template #tfoot>
       <tfoot>
-        <tr class="bg-accent">
-          <td colspan="4" class="text-2xl text-base-100">Total</td>
-          <td colspan="2" class="text-2xl text-base-100 font-bold">
+        <tr class="bg-neutral">
+          <td colspan="4" class="text-2xl text-gray-100">Total</td>
+          <td colspan="2" class="text-2xl text-gray-100 font-bold">
             $ {{ gastosStore.totalGastos }}
           </td>
         </tr>

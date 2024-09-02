@@ -24,7 +24,15 @@ export const useGastosStore = defineStore('gastos', () => {
       const result = await SaveGasto(formData);
 
       if (result.status) {
-        // TODO - Push al listado de gastos
+        const currentDate = new Date().toISOString().split('T');
+
+        gastos.value.push({
+          descripcion: formData.descripcion,
+          id: result.id,
+          monto: formData.monto,
+          tipo: formData.tipo,
+          fechagasto: new Date(currentDate[0]),
+        });
 
         return true;
       }
@@ -40,7 +48,7 @@ export const useGastosStore = defineStore('gastos', () => {
       const result = await DeleteGasto(gastoId);
 
       if (result) {
-        gastos.value.filter((gasto) => gasto.id !== gastoId);
+        gastos.value = gastos.value.filter((gasto) => gasto.id !== gastoId);
         Toast.success('Gasto eliminado');
         return true;
       }

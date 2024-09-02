@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { GetPagos, DeleteGasto, GetMediosPagos, SavePago } from '@pagos/actions';
+import { GetPagosByPedido, DeleteGasto, GetMediosPagos, SavePago, GetPagos } from '@pagos/actions';
 import type { MediosDePago, Pagos, FormPagos } from '@pagos/interfaces';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
@@ -11,9 +11,17 @@ export const usePagosStore = defineStore('pagos', () => {
   const pagos = ref<Pagos[]>([]);
   const mediosPagos = ref<MediosDePago[]>([]);
 
-  const getPagos = async (pedidoId: string) => {
+  const getPagos = async () => {
     try {
-      pagos.value = await GetPagos(pedidoId);
+      pagos.value = await GetPagos();
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getPagosByPedido = async (pedidoId: string) => {
+    try {
+      pagos.value = await GetPagosByPedido(pedidoId);
 
       isLoading.value = false;
     } catch (error) {
@@ -36,7 +44,7 @@ export const usePagosStore = defineStore('pagos', () => {
 
       if (!result.status) return false;
 
-      await getPagos(formPagos.pedidoId);
+      await getPagosByPedido(formPagos.pedidoId);
 
       pedidosStore.pedido.senia = pedidosStore.pedido.senia + formPagos.monto;
 
@@ -72,6 +80,7 @@ export const usePagosStore = defineStore('pagos', () => {
     isLoading,
 
     getPagos,
+    getPagosByPedido,
     deletePago,
     getMediosPagos,
     savePago,
