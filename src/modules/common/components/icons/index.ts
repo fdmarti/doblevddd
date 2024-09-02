@@ -24,3 +24,4 @@ export { default as DolarIcon } from './DolarIcon.vue';
 export { default as AddIcon } from './AddIcon.vue';
 export { default as CartPlusIcon } from './CartPlusIcon.vue';
 export { default as CartIcon } from './CartIcon.vue';
+export { default as ChartCandleIcon } from './ChartCandleIcon.vue';

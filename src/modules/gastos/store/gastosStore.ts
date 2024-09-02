@@ -8,14 +8,16 @@ export const useGastosStore = defineStore('gastos', () => {
   const isLoading = ref(true);
   const gastos = ref<Gasto[]>([]);
 
-  const getGastos = async () => {
+  const getGastos = async (filtro: string = '') => {
     try {
-      const result = await GetGastos();
+      const result = await GetGastos(filtro);
 
       gastos.value = result;
       isLoading.value = false;
+      return true;
     } catch (error) {
       isLoading.value = false;
+      return false;
     }
   };
 

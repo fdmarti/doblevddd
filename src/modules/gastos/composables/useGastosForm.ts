@@ -27,8 +27,6 @@ export const useGastosForm = (formData: GastoForm) => {
     isSaving.value = true;
     const result = await gastosStore.saveGasto(formGasto);
 
-    console.log(result);
-
     if (result) {
       Toast.success('Gasto agregado');
       isSaving.value = false;

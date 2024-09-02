@@ -12,3 +12,7 @@ export interface FormPagos {
   idMedioPago: number;
   pedidoId: string;
 }
+
+export interface PagosList extends Pagos {
+  cliente: string;
+}

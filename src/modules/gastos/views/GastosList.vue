@@ -1,5 +1,14 @@
 <template>
-  <TitleComponent text="Gastos" />
+  <TitleComponent text="Gastos">
+    <template #action>
+      <button
+        class="flex items-center flex-row-reverse gap-2 btn btn-warning"
+        @click="toggleFiltroGastosPopup"
+      >
+        Filtrar <ChartCandleIcon />
+      </button>
+    </template>
+  </TitleComponent>
   <TableComponent
     :arr-length="gastosStore.gastos.length"
     :is-loading="gastosStore.isLoading"
@@ -34,6 +43,9 @@
   </TableComponent>
 
   <FormGastos :open="showModalGasto" @close="onToggleGastoPopup" />
+
+  <FormFiltroGastos :open="showFiltroGastos" @close="toggleFiltroGastosPopup" />
+
   <GastoModalDelete
     :open="showModalDeleteGasto"
     @close="onToggleDeleteGastoPopup"
@@ -46,33 +58,29 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { TitleComponent } from '@common/components/Text';
 import { TableComponent } from '@common/components/Table';
 import { FabButton } from '@common/components/Buttons';
-import { TrashIcon, DolarIcon } from '@common/components/icons';
-import { FormGastos, GastoModalDelete } from '@gastos/components';
+import { TrashIcon, DolarIcon, ChartCandleIcon } from '@common/components/icons';
+import { FormGastos, GastoModalDelete, FormFiltroGastos } from '@gastos/components';
+import { useGastosPopups } from '@gastos/composables/useGastosPopups';
 import { formatShortDate } from '@/utils';
 import { useGastosStore } from '@gastos/store/gastosStore';
 
 const gastosStore = useGastosStore();
 
-const showModalGasto = ref(false);
-const showModalDeleteGasto = ref(false);
-const deletedGasto = ref();
+const {
+  deletedGasto,
+  onToggleDeleteGastoPopup,
+  onToggleGastoPopup,
+  showFiltroGastos,
+  showModalDeleteGasto,
+  showModalGasto,
+  toggleFiltroGastosPopup,
+} = useGastosPopups();
 
 const gastosTh = ['Codigo', 'Descripcion', 'Tipo', 'Monto', 'Fecha', 'Acciones'];
-
-const onToggleGastoPopup = () => {
-  showModalGasto.value = !showModalGasto.value;
-};
-
-const onToggleDeleteGastoPopup = (gastoId: number = 0) => {
-  if (gastoId) {
-    deletedGasto.value = gastoId;
-  }
-  showModalDeleteGasto.value = !showModalDeleteGasto.value;
-};
 
 onMounted(async () => {
   await gastosStore.getGastos();

@@ -1,27 +1,32 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { GetPagosByPedido, DeleteGasto, GetMediosPagos, SavePago, GetPagos } from '@pagos/actions';
-import type { MediosDePago, Pagos, FormPagos } from '@pagos/interfaces';
+import type { MediosDePago, Pagos, FormPagos, PagosList } from '@pagos/interfaces';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
 export const usePagosStore = defineStore('pagos', () => {
   const pedidosStore = usePedidosStore();
 
   const isLoading = ref(true);
-  const pagos = ref<Pagos[]>([]);
+  const pagosByPedido = ref<Pagos[]>([]);
+  const pagos = ref<PagosList[]>([]);
   const mediosPagos = ref<MediosDePago[]>([]);
 
-  const getPagos = async () => {
+  const getPagos = async (filtro: string = '') => {
     try {
-      pagos.value = await GetPagos();
+      pagos.value = await GetPagos(filtro);
+
+      isLoading.value = false;
+      return true;
     } catch (error) {
+      isLoading.value = false;
       return error;
     }
   };
 
   const getPagosByPedido = async (pedidoId: string) => {
     try {
-      pagos.value = await GetPagosByPedido(pedidoId);
+      pagosByPedido.value = await GetPagosByPedido(pedidoId);
 
       isLoading.value = false;
     } catch (error) {
@@ -60,13 +65,13 @@ export const usePagosStore = defineStore('pagos', () => {
 
       if (!result.status) return false;
 
-      const valorGasto = pagos.value.find((pago) => pago.id === pagoId);
+      const valorGasto = pagosByPedido.value.find((pago) => pago.id === pagoId);
 
       if (valorGasto) {
         pedidosStore.pedido.senia = pedidosStore.pedido.senia - valorGasto.monto;
       }
 
-      pagos.value = pagos.value.filter((pago) => pago.id !== pagoId);
+      pagosByPedido.value = pagosByPedido.value.filter((pago) => pago.id !== pagoId);
 
       return true;
     } catch (error) {
@@ -75,7 +80,8 @@ export const usePagosStore = defineStore('pagos', () => {
   };
 
   return {
-    pagos,
+    pagos: computed(() => pagos.value),
+    pagosByPedido,
     mediosPagos,
     isLoading,
 

@@ -1,5 +1,8 @@
 <template>
-  <h1 class="mb-5 text-xl font-bold">{{ text }}</h1>
+  <div class="flex justify-between items-center">
+    <h1 class="text-xl font-bold">{{ text }}</h1>
+    <slot name="action"> </slot>
+  </div>
   <div class="divider"></div>
 </template>
 

@@ -1,26 +1,21 @@
 <template>
-  <dialog id="modal-delete-gasto" class="modal" :open="open">
-    <div class="modal-box">
-      <div class="border-b border-blue-300 pb-5">
-        <h2 class="text-xl font-bold">Confirmar eliminar Gasto</h2>
-      </div>
+  <PopupComponent id="modal-delete-gasto" :open="open" title="Confirmar eliminar Gasto">
+    <template #body>
       <div class="my-5">
         <p class="text-lg font-semibold text-center pb-5">
           ¿Seguro que queres eliminar el gasto # {{ deletedGasto }}?
         </p>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-          <button @click="emits('close')" class="btn btn-error" type="button">Cancelar</button>
-          <button class="btn btn-success" type="button" @click="handleDeleteGasto">
-            Confirmar
-          </button>
+          <ButtonError @click="emits('close')">Cancelar</ButtonError>
+          <ButtonSuccess type="button" @click="handleDeleteGasto">Confirmar</ButtonSuccess>
         </div>
       </div>
-    </div>
-  </dialog>
-  <BackgroundModal v-if="open" />
+    </template>
+  </PopupComponent>
 </template>
 <script lang="ts" setup>
-import BackgroundModal from '@common/components/content/BackgroundModal.vue';
+import { PopupComponent } from '@common/components/Popup';
+import { ButtonError, ButtonSuccess } from '@common/components/Buttons';
 import { useGastosStore } from '@gastos/store/gastosStore';
 
 const gastosStore = useGastosStore();

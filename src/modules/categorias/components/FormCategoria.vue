@@ -1,11 +1,10 @@
 <template>
-  <dialog id="modal-form-categoria" class="modal" :open="open">
-    <div class="modal-box">
-      <div class="border-b border-blue-300 pb-5">
-        <h2 class="text-xl font-bold">
-          {{ props.category?.isEditing ? 'Editar categoria' : 'Nueva categoria' }}
-        </h2>
-      </div>
+  <PopupComponent
+    id="modal-form-categoria"
+    :open="open"
+    :title="props.category?.isEditing ? 'Editar categoria' : 'Nueva categoria'"
+  >
+    <template #body>
       <div class="my-5">
         <form @submit.prevent="handleForm" class="flex flex-col gap-2">
           <label class="input input-bordered flex items-center gap-2">
@@ -30,18 +29,18 @@
             />
           </label>
           <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-            <button @click="emits('close')" class="btn btn-error" type="button">Cancelar</button>
-            <button class="btn btn-success" type="submit">Guardar</button>
+            <ButtonError @click="emits('close')">Cancelar</ButtonError>
+            <ButtonSuccess type="submit">Guardar</ButtonSuccess>
           </div>
         </form>
       </div>
-    </div>
-  </dialog>
-  <BackgroundModal v-if="open" />
+    </template>
+  </PopupComponent>
 </template>
 <script lang="ts" setup>
 import { watch } from 'vue';
-import BackgroundModal from '@common/components/content/BackgroundModal.vue';
+import { PopupComponent } from '@common/components/Popup';
+import { ButtonError, ButtonSuccess } from '@common/components/Buttons';
 import { useCategoriaForm } from '@categorias/composables/useCategoriaForm';
 import type { Categoria } from '@categorias/interfaces/categorias.response';
 

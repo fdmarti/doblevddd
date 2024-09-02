@@ -1,12 +1,12 @@
 <template>
   <TableComponent
-    :arr-length="pagosStore.pagos.length"
+    :arr-length="pagosStore.pagosByPedido.length"
     :is-loading="pagosStore.isLoading"
     :table-head-arr="thPagos"
   >
     <template #tbody>
       <tbody>
-        <tr v-for="pago in pagosStore.pagos" :key="pago.id">
+        <tr v-for="pago in pagosStore.pagosByPedido" :key="pago.id">
           <th># {{ pago.id }}</th>
           <td>{{ pago.descripcion }}</td>
           <td>{{ formatShortDate(pago.fechapago) }}</td>
