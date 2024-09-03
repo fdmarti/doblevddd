@@ -27,7 +27,10 @@
         />
       </TabComponent>
       <TabComponent label="Imagen">
-        <ImageProducto />
+        <ImageProducto
+          :productoId="productoStore.producto.producto.id"
+          :image="productoStore.producto.producto.imagen"
+        />
       </TabComponent>
     </TabLayout>
 

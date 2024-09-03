@@ -10,6 +10,7 @@ import {
   GetProductos,
   GetProductosByID,
   SaveProducto,
+  UploadImageProduct,
   type ErrorProducto,
   type ProductoError,
   type ProductoSuccess,
@@ -68,6 +69,14 @@ export const useProductosStore = defineStore('productos', () => {
       return {
         status: false,
       };
+    }
+  };
+
+  const uploadProductImage = async (productId: number, file: File) => {
+    try {
+      const result = await UploadImageProduct(productId, file);
+    } catch (error) {
+      return false;
     }
   };
 
@@ -138,5 +147,6 @@ export const useProductosStore = defineStore('productos', () => {
     prevPageProductos,
     saveProducto,
     getProductById,
+    uploadProductImage,
   };
 });

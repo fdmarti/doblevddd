@@ -21,6 +21,14 @@
     <template #tbody>
       <tr class="hover" v-for="producto in productoStore.productos" :key="producto.id">
         <th>#{{ producto.id }}</th>
+        <td class="flex justify-center">
+          <img
+            :src="producto.imagen"
+            :alt="`product image ${producto.descripcion}`"
+            v-if="producto.imagen"
+            class="h-[60px] w-[60px] rounded shadow"
+          />
+        </td>
         <td>{{ producto.descripcion }}</td>
         <td>{{ producto.categoria }}</td>
         <td>$ {{ producto.preciounitario }}</td>
@@ -52,7 +60,7 @@ import { SearchIcon, InfoIcon } from '@common/components/icons';
 import { CheckProductoPedido } from '@pedidos/components';
 import { TableComponent } from '@common/components/Table';
 
-const thProductos = ['Codigo', 'Descripción', 'Cateogira', 'Precio unitario', 'Accion'];
+const thProductos = ['Codigo', 'Imagen', 'Descripción', 'Cateogira', 'Precio unitario', 'Accion'];
 
 const productoStore = useProductosStore();
 const { nextPageProductos, prevPageProductos } = productoStore;

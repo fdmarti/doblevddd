@@ -57,4 +57,5 @@ export interface ProductoClass {
   fechacreacion: Date;
   id: number;
   idcategoria: number;
+  imagen: null | string;
 }

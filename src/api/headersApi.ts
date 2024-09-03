@@ -5,6 +5,11 @@ export const headers = {
   'x-access-token': token,
 };
 
+export const headersFiles = {
+  'Content-Type': 'multipart/form-data',
+  'x-access-token': token,
+};
+
 export const getHeaders = () => {
   return {
     'Content-Type': 'application/json',
