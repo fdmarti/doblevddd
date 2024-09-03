@@ -12,25 +12,25 @@
         <TrashIcon />
       </div>
     </section>
-    <div
-      role="tablist"
-      class="tabs tabs-md tabs-bordered py-6 w-full mt-3"
-      v-if="productoStore.producto"
-    >
-      <RadioInputTab aria-label="Detalle" checked id="tab-detalle-producto" />
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-        <DetalleProducto :cotizacion="productoStore.producto.cotizacionTotal" />
-        <TotalPrecioProducto :precio="productoStore.producto.precio" />
-      </div>
 
-      <RadioInputTab aria-label="Piezas y extras" id="tab-piezas-extras-producto" />
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+    <TabLayout v-if="productoStore.producto">
+      <TabComponent label="Detalle" checked>
+        <DetalleProducto
+          :cotizacion="productoStore.producto.cotizacionTotal"
+          :precio="productoStore.producto.precio"
+        />
+      </TabComponent>
+      <TabComponent label="Piezas y extras">
         <PiezasExtraProducto
           :extras="productoStore.producto.extras"
           :piezas="productoStore.producto.piezas"
         />
-      </div>
-    </div>
+      </TabComponent>
+      <TabComponent label="Imagen">
+        <ImageProducto />
+      </TabComponent>
+    </TabLayout>
+
     <div v-else>
       <p>Error al cargar el pedido</p>
     </div>
@@ -42,10 +42,14 @@ import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { TrashIcon, EditIcon } from '@common/components/icons';
 import LoadingComponent from '@common/components/LoadingComponent.vue';
-import { DetalleProducto, PiezasExtraProducto } from '@productos/components/TabsProductos';
-import RadioInputTab from '@pedidos/components/Pedido/Inputs/RadioInputTab.vue';
+import {
+  DetalleProducto,
+  PiezasExtraProducto,
+  ImageProducto,
+} from '@productos/components/TabsProductos';
+
+import { TabComponent, TabLayout } from '@common/components/Tab';
 import { useProductosStore } from '@productos/store/productosStore';
-import { TotalPrecioProducto } from '@productos/components';
 
 const route = useRoute();
 const router = useRouter();

@@ -25,3 +25,7 @@ export { default as AddIcon } from './AddIcon.vue';
 export { default as CartPlusIcon } from './CartPlusIcon.vue';
 export { default as CartIcon } from './CartIcon.vue';
 export { default as ChartCandleIcon } from './ChartCandleIcon.vue';
+export { default as TimeIcon } from './TimeIcon.vue';
+export { default as MoneyBagIcon } from './MoneyBagIcon.vue';
+export { default as WeightIcon } from './WeightIcon.vue';
+export { default as DiamondIcon } from './DiamondIcon.vue';

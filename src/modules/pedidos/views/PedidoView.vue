@@ -12,31 +12,25 @@
         </span>
       </div>
     </section>
-    <div role="tablist" class="tabs tabs-md tabs-bordered py-6" v-if="pedidosStore.pedido">
-      <RadioInputTab aria-label="Detalle del pedido" checked id="tab-detalle-pedido" />
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-        <PedidoDetail :pedido="pedidosStore.pedido!" />
-      </div>
-
-      <RadioInputTab aria-label="Productos" id="tab-productos-pedido" />
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+    <TabLayout v-if="pedidosStore.pedido">
+      <TabComponent checked label="Detalle del pedido">
+        <PedidoDetail :pedido="pedidosStore.pedido" />
+      </TabComponent>
+      <TabComponent label="Productos">
         <ItemDetail
           v-for="producto in pedidosStore.pedido.productos"
           :key="producto.itemid"
           :producto="producto"
         />
-      </div>
-
-      <RadioInputTab aria-label="Pagos" id="tab-pagos-pedido" />
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      </TabComponent>
+      <TabComponent label="Pagos">
         <PagosDetail :pedidoId="props.id" />
-      </div>
-
-      <RadioInputTab aria-label="Acciones" id="tab-acciones-pedido" />
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      </TabComponent>
+      <TabComponent label="Acciones">
         <AccionesDetail />
-      </div>
-    </div>
+      </TabComponent>
+    </TabLayout>
+
     <div v-else>
       <p>Error al cargar el pedido</p>
     </div>
@@ -48,14 +42,14 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import LoadingComponent from '@common/components/LoadingComponent.vue';
+import { LoadingComponent } from '@common/components';
+import { TabComponent, TabLayout } from '@common/components/Tab';
 import {
   ItemDetail,
   PedidoDetail,
   AccionesDetail,
   PagosDetail,
 } from '@pedidos/components/TabsPedido';
-import { RadioInputTab } from '@pedidos/components/Pedido/Inputs';
 
 interface Props {
   id: string;

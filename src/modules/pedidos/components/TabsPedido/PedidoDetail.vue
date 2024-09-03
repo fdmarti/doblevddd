@@ -1,39 +1,11 @@
 <template>
   <section class="flex flex-col gap-6">
-    <section class="flex md:flex-row flex-col gap-5">
-      <CardDetailLayout>
+    <section class="grid md:grid-cols-2 gap-5">
+      <CardDetailLayout v-for="blockPedido in pedidoDetails" :key="blockPedido.primaryText">
         <CardDetailContent
-          :componentIcon="UserIcon"
-          primaryText="Cliente"
-          :primaryValue="pedido.cliente"
-        />
-      </CardDetailLayout>
-
-      <CardDetailLayout>
-        <CardDetailContent
-          :componentIcon="AddressIcon"
-          primaryText="Contacto"
-          :primaryValue="pedido.contacto"
-        />
-      </CardDetailLayout>
-    </section>
-
-    <section class="flex md:flex-row flex-col gap-5">
-      <CardDetailLayout>
-        <CardDetailContent
-          :componentIcon="PriceIcon"
-          primaryText="Precio total"
-          :primaryValue="pedido.preciototal"
-          :secondaryTitle="messageSecondarySenia"
-          :secondaryValue="pedido.preciototal - pedido.senia"
-        />
-      </CardDetailLayout>
-
-      <CardDetailLayout>
-        <CardDetailContent
-          :componentIcon="CalendarStatsIcon"
-          primaryText="Fecha solicitado"
-          :primaryValue="formatShortDate(pedido.fechacreacion)"
+          :componentIcon="blockPedido.componentIcon"
+          :primaryText="blockPedido.primaryText"
+          :primaryValue="blockPedido.primaryValue"
         />
       </CardDetailLayout>
     </section>
@@ -44,7 +16,7 @@
 import { computed } from 'vue';
 import { formatShortDate } from '@/utils';
 import { AddressIcon, CalendarStatsIcon, PriceIcon, UserIcon } from '@common/components/icons';
-import { CardDetailContent, CardDetailLayout } from '@pedidos/components/Pedido/CardDetail';
+import { CardDetailContent, CardDetailLayout } from '@/modules/common/components/Card';
 import type { Pedido } from '@pedidos/interfaces';
 
 interface Props {
@@ -64,4 +36,29 @@ const messageSecondarySenia = computed(() => {
       return '';
   }
 });
+
+const pedidoDetails = [
+  {
+    componentIcon: AddressIcon,
+    primaryText: 'Cliente',
+    primaryValue: props.pedido.cliente,
+  },
+  {
+    componentIcon: UserIcon,
+    primaryText: 'Contacto',
+    primaryValue: props.pedido.contacto,
+  },
+  {
+    componentIcon: PriceIcon,
+    primaryText: 'Precio total',
+    primaryValue: props.pedido.preciototal,
+    secondaryTitle: messageSecondarySenia,
+    secondaryValue: props.pedido.preciototal - props.pedido.senia,
+  },
+  {
+    componentIcon: CalendarStatsIcon,
+    primaryText: 'Fecha solicitado',
+    primaryValue: formatShortDate(props.pedido.fechacreacion),
+  },
+];
 </script>
