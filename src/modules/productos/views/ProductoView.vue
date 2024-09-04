@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { TrashIcon, EditIcon } from '@common/components/icons';
 import LoadingComponent from '@common/components/LoadingComponent.vue';
@@ -66,5 +66,9 @@ const handleEditProduct = (productId: number) => {
 onMounted(async () => {
   const { id } = route.params;
   await productoStore.getProductById(id as string);
+});
+
+onUnmounted(() => {
+  productoStore.producto = null;
 });
 </script>

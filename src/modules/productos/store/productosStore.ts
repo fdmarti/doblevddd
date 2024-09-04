@@ -26,7 +26,7 @@ export const useProductosStore = defineStore('productos', () => {
     totalPages: 0,
   });
 
-  const producto = ref<ProductoDetail>();
+  const producto = ref<ProductoDetail | null>(null);
   const isLoading = ref(false);
 
   const getProductos = async () => {
@@ -75,9 +75,20 @@ export const useProductosStore = defineStore('productos', () => {
   const uploadProductImage = async (productId: number, file: File) => {
     try {
       const result = await UploadImageProduct(productId, file);
+
+      if (result.status) {
+        producto.value!.producto.imagen = result.imagen;
+        return true;
+      }
+
+      return false;
     } catch (error) {
       return false;
     }
+  };
+
+  const clearProductsList = () => {
+    productos.value = [];
   };
 
   const resetProductoState = async () => {
@@ -148,5 +159,6 @@ export const useProductosStore = defineStore('productos', () => {
     saveProducto,
     getProductById,
     uploadProductImage,
+    clearProductsList,
   };
 });

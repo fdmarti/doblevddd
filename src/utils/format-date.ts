@@ -19,3 +19,5 @@ export const formatShortDate = (date: string | Date): string => {
 
   return formatDate(date);
 };
+
+export const timeStamp = () => new Date().getTime();

@@ -23,7 +23,7 @@
         <th>#{{ producto.id }}</th>
         <td class="flex justify-center">
           <img
-            :src="producto.imagen"
+            :src="`${producto.imagen}?t=${timeStamp()}`"
             :alt="`product image ${producto.descripcion}`"
             v-if="producto.imagen"
             class="h-[60px] w-[60px] rounded shadow"
@@ -54,6 +54,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { timeStamp } from '@/utils';
 import { useProductosStore } from '@productos/store/productosStore';
 import PaginationComponent from '@common/components/PaginationComponent.vue';
 import { SearchIcon, InfoIcon } from '@common/components/icons';
@@ -80,5 +81,6 @@ onMounted(async () => {
 
 onUnmounted(() => {
   productoStore.productosFilter = '';
+  productoStore.clearProductsList();
 });
 </script>
