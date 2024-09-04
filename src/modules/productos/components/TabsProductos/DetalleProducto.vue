@@ -1,7 +1,5 @@
 <template>
-  <div class="divider mt-10">
-    <h2 class="font-semibold text-2xl mb-3">Cotización</h2>
-  </div>
+  <TitleDividerComponent title="Cotización" />
   <section class="grid md:grid-cols-2 gap-5 w-full mt-5">
     <CardDetailLayout v-for="block in detailsBlocks" :key="block.primaryText">
       <CardDetailContent
@@ -15,6 +13,7 @@
 </template>
 <script lang="ts" setup>
 import { TotalPrecioProducto } from '@productos/components';
+import { TitleDividerComponent } from '@common/components/Text';
 import { TimeIcon, WeightIcon, DiamondIcon, MoneyBagIcon } from '@common/components/icons';
 import { CardDetailContent, CardDetailLayout } from '@common/components/Card';
 import type { CotizacionTotal, Precio } from '@productos/interfaces/producto.response';

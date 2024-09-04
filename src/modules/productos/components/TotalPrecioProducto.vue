@@ -1,7 +1,5 @@
 <template>
-  <div class="divider mt-10">
-    <h2 class="font-semibold text-2xl mb-3">Total</h2>
-  </div>
+  <TitleDividerComponent title="Total" />
   <section
     class="w-full max-w-6xl text-center mt-5 flex justify-around md:flex-row flex-col gap-4 md:gap-0 bg-base-300 rounded-md p-5 shadow mx-auto"
   >
@@ -13,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import { TitleDividerComponent } from '@common/components/Text';
 import type { Precio } from '@productos/interfaces/producto.response';
 
 interface Props {

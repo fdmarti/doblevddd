@@ -3,7 +3,7 @@
 </template>
 <script lang="ts" setup>
 interface Props {
-  size: string;
+  size?: string;
 }
 
 withDefaults(defineProps<Props>(), {
