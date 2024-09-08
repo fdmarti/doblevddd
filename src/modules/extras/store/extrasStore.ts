@@ -19,7 +19,10 @@ export const useExtrasStore = defineStore('extra', () => {
   const getExtras = async () => {
     try {
       const result = await GetExtras();
-      extras.value = result;
+
+      if (!result) throw new Error();
+
+      extras.value = result.extras;
       isLoading.value = false;
     } catch (error) {
       resetExtras();

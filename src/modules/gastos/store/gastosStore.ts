@@ -12,7 +12,9 @@ export const useGastosStore = defineStore('gastos', () => {
     try {
       const result = await GetGastos(filtro);
 
-      gastos.value = result;
+      if (!result) throw new Error();
+
+      gastos.value = result.gastos;
       isLoading.value = false;
       return true;
     } catch (error) {

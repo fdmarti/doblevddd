@@ -14,7 +14,8 @@ export const useCotizacionStore = defineStore('cotizacion', () => {
   const getCotizaciones = async () => {
     try {
       const result = await GetCotizaciones();
-      if (!result.status) return false;
+
+      if (!result.status) throw false;
 
       Object.assign(cotizaciones, result.cotizaciones);
       isLoading.value = false;

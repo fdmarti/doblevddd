@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { IsAuthenticated } from '@/modules/auth/guards/is-authenticated.guard';
-import ProductoLayout from '../layouts/productoLayout.vue';
+import ProductoLayout from '@productos/layouts/productoLayout.vue';
 
 export const productosRoutes: RouteRecordRaw[] = [
   {

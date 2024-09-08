@@ -24,7 +24,10 @@ export const useCategoriaStore = defineStore('categoria', () => {
   const getCategories = async () => {
     try {
       const result = await GetCategorias();
-      categorias.value = result;
+
+      if (!result) throw false;
+
+      categorias.value = result.categorias;
       isLoading.value = false;
     } catch (error) {
       isLoading.value = false;

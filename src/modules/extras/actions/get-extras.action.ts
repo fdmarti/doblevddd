@@ -1,24 +1,10 @@
-import { isAxiosError } from 'axios';
+import type { Extras } from '@extras/interface/extras.response';
+import { useFetch } from '@common/composables';
 
-import { doblevApi } from '@/api/doblevApi';
-import { headers } from '@/api/headersApi';
-import type { Extra, Extras } from '@extras/interface/extras.response';
+export const GetExtras = async (): Promise<Extras | null> => {
+  const { data, error } = await useFetch('/extras');
 
-export const GetExtras = async (): Promise<Extra[] | []> => {
-  try {
-    const { data } = await doblevApi.get<Extras>('/extras', {
-      headers,
-    });
+  if (error) return null;
 
-    return data.extras;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      throw {
-        message: 'Token timeout',
-        tokenExpired: true,
-      };
-    }
-
-    return [];
-  }
+  return data;
 };

@@ -3,12 +3,14 @@ import { ref } from 'vue';
 
 import { useProductosStore } from '@productos/store/productosStore';
 import type { PrecioUnitarioForm } from '@productos/interfaces/Precio/Precio.form';
-import { UpdatePrecioProducto } from '@productos/actions';
+import { UpdatePrecioProducto, GetPriceByAmount } from '@productos/actions';
+import type { PrecioPorMayor } from '@productos/interfaces/Precio/PrecioPorMayor';
 
 export const usePrecioStore = defineStore('precios', () => {
   const productStore = useProductosStore();
-
+  const precioPorMayor = ref<PrecioPorMayor>();
   const isSaving = ref(false);
+
   const updatePrecioProducto = async (precioData: PrecioUnitarioForm): Promise<boolean> => {
     if (!productStore.producto?.producto.id) return false;
 
@@ -35,8 +37,20 @@ export const usePrecioStore = defineStore('precios', () => {
     }
   };
 
+  const getPrecioPorMayor = async (cantidad: number) => {
+    if (!productStore.producto?.producto.id) return false;
+
+    try {
+      const result = await GetPriceByAmount(productStore.producto.producto.id, cantidad);
+    } catch (error) {
+      return false;
+    }
+  };
+
   return {
     isSaving,
+
     updatePrecioProducto,
+    getPrecioPorMayor,
   };
 });

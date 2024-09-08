@@ -5,3 +5,4 @@ export * from './upload-image.action';
 
 // Precio
 export * from './update-precio.action';
+export * from './get-precio-por-cantidad.action';

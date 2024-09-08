@@ -1,5 +1,4 @@
-import { doblevApi } from '@/api/doblevApi';
-import { headers } from '@/api/headersApi';
+import { useFetch } from '@common/composables';
 import type { Cotizaciones } from '@cotizacion/interface';
 
 export interface CotizacionSuccess {
@@ -12,24 +11,12 @@ export interface CotizacionError {
 }
 
 export const GetCotizaciones = async (): Promise<CotizacionSuccess | CotizacionError> => {
-  try {
-    const { data } = await doblevApi.get<Cotizaciones>('/configuracion/cotizacion', {
-      headers,
-    });
+  const { data, error } = await useFetch('/configuracion/cotizacion');
 
-    if (data) {
-      return {
-        status: true,
-        cotizaciones: data,
-      };
-    }
+  if (error) return { status: false };
 
-    return {
-      status: false,
-    };
-  } catch (error) {
-    return {
-      status: false,
-    };
-  }
+  return {
+    status: true,
+    cotizaciones: data,
+  };
 };
