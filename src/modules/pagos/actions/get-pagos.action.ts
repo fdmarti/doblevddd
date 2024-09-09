@@ -1,8 +1,7 @@
-import { doblevApi } from '@/api/doblevApi';
-import { headers } from '@/api/headersApi';
+import { useFetch } from '@common/composables';
 import type { PagosList } from '@pagos/interfaces';
 
-export const GetPagos = async (filtro: string = ''): Promise<PagosList[] | []> => {
+export const GetPagos = async (filtro: string = ''): Promise<PagosList[] | null> => {
   let urlRequest = '/pagos';
 
   if (filtro.trim().length > 0) {
@@ -10,11 +9,8 @@ export const GetPagos = async (filtro: string = ''): Promise<PagosList[] | []> =
     urlRequest = `/pagos?mes=${date[1]}&anio=${date[0]}`;
   }
 
-  try {
-    const { data } = await doblevApi.get<PagosList[]>(urlRequest, { headers });
+  const { data, error } = await useFetch(urlRequest);
 
-    return data;
-  } catch (error) {
-    return [];
-  }
+  if (error) return null;
+  return data;
 };

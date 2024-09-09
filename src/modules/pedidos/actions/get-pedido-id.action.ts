@@ -1,29 +1,10 @@
-import { isAxiosError } from 'axios';
-
-import { doblevApi } from '@/api/doblevApi';
-import { headers } from '@/api/headersApi';
+import { useFetch } from '@common/composables';
 import type { Pedido } from '@pedidos/interfaces/pedido.response';
-import { pedidoInit } from '@pedidos/utils';
 
-export const GetPedidoById = async (pedidoId: string) => {
-  try {
-    const { data } = await doblevApi.get<Pedido>(`/ventas/${pedidoId}/detalle`, {
-      headers,
-    });
+export const GetPedidoById = async (pedidoId: string): Promise<Pedido | null> => {
+  const { data, error } = await useFetch(`/ventas/${pedidoId}/detalle`);
 
-    if (!data) {
-      return { ...pedidoInit };
-    }
+  if (error) return null;
 
-    return data;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      throw {
-        message: 'Token timeout',
-        tokenExpired: true,
-      };
-    }
-
-    return { ...pedidoInit };
-  }
+  return data;
 };

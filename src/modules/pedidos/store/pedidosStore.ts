@@ -22,16 +22,20 @@ import { formatDate } from '@/utils';
 import { newPedidoInitialState, pedidoInit } from '@pedidos/utils/index';
 
 export const usePedidosStore = defineStore('pedidos', () => {
-  const pedidos = ref<Venta[] | undefined>([]);
+  const pedidos = ref<Venta[] | []>([]);
   const pedido = ref<Pedido>({ ...pedidoInit });
   const newPedido = ref<NuevoPedido>({ ...newPedidoInitialState });
-  const isLoading = ref(false);
+  const isLoading = ref(true);
   const isSaving = ref(false);
 
   const getPedidos = async (): Promise<boolean> => {
-    isLoading.value = true;
     try {
-      pedidos.value = await GetPedidosActions();
+      const result = await GetPedidosActions();
+
+      if (!result) throw new Error('Error al cargar los pedidos');
+
+      pedidos.value = result.ventas;
+
       isLoading.value = false;
       return true;
     } catch (error) {
@@ -41,9 +45,13 @@ export const usePedidosStore = defineStore('pedidos', () => {
   };
 
   const getPedidoById = async (pedidoId: string): Promise<boolean> => {
-    isLoading.value = true;
     try {
-      pedido.value = await GetPedidoById(pedidoId);
+      const result = await GetPedidoById(pedidoId);
+
+      if (!result) throw new Error('Error al cargar el pedido');
+
+      pedido.value = result;
+
       isLoading.value = false;
       return true;
     } catch (error) {
@@ -53,7 +61,6 @@ export const usePedidosStore = defineStore('pedidos', () => {
   };
 
   const deletePedido = async (): Promise<boolean> => {
-    isLoading.value = true;
     try {
       const result = await DeletePedidoAction(pedido.value!.id);
       if (result) {

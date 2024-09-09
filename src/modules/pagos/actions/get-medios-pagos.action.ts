@@ -1,16 +1,11 @@
-import { doblevApi } from '@/api/doblevApi';
-import { headers } from '@/api/headersApi';
+import { useFetch } from '@common/composables';
 
-import type { MediosPagos, MediosDePago } from '@pagos/interfaces';
+import type { MediosPagos } from '@pagos/interfaces';
 
-export const GetMediosPagos = async (): Promise<MediosDePago[] | []> => {
-  try {
-    const { data } = await doblevApi.get<MediosPagos>('/mediosDePago', { headers });
+export const GetMediosPagos = async (): Promise<MediosPagos | null> => {
+  const { data, error } = await useFetch('/mediosDePago');
 
-    if (!data.mediosDePago) return [];
+  if (error) return null;
 
-    return data.mediosDePago;
-  } catch (error) {
-    return [];
-  }
+  return data;
 };

@@ -14,21 +14,30 @@ export const usePagosStore = defineStore('pagos', () => {
 
   const getPagos = async (filtro: string = '') => {
     try {
-      pagos.value = await GetPagos(filtro);
+      const result = await GetPagos(filtro);
+
+      if (!result) throw new Error('Error al cargar los pagos');
+
+      pagos.value = result;
 
       isLoading.value = false;
       return true;
     } catch (error) {
       isLoading.value = false;
-      return error;
+      return false;
     }
   };
 
   const getPagosByPedido = async (pedidoId: string) => {
     try {
-      pagosByPedido.value = await GetPagosByPedido(pedidoId);
+      const result = await GetPagosByPedido(pedidoId);
+
+      if (!result) throw new Error('Error al cargar los pagos por pedido');
+
+      pagosByPedido.value = result;
 
       isLoading.value = false;
+      return true;
     } catch (error) {
       isLoading.value = false;
       return false;
@@ -37,7 +46,12 @@ export const usePagosStore = defineStore('pagos', () => {
 
   const getMediosPagos = async () => {
     try {
-      mediosPagos.value = await GetMediosPagos();
+      const result = await GetMediosPagos();
+
+      if (!result) throw new Error('Error al cargar los medios de pago');
+
+      mediosPagos.value = result.mediosDePago;
+      return true;
     } catch (error) {
       return false;
     }
