@@ -1,14 +1,11 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-
 import { useProductosStore } from '@productos/store/productosStore';
 import type { PrecioUnitarioForm } from '@productos/interfaces/Precio/Precio.form';
 import { UpdatePrecioProducto, GetPriceByAmount } from '@productos/actions';
-import type { PrecioPorMayor } from '@productos/interfaces/Precio/PrecioPorMayor';
 
 export const usePrecioStore = defineStore('precios', () => {
   const productStore = useProductosStore();
-  const precioPorMayor = ref<PrecioPorMayor>();
   const isSaving = ref(false);
 
   const updatePrecioProducto = async (precioData: PrecioUnitarioForm): Promise<boolean> => {
@@ -42,6 +39,10 @@ export const usePrecioStore = defineStore('precios', () => {
 
     try {
       const result = await GetPriceByAmount(productStore.producto.producto.id, cantidad);
+
+      if (!result.status) throw new Error('Error al traer el precio por cantidad');
+
+      return result.precio;
     } catch (error) {
       return false;
     }

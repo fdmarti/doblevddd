@@ -14,21 +14,22 @@
           class="grow text-right"
           id="amountProductos"
           name="amountProductos"
-          v-model="amount"
+          v-model="priceByAmount.unidades"
         />
       </label>
-      <ButtonSuccess type="submit" :disabled="false">
-        <LoadingSpinner v-if="false" />
-        <span v-else>Calcular</span>
+      <ButtonSuccess type="submit" :disabled="isSearching" :is-loading="isSearching">
+        Calcular
       </ButtonSuccess>
     </form>
     <div class="divider divider-horizontal"></div>
     <section class="w-full flex-grow">
       <TitleComponent text="Resultado" />
       <div>
-        <p>Cantidad : {{ amount }}</p>
-        <p>Precio por unidad : $ 0</p>
-        <p>Precio Total : $ 0</p>
+        <p class="text-lg font-semibold">Cantidad : {{ priceByAmount.unidades }}</p>
+        <p class="text-lg font-semibold">
+          Precio por unidad : $ {{ priceByAmount.unidad.toFixed(2) }}
+        </p>
+        <p class="text-lg font-semibold">Precio Total : $ {{ priceByAmount.total.toFixed(2) }}</p>
       </div>
     </section>
   </div>
@@ -36,8 +37,7 @@
 <script lang="ts" setup>
 import { TitleDividerComponent, TitleComponent } from '@common/components/Text';
 import { ButtonSuccess } from '@common/components/Buttons';
-import { LoadingSpinner } from '@common/components/Loading';
 import { useFormPrecioCantidad } from '@productos/composables/useFormPrecioCantidad';
 
-const { amount, handleSubmitFormCantidad } = useFormPrecioCantidad();
+const { priceByAmount, isSearching, handleSubmitFormCantidad } = useFormPrecioCantidad();
 </script>

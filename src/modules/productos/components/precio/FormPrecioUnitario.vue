@@ -31,14 +31,16 @@
         v-model="precioForm.costototal"
       />
     </label>
-    <ButtonSuccess type="submit" :disabled="precioStore.isSaving">
-      <LoadingSpinner v-if="precioStore.isSaving" />
-      <span v-else>Actualizar precio</span>
+    <ButtonSuccess
+      type="submit"
+      :disabled="precioStore.isSaving"
+      :is-loading="precioStore.isSaving"
+    >
+      Actualizar precio
     </ButtonSuccess>
   </form>
 </template>
 <script lang="ts" setup>
-import { LoadingSpinner } from '@common/components/Loading';
 import { TitleDividerComponent } from '@common/components/Text';
 import { ButtonSuccess } from '@common/components/Buttons';
 
