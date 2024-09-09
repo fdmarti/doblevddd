@@ -17,12 +17,15 @@
         :disabled="precioStore.isSaving"
       />
     </label>
-
-    <DButton type="submit" :disabled="precioStore.isSaving" :is-loading="precioStore.isSaving">
+  </form>
+  <div class="max-w-lg flex flex-row-reverse justify-between gap-3 mx-auto items-end mt-5">
+    <DButton
+      :disabled="precioStore.isSaving"
+      :is-loading="precioStore.isSaving"
+      @click="handleSubmitFormPrecio"
+    >
       Actualizar precio
     </DButton>
-  </form>
-  <div class="max-w-lg flex flex-col gap-3 mx-auto items-end mt-5">
     <DButton
       :disabled="precioStore.isSaving"
       :is-loading="precioStore.isSaving"

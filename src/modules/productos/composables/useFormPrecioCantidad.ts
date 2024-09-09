@@ -1,26 +1,24 @@
 import { reactive, ref } from 'vue';
 import { usePrecioStore } from '@productos/store/preciosStore';
 import { Toast } from '@/utils';
+import type { Precio } from '@productos/interfaces/Precio/PrecioCantidad';
 
 export const useFormPrecioCantidad = () => {
   const precioStore = usePrecioStore();
 
   const isSearching = ref(false);
   const numberAmountSelected = ref(0);
-  const priceByAmount = reactive({
+  const priceByAmount = reactive<Precio>({
     total: 0,
     unidad: 0,
     unidades: 0,
+    descuento: 0,
+    precioReal: 0,
   });
 
   const handleSubmitFormCantidad = async () => {
     if (priceByAmount.unidades <= 0) {
       Toast.error('La cantidad debe ser mayor a 0');
-      return false;
-    }
-
-    if (priceByAmount.unidades <= 4) {
-      Toast.error('La cantidad debe ser mayor a 4 para que haya un descuento');
       return false;
     }
 

@@ -1,9 +1,9 @@
 import { doblevApi } from '@/api/doblevApi';
 import { headers } from '@/api/headersApi';
+import type { PrecioCantidad } from '@productos/interfaces/Precio/PrecioCantidad';
 
-interface PriceByAmountSuccess {
+interface PriceByAmountSuccess extends PrecioCantidad {
   status: true;
-  precio: { total: number; unidad: number; unidades: number };
 }
 
 interface PriceByAmountError {

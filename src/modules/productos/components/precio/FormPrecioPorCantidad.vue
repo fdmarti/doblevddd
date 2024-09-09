@@ -27,6 +27,7 @@
         <p class="text-lg font-semibold">
           Precio por unidad : $ {{ priceByAmount.unidad.toFixed(2) }}
         </p>
+        <p class="text-lg font-semibold">Descuento : {{ priceByAmount.descuento.toFixed(2) }} %</p>
         <p class="text-lg font-semibold">Precio Total : $ {{ priceByAmount.total.toFixed(2) }}</p>
       </div>
     </section>
