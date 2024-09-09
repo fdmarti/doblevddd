@@ -54,6 +54,10 @@ export const useAuthStore = defineStore('auth', () => {
     return false;
   };
 
+  const clearLocalStorage = () => {
+    logout();
+  };
+
   return {
     isLoading,
     authStatus,
@@ -63,5 +67,6 @@ export const useAuthStore = defineStore('auth', () => {
     login,
     logout,
     checkAuthStatus,
+    clearLocalStorage,
   };
 });

@@ -31,10 +31,22 @@
         </td>
         <td>{{ producto.descripcion }}</td>
         <td>{{ producto.categoria }}</td>
-        <td>$ {{ producto.preciounitario }}</td>
+
+        <td>
+          <p class="flex justify-center items-center gap-2">
+            $ {{ producto.preciounitario }}
+            <span class="w-[1rem] text-warning md:tooltip" data-tip="Precio desactualizado!">
+              <AlertIcon v-if="producto.precioUnitarioVencido" />
+            </span>
+          </p>
+        </td>
         <td class="flex justify-center">
           <CheckProductoPedido v-if="isPedido" :producto="producto" />
-          <router-link class="btn" :to="{ name: 'product', params: { id: producto.id } }" v-else>
+          <router-link
+            class="btn text-primary"
+            :to="{ name: 'product', params: { id: producto.id } }"
+            v-else
+          >
             <InfoIcon />
           </router-link>
         </td>
@@ -57,7 +69,7 @@ import { useRoute } from 'vue-router';
 import { timeStamp } from '@/utils';
 import { useProductosStore } from '@productos/store/productosStore';
 import PaginationComponent from '@common/components/PaginationComponent.vue';
-import { SearchIcon, InfoIcon } from '@common/components/icons';
+import { SearchIcon, InfoIcon, AlertIcon } from '@common/components/icons';
 import { CheckProductoPedido } from '@pedidos/components';
 import { TableComponent } from '@common/components/Table';
 

@@ -47,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { EyeIcon, EyeOffIcon } from '@common/components/icons';
 import { LoadingSpinner } from '@common/components/Loading';
 import { usePassword } from '@common/composables/usePassword';
@@ -56,4 +57,8 @@ import { useLoginForm } from '@auth/composables';
 const { inputType, onChangeInputType, isPasswordType } = usePassword();
 const authStore = useAuthStore();
 const { formData, onSubmitLogin } = useLoginForm();
+
+onMounted(() => {
+  authStore.logout();
+});
 </script>

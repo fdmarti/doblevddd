@@ -29,3 +29,4 @@ export { default as TimeIcon } from './TimeIcon.vue';
 export { default as MoneyBagIcon } from './MoneyBagIcon.vue';
 export { default as WeightIcon } from './WeightIcon.vue';
 export { default as DiamondIcon } from './DiamondIcon.vue';
+export { default as AlertIcon } from './AlertIcon.vue';
