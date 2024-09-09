@@ -7,7 +7,7 @@
         </p>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
           <ButtonError @click="emits('close')">Cancelar</ButtonError>
-          <ButtonSuccess type="button" @click="handleDeleteGasto">Confirmar</ButtonSuccess>
+          <DButton type="button" @click="handleDeleteGasto">Confirmar</DButton>
         </div>
       </div>
     </template>
@@ -15,7 +15,7 @@
 </template>
 <script lang="ts" setup>
 import { PopupComponent } from '@common/components/Popup';
-import { ButtonError, ButtonSuccess } from '@common/components/Buttons';
+import { ButtonError, DButton } from '@common/components/Buttons';
 import { useGastosStore } from '@gastos/store/gastosStore';
 
 const gastosStore = useGastosStore();

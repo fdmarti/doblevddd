@@ -61,6 +61,6 @@ const router = useRouter();
 
 onMounted(async () => {
   const status = await pedidosStore.getPedidoById(props.id);
-  if (!status) router.replace({ name: 'pedidos' });
+  if (!status) return router.replace({ name: 'pedidos' });
 });
 </script>

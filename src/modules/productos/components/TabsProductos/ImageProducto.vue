@@ -1,14 +1,14 @@
 <template>
   <TitleDividerComponent title="Imagen" />
 
-  <div class="flex flex-row mt-6">
+  <div class="flex flex-row mt-6 w-full">
     <section class="flex-1 flex flex-col justify-center items-center gap-5">
       <h2 class="text-lg font-semibold">Imagen actual</h2>
       <LoadingSpinner size="w-[24rem]" v-if="isUpdatingImage" />
       <img
         :src="computedImageUrl"
         :alt="`product image ${productoId}`"
-        class="max-w-sm rounded-lg shadow-2xl w-[24rem] h-[24rem]"
+        class="max-w-md rounded-lg shadow-2xl w-full h-[24rem]"
         v-else
       />
     </section>
@@ -25,15 +25,24 @@
       />
     </form>
   </div>
+
+  <TitleDividerComponent title="Acciones" />
+  <div class="flex justify-end">
+    <DButton
+      @click="handleDeleteImage"
+      color="error"
+      :is-loading="isDeleting"
+      :disabled="isDeleting"
+    >
+      Eliminar imagen
+    </DButton>
+  </div>
 </template>
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { useProductosStore } from '@productos/store/productosStore';
 import { LoadingSpinner } from '@common/components/Loading';
 import { TitleDividerComponent } from '@common/components/Text';
-import { timeStamp, Toast } from '@/utils';
-
-const productStore = useProductosStore();
+import { DButton } from '@common/components/Buttons';
+import { useUploadImage } from '@productos/composables';
 
 interface Props {
   productoId: number;
@@ -42,37 +51,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const file = ref<File | null>();
-const isUpdatingImage = ref(false);
-const imageUrl = ref(props.image ? props.image : '/no-image.webp');
-
-const computedImageUrl = computed(() => {
-  return imageUrl.value + '?t=' + timeStamp();
-});
-
-const handleFormUploadImage = async (event: Event) => {
-  const target = event.target as HTMLInputElement;
-
-  if (!target.files) {
-    return false;
-  }
-
-  isUpdatingImage.value = true;
-
-  file.value = target.files[0];
-
-  const result = await productStore.uploadProductImage(props.productoId, file.value);
-
-  if (result) {
-    imageUrl.value = `${props.image}?t=${timeStamp()}`;
-    file.value = null;
-    const fileInput = document.getElementById('productIdFile') as HTMLInputElement;
-    fileInput.value = '';
-    Toast.success('Imagen subida');
-  } else {
-    Toast.error('Error al subir la imagen');
-  }
-
-  isUpdatingImage.value = false;
-};
+const { computedImageUrl, isUpdatingImage, isDeleting, handleDeleteImage, handleFormUploadImage } =
+  useUploadImage(props);
 </script>

@@ -1,5 +1,4 @@
 import { doblevApi } from '@/api/doblevApi';
-import type { PrecioUnitarioForm } from '../interfaces/Precio/Precio.form';
 import { headers } from '@/api/headersApi';
 
 interface UpdatePrecioSuccess {
@@ -11,14 +10,14 @@ interface UpdatePrecioError {
 }
 
 export const UpdatePrecioProducto = async (
-  precioData: PrecioUnitarioForm,
+  preciounitario: number,
   productoId: number,
 ): Promise<UpdatePrecioSuccess | UpdatePrecioError> => {
   try {
     const { data } = await doblevApi.post(
       `/productos/${productoId}/precio`,
       {
-        ...precioData,
+        preciounitario,
         id: productoId,
       },
       {

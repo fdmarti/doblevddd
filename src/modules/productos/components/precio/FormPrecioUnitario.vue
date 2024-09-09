@@ -13,39 +13,32 @@
         class="grow text-right"
         id="precioUnitario"
         name="precioUnitario"
-        v-model="precioForm.preciounitario"
+        v-model="preciounitario"
         :disabled="precioStore.isSaving"
       />
     </label>
 
-    <label class="input input-bordered flex items-center gap-2 w-full">
-      Costo total
-      <input
-        type="number"
-        step="0.01"
-        placeholder="$ 0"
-        class="grow text-right"
-        id="costototal"
-        name="costototal"
-        readonly
-        v-model="precioForm.costototal"
-      />
-    </label>
-    <ButtonSuccess
-      type="submit"
+    <DButton type="submit" :disabled="precioStore.isSaving" :is-loading="precioStore.isSaving">
+      Actualizar precio
+    </DButton>
+  </form>
+  <div class="max-w-lg flex flex-col gap-3 mx-auto items-end mt-5">
+    <DButton
       :disabled="precioStore.isSaving"
       :is-loading="precioStore.isSaving"
+      color="warning"
+      @click="handleSubmitFormPrecioSugerido"
     >
-      Actualizar precio
-    </ButtonSuccess>
-  </form>
+      Actualizar precio por sugerido
+    </DButton>
+  </div>
 </template>
 <script lang="ts" setup>
 import { TitleDividerComponent } from '@common/components/Text';
-import { ButtonSuccess } from '@common/components/Buttons';
+import { DButton } from '@common/components/Buttons';
 
 import { usePrecioStore } from '@productos/store/preciosStore';
-import { useFormPrecio } from '@productos/composables/useFormPrecio';
+import { useFormPrecio } from '@productos/composables';
 
 import type { Precio } from '@productos/interfaces/producto.response';
 
@@ -56,5 +49,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const precioStore = usePrecioStore();
-const { handleSubmitFormPrecio, precioForm } = useFormPrecio(props.precio);
+const { handleSubmitFormPrecio, handleSubmitFormPrecioSugerido, preciounitario } = useFormPrecio(
+  props.precio,
+);
 </script>

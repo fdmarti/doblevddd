@@ -7,7 +7,7 @@
         </p>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
           <ButtonError @click="emits('close')">Cancelar</ButtonError>
-          <ButtonSuccess type="button" @click="handleDeleteCategory">Confirmar</ButtonSuccess>
+          <DButton type="button" @click="handleDeleteCategory">Confirmar</DButton>
         </div>
       </div>
     </template>
@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import { Toast } from '@utils/index';
 import { PopupComponent } from '@common/components/Popup';
-import { ButtonError, ButtonSuccess } from '@common/components/Buttons';
+import { ButtonError, DButton } from '@common/components/Buttons';
 import { useCategoriaStore } from '@categorias/store/categoriaStore';
 import type { Categoria } from '@categorias/interfaces/categorias.response';
 

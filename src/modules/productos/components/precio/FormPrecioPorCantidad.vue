@@ -17,9 +17,7 @@
           v-model="priceByAmount.unidades"
         />
       </label>
-      <ButtonSuccess type="submit" :disabled="isSearching" :is-loading="isSearching">
-        Calcular
-      </ButtonSuccess>
+      <DButton type="submit" :disabled="isSearching" :is-loading="isSearching"> Calcular </DButton>
     </form>
     <div class="divider divider-horizontal"></div>
     <section class="w-full flex-grow">
@@ -36,8 +34,8 @@
 </template>
 <script lang="ts" setup>
 import { TitleDividerComponent, TitleComponent } from '@common/components/Text';
-import { ButtonSuccess } from '@common/components/Buttons';
-import { useFormPrecioCantidad } from '@productos/composables/useFormPrecioCantidad';
+import { DButton } from '@common/components/Buttons';
+import { useFormPrecioCantidad } from '@productos/composables';
 
 const { priceByAmount, isSearching, handleSubmitFormCantidad } = useFormPrecioCantidad();
 </script>

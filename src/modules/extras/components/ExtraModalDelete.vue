@@ -7,7 +7,7 @@
         </p>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
           <ButtonError @click="emits('close')">Cancelar</ButtonError>
-          <ButtonSuccess type="button" @click="handleDeleteExtra">Confirmar</ButtonSuccess>
+          <DButton type="button" @click="handleDeleteExtra">Confirmar</DButton>
         </div>
       </div>
     </template>
@@ -15,7 +15,7 @@
 </template>
 <script lang="ts" setup>
 import { Toast } from '@utils/index';
-import { ButtonError, ButtonSuccess } from '@common/components/Buttons';
+import { ButtonError, DButton } from '@common/components/Buttons';
 import { PopupComponent } from '@common/components/Popup';
 import type { Extra } from '@extras/interface/extras.response';
 import { useExtrasStore } from '@extras/store/extrasStore';

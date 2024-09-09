@@ -45,6 +45,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
   };
 
   const getPedidoById = async (pedidoId: string): Promise<boolean> => {
+    isLoading.value = true;
     try {
       const result = await GetPedidoById(pedidoId);
 
@@ -61,6 +62,8 @@ export const usePedidosStore = defineStore('pedidos', () => {
   };
 
   const deletePedido = async (): Promise<boolean> => {
+    isLoading.value = true;
+
     try {
       const result = await DeletePedidoAction(pedido.value!.id);
       if (result) {

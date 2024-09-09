@@ -7,6 +7,7 @@ import type { ProductoDetail } from '@productos/interfaces/producto.response';
 import type { Producto as ProductoFrom } from '@productos/interfaces';
 
 import {
+  DeleteImage,
   GetProductos,
   GetProductosByID,
   SaveProducto,
@@ -76,12 +77,26 @@ export const useProductosStore = defineStore('productos', () => {
     try {
       const result = await UploadImageProduct(productId, file);
 
-      if (result.status) {
-        producto.value!.producto.imagen = result.imagen;
-        return true;
-      }
+      if (!result.status) return false;
 
+      producto.value!.producto.imagen = result.imagen;
+      return true;
+    } catch (error) {
       return false;
+    }
+  };
+
+  const deleteImagen = async (productId: number) => {
+    try {
+      if (!productId) throw Error;
+
+      const result = await DeleteImage(productId);
+
+      if (!result.status) throw Error;
+
+      producto.value!.producto.imagen = '';
+
+      return true;
     } catch (error) {
       return false;
     }
@@ -159,6 +174,7 @@ export const useProductosStore = defineStore('productos', () => {
     saveProducto,
     getProductById,
     uploadProductImage,
+    deleteImagen,
     clearProductsList,
   };
 });
