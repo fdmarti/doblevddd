@@ -45,6 +45,8 @@ export const usePagosStore = defineStore('pagos', () => {
   };
 
   const getMediosPagos = async () => {
+    if (mediosPagos.value.length > 0) return;
+
     try {
       const result = await GetMediosPagos();
 
@@ -93,6 +95,11 @@ export const usePagosStore = defineStore('pagos', () => {
     }
   };
 
+  const clearPagosStore = () => {
+    pagosByPedido.value = [];
+    pagos.value = [];
+  };
+
   return {
     pagos: computed(() => pagos.value),
     pagosByPedido,
@@ -104,5 +111,6 @@ export const usePagosStore = defineStore('pagos', () => {
     deletePago,
     getMediosPagos,
     savePago,
+    clearPagosStore,
   };
 });

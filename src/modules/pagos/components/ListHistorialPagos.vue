@@ -22,7 +22,7 @@
   </TableComponent>
 </template>
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { formatShortDate, Toast } from '@utils/index';
 import { usePagosStore } from '@pagos/store/pagosStore';
 import { TrashIcon } from '@common/components/icons';
@@ -50,5 +50,9 @@ const handleDeletePago = async (pagoId: number) => {
 
 onMounted(async () => {
   await pagosStore.getPagosByPedido(props.pedidoId);
+});
+
+onUnmounted(() => {
+  pagosStore.clearPagosStore();
 });
 </script>
