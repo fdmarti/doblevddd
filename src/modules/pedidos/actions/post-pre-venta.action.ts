@@ -25,7 +25,7 @@ export const GeneratePreVenta = async (
     if (!data.status) throw new Error('Error al generar la preventa');
 
     return {
-      preVenta: data.hash,
+      preVenta: data.preVenta,
       status: true,
     };
   } catch (error) {
