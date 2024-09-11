@@ -16,24 +16,41 @@
       <tbody>
         <tr v-for="(producto, index) in pedidoStore.newPedido.productos" :key="index">
           <th># {{ index + 1 }}</th>
-          <td>{{ producto.descripcion }}</td>
-          <td>{{ producto.cantidad }}</td>
+          <td>
+            <p>{{ producto.descripcion }}</p>
+          </td>
+          <td>
+            <span class="text-2xl font-bold">{{ producto.cantidad }}</span>
+          </td>
           <td>{{ producto.observaciones }}</td>
-          <td>$ {{ producto.preciounitario }}</td>
-          <td>$ {{ producto.precioTotal }}</td>
+          <td>
+            <StatBlock
+              text="Precio"
+              :value="producto.precioUnitarioFinal ? `$ ${producto.precioUnitarioFinal}` : 0"
+            >
+              <template #desc v-if="producto.descuentoTotal">
+                ↘︎ $ {{ producto.preciounitario }} (% {{ producto.descuentoTotal }})
+              </template>
+            </StatBlock>
+          </td>
+          <td>
+            <StatBlock text="" :value="`$ ${producto.precioTotal}`" />
+          </td>
         </tr>
       </tbody>
     </template>
     <template #tfoot>
       <tr class="bg-base-100 text-lg">
         <td colspan="5" class="uppercase font-bold">Total</td>
-        <td colspan="1" class="font-bold">$ {{ pedidoStore.costoTotalPedido }}</td>
+        <td colspan="1" class="font-bold">
+          <StatBlock text="" :value="`$ ${pedidoStore.costoTotalPedido}`" />
+        </td>
       </tr>
     </template>
   </TableComponent>
 </template>
 <script lang="ts" setup>
-import { TitleComponent } from '@common/components/Text';
+import { TitleComponent, StatBlock } from '@common/components/Text';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 import { TableComponent } from '@common/components/Table';
 
@@ -44,7 +61,7 @@ const confirmPedidoTh = [
   'Descripción',
   'Cantidad',
   'Observación',
-  'Precio unitario',
+  'Precio unitario final',
   'Precio Total',
 ];
 </script>

@@ -6,17 +6,17 @@
     <li :class="['step', currentStep >= 3 && 'step-primary']">Confirmar pedido</li>
   </ul>
 
-  <div v-if="currentStep === 0" class="w-full text-center p-10">
+  <div v-if="currentStep === 0" class="w-full text-center p-7">
     <ProductosList />
     <SideBarPedido />
   </div>
-  <div v-if="currentStep === 1" class="w-full text-center p-10">
+  <div v-if="currentStep === 1" class="w-full text-center p-7">
     <FormClientePedido />
   </div>
-  <div v-if="currentStep === 2" class="w-full text-center p-10">
+  <div v-if="currentStep === 2" class="w-full text-center p-7">
     <ObservacionesDescuentosPedido />
   </div>
-  <div v-if="currentStep === 3" class="w-full text-center p-10">
+  <div v-if="currentStep === 3" class="w-full text-center p-7">
     <LoadingComponent v-if="pedidosStore.isLoading" />
     <ConfirmarPedido v-else />
   </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { onUnmounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useSteps } from '@pedidos/composables/useSteps';
 import ProductosList from '@productos/components/ProductosList.vue';
@@ -77,5 +77,9 @@ watch(currentStep, async () => {
   if (currentStep.value === 3) {
     await pedidosStore.generatePreVenta();
   }
+});
+
+onUnmounted(() => {
+  pedidosStore.resetNewPedido();
 });
 </script>

@@ -139,6 +139,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
   const generatePreVenta = async () => {
     const { productos } = newPedido.value;
     const hash = Uuid.generate();
+    isLoading.value = true;
 
     try {
       const result = await GeneratePreVenta(hash, productos);
@@ -165,7 +166,11 @@ export const usePedidosStore = defineStore('pedidos', () => {
     pedidos.value = [];
     pedido.value = { ...pedidoInit };
     isLoading.value = false;
+  };
+
+  const resetNewPedido = () => {
     newPedido.value = { ...newPedidoInitialState };
+    newPedido.value.productos = [];
   };
 
   const resetPedido = () => {
@@ -196,7 +201,13 @@ export const usePedidosStore = defineStore('pedidos', () => {
       let total = 0;
 
       newPedido.value.productos.forEach((prod) => {
-        const costoPerItem = prod.cantidad * prod.preciounitario;
+        let costoPerItem = 0;
+        if (prod.precioUnitarioFinal) {
+          costoPerItem = prod.cantidad * prod.precioUnitarioFinal;
+        } else {
+          costoPerItem = 0;
+        }
+
         total = total + costoPerItem;
       });
 
@@ -210,5 +221,6 @@ export const usePedidosStore = defineStore('pedidos', () => {
     updateItemsPedido,
     updateItemsErrores,
     generatePreVenta,
+    resetNewPedido,
   };
 });

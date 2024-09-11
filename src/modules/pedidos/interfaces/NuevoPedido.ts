@@ -9,14 +9,16 @@ export interface Producto {
   cantidad: number;
   categoria: number;
   descripcion: string;
+  descuento?: number;
+  descuentoAdicional: number;
+  descuentoTotal?: number;
   id: number;
   itemId: string;
   observaciones: string;
-  preciounitario: number;
-  descuentoAdicional: number;
-  sumarDescuento: boolean;
   precioTotal?: number;
   precioUnitarioFinal?: number;
+  preciounitario: number;
+  sumarDescuento: boolean;
 }
 
 export interface PreVenta {

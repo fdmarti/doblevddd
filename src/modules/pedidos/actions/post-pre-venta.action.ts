@@ -20,8 +20,6 @@ export const GeneratePreVenta = async (
       { headers },
     );
 
-    console.log(data);
-
     if (!data.status) throw new Error('Error al generar la preventa');
 
     return {

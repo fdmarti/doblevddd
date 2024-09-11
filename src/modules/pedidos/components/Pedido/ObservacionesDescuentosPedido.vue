@@ -27,7 +27,8 @@
               <input
                 type="checkbox"
                 class="checkbox checkbox-primary tooltip"
-                data-tip="Aplicar descuento al descuento"
+                data-tip="Acumular descuento"
+                :id="`check-acumular-descuento-${index}`"
                 v-model="producto.sumarDescuento"
               />
             </div>
