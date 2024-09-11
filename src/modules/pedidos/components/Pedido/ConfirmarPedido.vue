@@ -26,7 +26,9 @@
           <td>
             <StatBlock
               text="Precio"
-              :value="producto.precioUnitarioFinal ? `$ ${producto.precioUnitarioFinal}` : 0"
+              :value="
+                producto.precioUnitarioFinal ? `$ ${producto.precioUnitarioFinal.toFixed(2)}` : 0
+              "
             >
               <template #desc v-if="producto.descuentoTotal">
                 ↘︎ $ {{ producto.preciounitario }} (% {{ producto.descuentoTotal }})
@@ -34,7 +36,7 @@
             </StatBlock>
           </td>
           <td>
-            <StatBlock text="" :value="`$ ${producto.precioTotal}`" />
+            <StatBlock text="" :value="`$ ${producto.precioTotal?.toFixed(2)}`" />
           </td>
         </tr>
       </tbody>

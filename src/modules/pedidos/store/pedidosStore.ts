@@ -211,7 +211,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
         total = total + costoPerItem;
       });
 
-      return total;
+      return total.toFixed(2);
     }),
 
     getPedidos,
