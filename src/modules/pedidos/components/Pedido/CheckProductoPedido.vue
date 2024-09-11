@@ -45,6 +45,8 @@ const onHandleAddProductToPedido = () => {
     itemId: Uuid.generate(),
     observaciones: '',
     preciounitario: props.producto.preciounitario,
+    descuentoAdicional: 0,
+    sumarDescuento: false,
   });
 
   amountProducts.value = 1;

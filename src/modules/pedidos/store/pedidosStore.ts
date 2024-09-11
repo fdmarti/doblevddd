@@ -10,6 +10,7 @@ import {
   UpdateErrorsCountItem,
   type SuccessChangeStateItem,
   type ErrorChangeStateItem,
+  GeneratePreVenta,
 } from '@pedidos/actions';
 
 import type { SavePedidoSuccess, SavePedidoError } from '@pedidos/interfaces/NuevoEstadoItem';
@@ -17,7 +18,7 @@ import type { Venta, Pedido } from '@pedidos/interfaces';
 import type { NuevoPedido } from '@pedidos/interfaces/NuevoPedido';
 import type { NewItemState } from '@pedidos/interfaces/NuevoEstadoItem';
 
-import { formatDate } from '@/utils';
+import { formatDate, Uuid } from '@/utils';
 
 import { newPedidoInitialState, pedidoInit } from '@pedidos/utils/index';
 
@@ -135,11 +136,41 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }
   };
 
+  const generatePreVenta = async () => {
+    const { productos } = newPedido.value;
+    const hash = Uuid.generate();
+    isLoading.value = true;
+
+    try {
+      const result = await GeneratePreVenta(hash, productos);
+
+      if (!result.status) throw Error();
+
+      newPedido.value.hash = result.preVenta.hash;
+      newPedido.value.productos.splice(
+        0,
+        newPedido.value.productos.length,
+        ...result.preVenta.productos,
+      );
+
+      isLoading.value = false;
+      return true;
+    } catch (error) {
+      isLoading.value = false;
+
+      return false;
+    }
+  };
+
   const resetPedidosState = () => {
     pedidos.value = [];
     pedido.value = { ...pedidoInit };
     isLoading.value = false;
+  };
+
+  const resetNewPedido = () => {
     newPedido.value = { ...newPedidoInitialState };
+    newPedido.value.productos = [];
   };
 
   const resetPedido = () => {
@@ -170,11 +201,17 @@ export const usePedidosStore = defineStore('pedidos', () => {
       let total = 0;
 
       newPedido.value.productos.forEach((prod) => {
-        const costoPerItem = prod.cantidad * prod.preciounitario;
+        let costoPerItem = 0;
+        if (prod.precioUnitarioFinal) {
+          costoPerItem = prod.cantidad * prod.precioUnitarioFinal;
+        } else {
+          costoPerItem = 0;
+        }
+
         total = total + costoPerItem;
       });
 
-      return total;
+      return total.toFixed(2);
     }),
 
     getPedidos,
@@ -183,5 +220,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     confirmNewPedido,
     updateItemsPedido,
     updateItemsErrores,
+    generatePreVenta,
+    resetNewPedido,
   };
 });

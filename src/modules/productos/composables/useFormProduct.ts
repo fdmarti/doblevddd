@@ -81,7 +81,6 @@ export const useFormProduct = () => {
       product.extras = producto.extras.map((extra) => extra.id);
       isLoadingForm.value = false;
     } catch (error) {
-      console.error(error);
       isLoadingForm.value = false;
       return false;
     }

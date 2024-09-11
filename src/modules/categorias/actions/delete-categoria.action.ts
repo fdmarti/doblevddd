@@ -21,7 +21,6 @@ export const DeleteCategoria = async (categoryId: number): Promise<DeleteSuccess
       status: true,
     };
   } catch (error) {
-    console.error(`Error Delete categoria - ${error}`);
     if (isAxiosError(error)) {
       throw {
         message: 'Token timeout',
