@@ -37,13 +37,23 @@
         </label>
       </div>
 
-      <button type="submit" class="btn btn-info">Confirmar</button>
+      <DButton
+        :type="isAllProductPaid ? 'button' : 'submit'"
+        color="info"
+        :disabled="isAllProductPaid"
+        >Confirmar</DButton
+      >
+      <p class="italic text-sm mt-1 text-error" v-if="isAllProductPaid">
+        *El producto esta pagado en su totalidad*
+      </p>
     </form>
   </section>
 </template>
 <script lang="ts" setup>
+import { computed } from 'vue';
 import { useFormPagos } from '@pagos/composables/useFormPagos';
 import { usePagosStore } from '@pagos/store/pagosStore';
+import { DButton } from '@common/components/Buttons';
 
 const pagosStore = usePagosStore();
 
@@ -54,4 +64,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const { formDatePago, onHandleSubmitFormPago } = useFormPagos(props.pedidoId);
+
+const isAllProductPaid = computed(() => {
+  return pagosStore.precioRestanteAPagar ? false : true;
+});
 </script>

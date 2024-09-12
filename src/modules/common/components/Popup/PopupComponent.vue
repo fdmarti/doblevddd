@@ -1,9 +1,7 @@
 <template>
   <dialog :id="id" class="modal" :open="open">
     <div class="modal-box">
-      <div class="border-b border-blue-300 pb-5">
-        <h2 class="text-xl font-bold">{{ title }}</h2>
-      </div>
+      <TitleComponent :text="title" />
       <slot name="body"> </slot>
     </div>
   </dialog>
@@ -11,6 +9,7 @@
 </template>
 <script lang="ts" setup>
 import BackgroundModal from '@common/components/content/BackgroundModal.vue';
+import { TitleComponent } from '@common/components/Text';
 
 interface Props {
   id: string;

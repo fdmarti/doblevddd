@@ -71,6 +71,8 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+
 import LoadingComponent from '@common/components/LoadingComponent.vue';
 import { BoxIcon } from '@common/components/icons';
 import { CardPieza, FormPiezaModal } from '@productos/components/piezas';
@@ -83,7 +85,6 @@ import { useCategoriaStore } from '@categorias/store/categoriaStore';
 const categoriaStore = useCategoriaStore();
 const extrasStore = useExtrasStore();
 
-import { useRoute } from 'vue-router';
 const route = useRoute();
 
 const {
