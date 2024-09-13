@@ -37,12 +37,18 @@
         </label>
       </div>
 
-      <DButton
-        :type="isAllProductPaid ? 'button' : 'submit'"
-        color="info"
-        :disabled="isAllProductPaid"
-        >Confirmar</DButton
-      >
+      <section class="flex justify-between w-full mt-2">
+        <DButton color="warning" :disabled="isAllProductPaid" @click="onHandlePagarTotal">
+          Pagar Total
+        </DButton>
+        <DButton
+          :type="isAllProductPaid ? 'button' : 'submit'"
+          color="info"
+          :disabled="isAllProductPaid"
+        >
+          Confirmar
+        </DButton>
+      </section>
       <p class="italic text-sm mt-1 text-error" v-if="isAllProductPaid">
         *El producto esta pagado en su totalidad*
       </p>
@@ -63,7 +69,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { formDatePago, onHandleSubmitFormPago } = useFormPagos(props.pedidoId);
+const { formDatePago, onHandleSubmitFormPago, onHandlePagarTotal } = useFormPagos(props.pedidoId);
 
 const isAllProductPaid = computed(() => {
   return pagosStore.precioRestanteAPagar ? false : true;
