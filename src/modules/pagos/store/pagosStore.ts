@@ -102,6 +102,14 @@ export const usePagosStore = defineStore('pagos', () => {
 
   return {
     pagos: computed(() => pagos.value),
+    precioRestanteAPagar: computed(() => {
+      let paid = 0;
+
+      for (let i = 0; i < pagosByPedido.value.length; i++) {
+        paid = paid + pagosByPedido.value[i].monto;
+      }
+      return pedidosStore.pedido.preciototal - paid;
+    }),
     pagosByPedido,
     mediosPagos,
     isLoading,

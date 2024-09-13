@@ -36,6 +36,11 @@ export const useFormPagos = (pedidoId: string) => {
     Object.assign(formDatePago, pagosInitialState);
   };
 
+  const onHandlePagarTotal = async () => {
+    formDatePago.monto = pagosStore.precioRestanteAPagar;
+    await onHandleSubmitFormPago();
+  };
+
   onMounted(async () => {
     await pagosStore.getMediosPagos();
   });
@@ -44,5 +49,6 @@ export const useFormPagos = (pedidoId: string) => {
     formDatePago,
 
     onHandleSubmitFormPago,
+    onHandlePagarTotal,
   };
 };

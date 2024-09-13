@@ -37,6 +37,9 @@ const classBtn = computed<string>(() => {
     case 'error':
       colorBtn = 'btn-error';
       break;
+    case 'info':
+      colorBtn = 'btn-info';
+      break;
 
     default:
       colorBtn = 'btn-neutral';
