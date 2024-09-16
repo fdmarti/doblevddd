@@ -68,6 +68,6 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  productoStore.producto = null;
+  productoStore.clearProductState();
 });
 </script>

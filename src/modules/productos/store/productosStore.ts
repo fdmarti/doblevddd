@@ -12,6 +12,7 @@ import {
   GetProductosByID,
   SaveProducto,
   UploadImageProduct,
+  PostPiezaDetail,
   type ErrorProducto,
   type ProductoError,
   type ProductoSuccess,
@@ -111,6 +112,10 @@ export const useProductosStore = defineStore('productos', () => {
     isLoading.value = false;
   };
 
+  const clearProductState = () => {
+    producto.value = null;
+  };
+
   const nextPageProductos = () => {
     if (productosPagination.currentPage + 1 > productosPagination.totalPages) return;
     productosPagination.currentPage++;
@@ -130,6 +135,8 @@ export const useProductosStore = defineStore('productos', () => {
   const saveProducto = async (
     paramsProduct: ProductoFrom,
   ): Promise<SuccessProducto | ErrorProducto> => {
+    isLoading.value = true;
+
     try {
       const result = await SaveProducto(paramsProduct);
 
@@ -139,6 +146,26 @@ export const useProductosStore = defineStore('productos', () => {
       return {
         status: false,
       };
+    }
+  };
+
+  const postPiezaDetail = async (piezaDetail: {
+    descripcion: string;
+    time: number;
+    filament_used: number;
+  }) => {
+    const { descripcion } = piezaDetail;
+    try {
+      const result = await PostPiezaDetail(piezaDetail);
+
+      if (!result.status) throw new Error();
+
+      return {
+        ...result.pieza,
+        descripcion,
+      };
+    } catch (error) {
+      return false;
     }
   };
 
@@ -176,5 +203,7 @@ export const useProductosStore = defineStore('productos', () => {
     uploadProductImage,
     deleteImagen,
     clearProductsList,
+    postPiezaDetail,
+    clearProductState,
   };
 });

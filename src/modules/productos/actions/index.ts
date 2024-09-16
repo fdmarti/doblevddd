@@ -7,3 +7,6 @@ export * from './delete-image.action';
 // Precio
 export * from './update-precio.action';
 export * from './post-precio-por-cantidad.action';
+
+// Pieza
+export * from './post-pieza-detail.action';

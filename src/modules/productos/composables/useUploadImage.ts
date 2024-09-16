@@ -1,6 +1,7 @@
 import { computed, ref } from 'vue';
 import { useProductosStore } from '../store/productosStore';
 import { timeStamp, Toast } from '@/utils';
+import { cleanInputFile } from '@/utils/Files';
 
 interface Props {
   productoId: number;
@@ -35,9 +36,8 @@ export const useUploadImage = (props: Props) => {
 
     if (result) {
       imageUrl.value = `${props.image}?t=${timeStamp()}`;
+      cleanInputFile('productIdFile');
       file.value = null;
-      const fileInput = document.getElementById('productIdFile') as HTMLInputElement;
-      fileInput.value = '';
       Toast.success('Imagen subida');
     } else {
       Toast.error('Error al subir la imagen');

@@ -5,17 +5,19 @@ import type { Pieza } from '@productos/interfaces/Pieza';
 
 import { useProductosStore } from '@productos/store/productosStore';
 
+const productInitialState = {
+  productName: '',
+  piezas: [] as Pieza[],
+  categoria: 0,
+  extras: [] as number[],
+  productId: 0,
+};
+
 export const useFormProduct = () => {
   const router = useRouter();
 
   const productosStore = useProductosStore();
-  const product = reactive({
-    productName: '',
-    piezas: [] as Pieza[],
-    categoria: 0,
-    extras: [] as number[],
-    productId: 0,
-  });
+  const product = reactive({ ...productInitialState });
 
   const showModalPieza = ref(false);
   const isEditProduct = ref(false);
@@ -63,6 +65,7 @@ export const useFormProduct = () => {
 
   const setProductEdit = async (productId: string) => {
     isLoadingForm.value = true;
+    clearProductState();
     try {
       const productResult = await productosStore.getProductById(productId);
 
@@ -84,6 +87,10 @@ export const useFormProduct = () => {
       isLoadingForm.value = false;
       return false;
     }
+  };
+
+  const clearProductState = () => {
+    Object.assign(product, productInitialState);
   };
 
   return {

@@ -52,6 +52,17 @@
             <DButton color="success" type="submit">Confirmar</DButton>
           </div>
         </form>
+
+        <div class="divider"></div>
+
+        <input
+          type="file"
+          class="file-input w-full"
+          id="pieza-file"
+          name="pieza-file"
+          accept=".gcode"
+          @change="loadGcodeFile"
+        />
       </div>
     </template>
   </PopupComponent>
@@ -64,6 +75,8 @@ import type { Pieza } from '@productos/interfaces/Pieza';
 import { PuzzleIcon } from '@common/components/icons';
 import { PopupComponent } from '@common/components/Popup';
 import { DButton } from '@common/components/Buttons';
+import { useGCODEFile } from '@common/composables';
+import { cleanInputFile } from '@/utils/Files';
 
 interface Props {
   open: boolean;
@@ -105,5 +118,17 @@ const handlePiezaForm = () => {
 
   emits('savePieza', formData);
   Object.assign(formData, piezaInitialState);
+};
+
+const loadGcodeFile = async (event: Event) => {
+  const result = await useGCODEFile(event);
+
+  if (result) {
+    emits('savePieza', result);
+    cleanInputFile('pieza-file');
+    Toast.success('Pieza cargada');
+  } else {
+    Toast.error('Error al cargar la pieza');
+  }
 };
 </script>

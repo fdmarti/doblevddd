@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 import LoadingComponent from '@common/components/LoadingComponent.vue';
@@ -81,9 +81,11 @@ import { CheckExtras } from '@productos/components/extras';
 import { useFormProduct } from '@productos/composables/useFormProduct';
 import { useExtrasStore } from '@extras/store/extrasStore';
 import { useCategoriaStore } from '@categorias/store/categoriaStore';
+import { useProductosStore } from '@productos/store/productosStore';
 
 const categoriaStore = useCategoriaStore();
 const extrasStore = useExtrasStore();
+const productStore = useProductosStore();
 
 const route = useRoute();
 
@@ -107,6 +109,11 @@ onMounted(async () => {
   if (query.id) {
     isEditProduct.value = true;
     await setProductEdit(query.id.toString());
+    return;
   }
+});
+
+onUnmounted(() => {
+  productStore.clearProductState();
 });
 </script>
