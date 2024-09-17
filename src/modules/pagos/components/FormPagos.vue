@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="pedidosStore.isAvailable">
     <h2>Agregar pago</h2>
     <form
       @submit.prevent="onHandleSubmitFormPago"
@@ -53,14 +53,17 @@
         *El producto esta pagado en su totalidad*
       </p>
     </form>
+    <DividerComponent />
   </section>
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useFormPagos } from '@pagos/composables/useFormPagos';
 import { usePagosStore } from '@pagos/store/pagosStore';
+import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
 const pagosStore = usePagosStore();
+const pedidosStore = usePedidosStore();
 
 interface Props {
   pedidoId: string;
