@@ -113,6 +113,8 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
       if (!result.status) return { status: false };
 
+      pedido.value.estado = result.detalle.estado;
+
       return result;
     } catch (error) {
       return { status: false };
