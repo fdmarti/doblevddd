@@ -59,7 +59,6 @@
 import { computed } from 'vue';
 import { useFormPagos } from '@pagos/composables/useFormPagos';
 import { usePagosStore } from '@pagos/store/pagosStore';
-import { DButton } from '@common/components/Buttons';
 
 const pagosStore = usePagosStore();
 

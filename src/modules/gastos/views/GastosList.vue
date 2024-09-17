@@ -59,9 +59,7 @@
 
 <script lang="ts" setup>
 import { onMounted } from 'vue';
-import { TitleComponent } from '@common/components/Text';
-import { TableComponent } from '@common/components/Table';
-import { FabButton } from '@common/components/Buttons';
+import {} from '@common/components/Text';
 import { TrashIcon, DolarIcon, ChartCandleIcon } from '@common/components/icons';
 import { FormGastos, GastoModalDelete, FormFiltroGastos } from '@gastos/components';
 import { useGastosPopups } from '@gastos/composables/useGastosPopups';

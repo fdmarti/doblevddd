@@ -29,7 +29,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Extra } from '@productos/interfaces/producto.response';
-import { TableComponent } from '@common/components/Table';
 
 interface Props {
   extras?: Extra[];

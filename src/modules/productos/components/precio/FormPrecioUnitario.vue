@@ -39,9 +39,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { DividerComponent } from '@common/components/content';
-import { DButton } from '@common/components/Buttons';
-
 import { usePrecioStore } from '@productos/store/preciosStore';
 import { useFormPrecio } from '@productos/composables';
 

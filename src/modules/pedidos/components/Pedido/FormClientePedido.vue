@@ -26,7 +26,6 @@
   </section>
 </template>
 <script lang="ts" setup>
-import { TitleComponent } from '@common/components';
 import { UserIcon, AddressIcon } from '@common/components/icons';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 

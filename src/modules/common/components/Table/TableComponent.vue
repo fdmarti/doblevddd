@@ -20,7 +20,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { LoadingComponent } from '@common/components';
 import { TableHeader } from '@common/components/Table';
 
 interface Props {

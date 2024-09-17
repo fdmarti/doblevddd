@@ -34,31 +34,34 @@
         <EyeIcon @click="onChangeInputType" v-if="isPasswordType" />
         <EyeOffIcon @click="onChangeInputType" v-else />
       </label>
-      <button
+      <DButton
+        color="primary"
         type="submit"
-        class="btn btn-primary text-lg font-bold"
         :disabled="authStore.isLoading"
+        :is-loading="authStore.isLoading"
       >
-        <LoadingSpinner v-if="authStore.isLoading" />
-        <span v-else>Ingresar</span>
-      </button>
+        <span class="text-lg"> Ingresar </span>
+      </DButton>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { EyeIcon, EyeOffIcon } from '@common/components/icons';
-import { LoadingSpinner } from '@common/components/Loading';
 import { usePassword } from '@common/composables/usePassword';
 import { useAuthStore } from '@auth/store/auth.store';
 import { useLoginForm } from '@auth/composables';
 
 const { inputType, onChangeInputType, isPasswordType } = usePassword();
 const authStore = useAuthStore();
-const { formData, onSubmitLogin } = useLoginForm();
+const { formData, onSubmitLogin, resetFormLogin } = useLoginForm();
 
 onMounted(() => {
   authStore.logout();
+});
+
+onUnmounted(() => {
+  resetFormLogin();
 });
 </script>

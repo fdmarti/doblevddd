@@ -71,7 +71,6 @@ import { useProductosStore } from '@productos/store/productosStore';
 import PaginationComponent from '@common/components/PaginationComponent.vue';
 import { SearchIcon, InfoIcon, AlertIcon } from '@common/components/icons';
 import { CheckProductoPedido } from '@pedidos/components';
-import { TableComponent } from '@common/components/Table';
 
 const thProductos = ['Codigo', 'Imagen', 'Descripción', 'Cateogira', 'Precio unitario', 'Accion'];
 

@@ -31,8 +31,6 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { TitleComponent } from '@common/components/Text';
-import { TableComponent } from '@common/components/Table';
 import { usePagosStore } from '@pagos/store/pagosStore';
 import { ChartCandleIcon } from '@common/components/icons';
 import { FormFiltroPagos } from '@pagos/components';

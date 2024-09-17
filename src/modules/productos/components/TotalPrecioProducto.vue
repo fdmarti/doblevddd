@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { DividerComponent } from '@common/components/content';
 import type { Precio } from '@productos/interfaces/producto.response';
 
 interface Props {

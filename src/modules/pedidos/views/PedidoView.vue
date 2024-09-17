@@ -42,7 +42,6 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { LoadingComponent } from '@common/components';
 import { TabComponent, TabLayout } from '@common/components/Tab';
 import {
   ItemDetail,

@@ -42,7 +42,6 @@ import { calcPercentage } from '@utils/index';
 import { PuzzleCompleteIcon } from '@common/components/icons';
 import { StackStatsPedido, ActionsPedido } from '@pedidos/components';
 import { RadialProgressComponent } from '@common/components/progress';
-import { DividerComponent } from '@common/components/content';
 import type { Producto } from '@pedidos/interfaces';
 
 interface Props {

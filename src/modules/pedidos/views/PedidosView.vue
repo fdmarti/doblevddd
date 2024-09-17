@@ -39,11 +39,8 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { TitleComponent } from '@common/components';
-import { FabButton } from '@common/components/Buttons';
 import { PlusIcon } from '@common/components/icons';
 import PaymentProgess from '@pedidos/components/PaymentProgress.vue';
-import { TableComponent } from '@common/components/Table';
 
 const thPedido = [
   'Codigo',

@@ -29,8 +29,6 @@
 import { onMounted } from 'vue';
 import { useCotizacionStore } from '@cotizacion/store/cotizacionesStore';
 import { splitCamelCase } from '@cotizacion/utils';
-import { DividerComponent } from '@common/components/content';
-import { DButton } from '@common/components/Buttons';
 
 const cotizacionStore = useCotizacionStore();
 

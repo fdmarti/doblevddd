@@ -73,10 +73,7 @@ import { reactive } from 'vue';
 import { Toast } from '@utils/index';
 import type { Pieza } from '@productos/interfaces/Pieza';
 import { PuzzleIcon } from '@common/components/icons';
-import { PopupComponent } from '@common/components/Popup';
-import { DButton } from '@common/components/Buttons';
 import { useGCODEFile } from '@common/composables';
-import { DividerComponent } from '@common/components/content';
 import { cleanInputFile } from '@/utils/Files';
 
 interface Props {

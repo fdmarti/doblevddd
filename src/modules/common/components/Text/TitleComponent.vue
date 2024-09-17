@@ -7,8 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import { DividerComponent } from '@common/components/content';
-
 interface Props {
   text?: string;
 }

@@ -33,7 +33,7 @@
           </label>
 
           <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-            <ButtonError @click="emits('close')">Cancelar</ButtonError>
+            <DButton @click="emits('close')" color="error">Cancelar</DButton>
             <DButton type="submit">Guardar</DButton>
           </div>
         </form>
@@ -43,8 +43,6 @@
 </template>
 <script lang="ts" setup>
 import { watch } from 'vue';
-import { ButtonError, DButton } from '@common/components/Buttons';
-import { PopupComponent } from '@common/components/Popup';
 import { DolarIcon } from '@common/components/icons';
 import type { Extra } from '@extras/interface/extras.response';
 import { useExtraForm } from '@extras/composables/useExtraForm';

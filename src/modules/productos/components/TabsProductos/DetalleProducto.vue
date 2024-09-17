@@ -17,7 +17,6 @@
 </template>
 <script lang="ts" setup>
 import { TotalPrecioProducto } from '@productos/components';
-import { DividerComponent } from '@common/components/content';
 import { TimeIcon, WeightIcon, DiamondIcon, MoneyBagIcon } from '@common/components/icons';
 import { CardDetailContent, CardDetailLayout } from '@common/components/Card';
 import type { CotizacionTotal, Precio } from '@productos/interfaces/producto.response';

@@ -76,8 +76,6 @@
 <script lang="ts" setup>
 import { arrayStates } from '@pedidos/utils';
 import { useChangeItemsState } from '@pedidos/composables/useChangeItemsState';
-import { DButton } from '@common/components/Buttons';
-import { DividerComponent } from '@common/components/content';
 
 interface Props {
   itemid: string;

@@ -20,7 +20,7 @@
           </label>
         </section>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-          <ButtonError @click="emits('close')">Cancelar</ButtonError>
+          <DButton @click="emits('close')" color="error">Cancelar</DButton>
           <DButton type="submit">Confirmar</DButton>
         </div>
       </form>
@@ -32,7 +32,6 @@ import { ref } from 'vue';
 import { Toast } from '@/utils';
 import { CalendarStatsIcon } from '@common/components/icons';
 import { PopupComponent } from '@common/components/Popup';
-import { ButtonError, DButton } from '@common/components/Buttons';
 import { useGastosStore } from '@gastos/store/gastosStore';
 
 const gastosStore = useGastosStore();

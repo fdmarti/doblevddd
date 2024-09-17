@@ -25,7 +25,6 @@
 
 <script setup lang="ts">
 import type { Pieza } from '@productos/interfaces/producto.response';
-import { TableComponent } from '@common/components/Table';
 
 const colsHeader = [
   '',

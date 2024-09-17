@@ -32,8 +32,6 @@ import { Toast } from '@/utils';
 
 import CancelPedidoModal from '@pedidos/components/Popups/CancelPedidoModal.vue';
 import FacturaView from '@factura/view/FacturaView.vue';
-import { DButton } from '@common/components/Buttons';
-import { DividerComponent } from '@common/components/content';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
 const cancelPedido = ref(false);

@@ -54,8 +54,6 @@ import {
   ConfirmarPedido,
 } from '@pedidos/components';
 import { CartIcon } from '@common/components/icons';
-import { LoadingComponent } from '@common/components/Loading';
-import { DButton } from '@common/components/Buttons';
 
 import { Toast } from '@utils/index';
 

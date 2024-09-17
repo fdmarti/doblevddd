@@ -29,7 +29,7 @@
             />
           </label>
           <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-            <ButtonError @click="emits('close')">Cancelar</ButtonError>
+            <DButton @click="emits('close')" color="error">Cancelar</DButton>
             <DButton type="submit">Guardar</DButton>
           </div>
         </form>
@@ -39,8 +39,6 @@
 </template>
 <script lang="ts" setup>
 import { watch } from 'vue';
-import { PopupComponent } from '@common/components/Popup';
-import { ButtonError, DButton } from '@common/components/Buttons';
 import { useCategoriaForm } from '@categorias/composables/useCategoriaForm';
 import type { Categoria } from '@categorias/interfaces/categorias.response';
 

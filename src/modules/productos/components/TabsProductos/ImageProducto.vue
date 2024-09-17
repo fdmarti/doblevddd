@@ -42,9 +42,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { LoadingSpinner } from '@common/components/Loading';
-import { DividerComponent } from '@common/components/content';
-import { DButton } from '@common/components/Buttons';
 import { useUploadImage } from '@productos/composables';
 
 interface Props {

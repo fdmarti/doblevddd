@@ -2,7 +2,7 @@
   <PopupComponent id="modal-cancelar-pedido" :open="open" title="Cancelar Pedido">
     <template #body>
       <div class="border-t border-t-blue-500 pt-5 flex items-center justify-between">
-        <ButtonError @click="$emit('close')">Cancelar</ButtonError>
+        <DButton @click="$emit('close')" color="error">Cancelar</DButton>
         <DButton
           @click="handleDeletePedido"
           color="success"
@@ -18,10 +18,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { Toast } from '@utils/index';
-import { ButtonError } from '@common/components/Buttons';
-import { PopupComponent } from '@common/components/Popup';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { DButton } from '@common/components/Buttons';
 
 const pedidoStore = usePedidosStore();
 const router = useRouter();

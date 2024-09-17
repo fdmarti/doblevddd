@@ -6,7 +6,7 @@
           ¿Seguro que queres eliminar el extra {{ props.deleteExtra?.descripcion }} ?
         </p>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-          <ButtonError @click="emits('close')">Cancelar</ButtonError>
+          <DButton @click="emits('close')" color="error">Cancelar</DButton>
           <DButton type="button" @click="handleDeleteExtra">Confirmar</DButton>
         </div>
       </div>
@@ -15,8 +15,6 @@
 </template>
 <script lang="ts" setup>
 import { Toast } from '@utils/index';
-import { ButtonError, DButton } from '@common/components/Buttons';
-import { PopupComponent } from '@common/components/Popup';
 import type { Extra } from '@extras/interface/extras.response';
 import { useExtrasStore } from '@extras/store/extrasStore';
 

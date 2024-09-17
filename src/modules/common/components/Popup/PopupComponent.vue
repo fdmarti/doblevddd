@@ -9,7 +9,6 @@
 </template>
 <script lang="ts" setup>
 import { BackgroundModal } from '@common/components/content';
-import { TitleComponent } from '@common/components/Text';
 
 interface Props {
   id: string;

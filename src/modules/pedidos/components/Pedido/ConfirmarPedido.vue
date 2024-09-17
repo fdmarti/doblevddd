@@ -52,10 +52,8 @@
   </TableComponent>
 </template>
 <script lang="ts" setup>
-import { TitleComponent, StatBlock } from '@common/components/Text';
+import { StatBlock } from '@common/components/Text';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { TableComponent } from '@common/components/Table';
-import { DividerComponent } from '@common/components/content';
 
 const pedidoStore = usePedidosStore();
 

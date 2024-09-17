@@ -40,9 +40,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { TitleComponent } from '@common/components/Text';
-import { DividerComponent } from '@common/components/content';
-import { DButton } from '@common/components/Buttons';
 import { useFormPrecioCantidad } from '@productos/composables';
 
 const { priceByAmount, isSearching, handleSubmitFormCantidad } = useFormPrecioCantidad();

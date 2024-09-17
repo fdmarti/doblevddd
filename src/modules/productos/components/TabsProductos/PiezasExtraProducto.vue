@@ -11,7 +11,6 @@
 </template>
 <script lang="ts" setup>
 import type { Pieza, Extra } from '@productos/interfaces/producto.response';
-import { DividerComponent } from '@common/components/content';
 import { ListExtrasProducto } from '@productos/components/extras';
 import { ListPiezasProducto } from '@productos/components/piezas';
 

@@ -73,9 +73,7 @@
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-import LoadingComponent from '@common/components/LoadingComponent.vue';
 import { BoxIcon } from '@common/components/icons';
-import { DividerComponent } from '@common/components/content';
 import { CardPieza, FormPiezaModal } from '@productos/components/piezas';
 import { CheckExtras } from '@productos/components/extras';
 

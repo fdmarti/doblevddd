@@ -7,10 +7,12 @@ export const useLoginForm = () => {
   const authStore = useAuthStore();
   const router = useRouter();
 
-  const formData = reactive({
+  const formLoginInitialState = {
     username: '',
     password: '',
-  });
+  };
+
+  const formData = reactive({ ...formLoginInitialState });
 
   const onSubmitLogin = async () => {
     if (formData.username.trim() === '') {
@@ -32,9 +34,14 @@ export const useLoginForm = () => {
     router.replace({ name: 'pedidos' });
   };
 
+  const resetFormLogin = () => {
+    Object.assign(formData, formLoginInitialState);
+  };
+
   return {
     formData,
 
     onSubmitLogin,
+    resetFormLogin,
   };
 };

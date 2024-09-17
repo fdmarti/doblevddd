@@ -26,7 +26,6 @@ import { onMounted, onUnmounted } from 'vue';
 import { formatShortDate, Toast } from '@utils/index';
 import { usePagosStore } from '@pagos/store/pagosStore';
 import { TrashIcon } from '@common/components/icons';
-import { TableComponent } from '@common/components/Table';
 const pagosStore = usePagosStore();
 
 const thPagos = ['Código', 'Descripción', 'Fecha', 'Monto', 'Acciones'];

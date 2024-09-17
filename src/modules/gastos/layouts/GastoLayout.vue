@@ -4,6 +4,4 @@
   </BlockMainContent>
 </template>
 
-<script setup lang="ts">
-import { BlockMainContent } from '@common/components/content';
-</script>
+<script setup lang="ts"></script>
