@@ -3,14 +3,14 @@
     <template #body>
       <div class="border-t border-t-blue-500 pt-5 flex items-center justify-between">
         <ButtonError @click="$emit('close')">Cancelar</ButtonError>
-        <button
+        <DButton
           @click="handleDeletePedido"
-          class="btn btn-success"
+          color="success"
           :disabled="pedidoStore.isLoading"
+          :isLoading="pedidoStore.isLoading"
         >
-          <LoadingSpinner v-if="pedidoStore.isLoading" />
-          <span v-else>Confirmar</span>
-        </button>
+          Confirmar
+        </DButton>
       </div>
     </template>
   </PopupComponent>
@@ -20,8 +20,8 @@ import { useRouter } from 'vue-router';
 import { Toast } from '@utils/index';
 import { ButtonError } from '@common/components/Buttons';
 import { PopupComponent } from '@common/components/Popup';
-import { LoadingSpinner } from '@common/components/Loading';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
+import { DButton } from '@common/components/Buttons';
 
 const pedidoStore = usePedidosStore();
 const router = useRouter();

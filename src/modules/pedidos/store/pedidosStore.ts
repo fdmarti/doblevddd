@@ -7,6 +7,7 @@ import {
   DeletePedidoAction,
   SavePedido,
   UpdateStateItems,
+  EntregarPedido,
   UpdateErrorsCountItem,
   type SuccessChangeStateItem,
   type ErrorChangeStateItem,
@@ -162,6 +163,22 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }
   };
 
+  const entregarPedido = async () => {
+    const id = pedido.value.id;
+
+    if (!id) return false;
+
+    try {
+      const result = await EntregarPedido(id);
+
+      if (!result.status) throw Error();
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
   const resetPedidosState = () => {
     pedidos.value = [];
     pedido.value = { ...pedidoInit };
@@ -195,6 +212,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }),
 
     pedido: computed(() => pedido.value),
+    pedidoEstadoActual: computed(() => pedido.value.estado),
     newPedido,
 
     costoTotalPedido: computed(() => {
@@ -222,5 +240,6 @@ export const usePedidosStore = defineStore('pedidos', () => {
     updateItemsErrores,
     generatePreVenta,
     resetNewPedido,
+    entregarPedido,
   };
 });

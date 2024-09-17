@@ -5,3 +5,4 @@ export * from './save-pedido.action';
 export * from './change-items-state.action';
 export * from './update-errores-items.action';
 export * from './post-pre-venta.action';
+export * from './put-entregar-pedido.action';
