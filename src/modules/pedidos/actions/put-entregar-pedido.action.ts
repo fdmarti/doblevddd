@@ -1,12 +1,30 @@
 import { doblevApi } from '@/api/doblevApi';
 import { headers } from '@/api/headersApi';
 
+interface PedidoEntregadoSuccess {
+  status: true;
+}
+
+interface PedidoEntregadoError {
+  status: false;
+}
+
 export const EntregarPedido = async (pedidoId: number) => {
   try {
-    const { data } = await doblevApi.put(`/ventas/${pedidoId}/entregado`, {}, { headers });
+    const { data } = await doblevApi.put<PedidoEntregadoSuccess | PedidoEntregadoError>(
+      `/ventas/${pedidoId}/entregado`,
+      {},
+      { headers },
+    );
 
-    console.log(data);
+    if (!data.status) throw new Error('Error al entregar el paquete');
+
+    return {
+      status: true,
+    };
   } catch (error) {
-    return error;
+    return {
+      status: false,
+    };
   }
 };

@@ -170,6 +170,10 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
     try {
       const result = await EntregarPedido(id);
+
+      if (!result.status) throw Error();
+
+      return true;
     } catch (error) {
       return false;
     }
@@ -208,6 +212,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }),
 
     pedido: computed(() => pedido.value),
+    pedidoEstadoActual: computed(() => pedido.value.estado),
     newPedido,
 
     costoTotalPedido: computed(() => {
