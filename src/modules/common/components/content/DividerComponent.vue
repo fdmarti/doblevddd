@@ -9,5 +9,8 @@ interface Props {
   direction?: 'divider-vertical' | 'divider-horizontal';
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  text: '',
+  direction: 'divider-vertical',
+});
 </script>

@@ -6,43 +6,17 @@
           <HomeIcon />
         </RouterLink>
       </li>
-      <li>
+      <li v-for="head in navBarRoutes" :key="head.name">
         <details>
-          <summary>Formularios</summary>
+          <summary>{{ head.name }}</summary>
           <ul class="p-2 bg-base-100">
-            <li @click="closeDropDown">
-              <RouterLink :to="{ name: 'list-categories' }">Categorias</RouterLink>
-            </li>
-            <li @click="closeDropDown">
-              <RouterLink :to="{ name: 'list-extras' }">Extras</RouterLink>
-            </li>
-            <li @click="closeDropDown">
-              <RouterLink :to="{ name: 'list-products' }">Productos</RouterLink>
-            </li>
-          </ul>
-        </details>
-      </li>
-      <li>
-        <details>
-          <summary>Finanzas</summary>
-          <ul class="p-2 bg-base-100">
-            <li @click="closeDropDown"><a>Balance</a></li>
-            <li @click="closeDropDown">
-              <RouterLink :to="{ name: 'list-gastos' }">Gastos</RouterLink>
-            </li>
-            <li @click="closeDropDown">
-              <RouterLink :to="{ name: 'list-pagos' }">Pagos</RouterLink>
-            </li>
-          </ul>
-        </details>
-      </li>
-      <li>
-        <details>
-          <summary>Configuración</summary>
-          <ul class="p-2 bg-base-100">
-            <li @click="closeDropDown">
-              <RouterLink :to="{ name: 'cotizacion-view' }">Cotización</RouterLink>
-            </li>
+            <LinkRouterLink
+              v-for="link in head.routes"
+              :key="link.text"
+              @click="closeDropDown"
+              :name-route="link.routeName"
+              :text="link.text"
+            />
           </ul>
         </details>
       </li>
@@ -51,9 +25,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { HomeIcon } from '../icons';
-
+import { HomeIcon } from '@common/components/icons';
 import DarkLightSection from './DarkLightSection.vue';
+import LinkRouterLink from './LinkRouterLink.vue';
+import { navBarRoutes } from '@/config/navbarModulesLinks';
 
 import { useAuthStore } from '@/modules/auth/store/auth.store';
 const authStore = useAuthStore();

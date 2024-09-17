@@ -16,7 +16,7 @@
       </DButton>
     </div>
     <DividerComponent />
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center" v-if="pedidoStore.isAvailable">
       <p>Cancelar Pedido</p>
       <DButton @click="toggleCancelPedido" color="error">Cancelar</DButton>
     </div>

@@ -20,10 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const resp = await LoginAction(username, password);
 
-      if (!resp.ok) {
-        logout();
-        return false;
-      }
+      if (!resp.ok) throw Error();
 
       token.value = resp.token;
       authStatus.value = AuthStatus.Authenticated;
@@ -37,14 +34,15 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const checkAuthStatus = async () => {
-    const status = await CheckAuth();
+    try {
+      const status = await CheckAuth();
 
-    if (!status) {
-      logout();
-      return;
+      if (!status) throw Error();
+      authStatus.value = AuthStatus.Authenticated;
+      return true;
+    } catch (error) {
+      return false;
     }
-
-    authStatus.value = AuthStatus.Authenticated;
   };
 
   const logout = () => {

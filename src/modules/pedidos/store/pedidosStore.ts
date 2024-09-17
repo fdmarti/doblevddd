@@ -15,16 +15,16 @@ import {
 } from '@pedidos/actions';
 
 import type { SavePedidoSuccess, SavePedidoError } from '@pedidos/interfaces/NuevoEstadoItem';
-import type { Venta, Pedido } from '@pedidos/interfaces';
+import type { Pedidos } from '@pedidos/interfaces/pedidos.response';
+import type { Pedido } from '@pedidos//interfaces';
 import type { NuevoPedido } from '@pedidos/interfaces/NuevoPedido';
 import type { NewItemState } from '@pedidos/interfaces/NuevoEstadoItem';
 
 import { formatDate, Uuid } from '@/utils';
-
 import { newPedidoInitialState, pedidoInit } from '@pedidos/utils/index';
 
 export const usePedidosStore = defineStore('pedidos', () => {
-  const pedidos = ref<Venta[] | []>([]);
+  const pedidos = ref<Pedidos[] | []>([]);
   const pedido = ref<Pedido>({ ...pedidoInit });
   const newPedido = ref<NuevoPedido>({ ...newPedidoInitialState });
   const isLoading = ref(true);
@@ -34,9 +34,9 @@ export const usePedidosStore = defineStore('pedidos', () => {
     try {
       const result = await GetPedidosActions();
 
-      if (!result) throw new Error('Error al cargar los pedidos');
+      if (!result) throw Error();
 
-      pedidos.value = result.ventas;
+      pedidos.value = result;
 
       isLoading.value = false;
       return true;
@@ -200,21 +200,40 @@ export const usePedidosStore = defineStore('pedidos', () => {
   return {
     isLoading,
     isSaving,
-    pedidos: computed(() => {
-      return pedidos.value!.map((venta) => {
-        const ventaFormat = { ...venta };
-        const fechacreacion = formatDate(venta.fechacreacion);
-        const completion = venta.preciototal === 0 ? 0 : (venta.senia / venta.preciototal) * 100;
+    pedidosPendientes: computed(() => {
+      return pedidos.value
+        .filter((pedido) => pedido.estado !== 'ENTREGADO' && pedido.estado !== 'CANCELADO')
+        .map((pedido) => {
+          const pedidoFormat = { ...pedido };
+          const fechacreacion = formatDate(pedido.fechacreacion);
+          const completion =
+            pedido.preciototal === 0 ? 0 : (pedido.senia / pedido.preciototal) * 100;
+          return {
+            ...pedidoFormat,
+            fechacreacion,
+            completion: Math.ceil(completion),
+          };
+        });
+    }),
+
+    pedidosAll: computed(() => {
+      return pedidos.value.map((pedido) => {
+        const pedidoFormat = { ...pedido };
+        const fechacreacion = formatDate(pedido.fechacreacion);
+
         return {
-          ...ventaFormat,
+          ...pedidoFormat,
           fechacreacion,
-          completion: Math.ceil(completion),
         };
       });
     }),
 
     pedido: computed(() => pedido.value),
     pedidoEstadoActual: computed(() => pedido.value.estado),
+    isAvailable: computed(() => {
+      if (pedido.value.estado === 'ENTREGADO' || pedido.value.estado === 'CANCELADO') return false;
+      return true;
+    }),
     newPedido,
 
     costoTotalPedido: computed(() => {

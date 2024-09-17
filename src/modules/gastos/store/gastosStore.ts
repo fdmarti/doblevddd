@@ -12,13 +12,14 @@ export const useGastosStore = defineStore('gastos', () => {
     try {
       const result = await GetGastos(filtro);
 
-      if (!result) throw new Error();
+      if (!result) throw Error();
 
       gastos.value = result.gastos;
       isLoading.value = false;
       return true;
     } catch (error) {
       isLoading.value = false;
+      Toast.error('Error cargar los gastos');
       return false;
     }
   };
@@ -27,22 +28,21 @@ export const useGastosStore = defineStore('gastos', () => {
     try {
       const result = await SaveGasto(formData);
 
-      if (result.status) {
-        const currentDate = new Date().toISOString().split('T');
+      if (!result.status) throw Error();
 
-        gastos.value.push({
-          descripcion: formData.descripcion,
-          id: result.id,
-          monto: formData.monto,
-          tipo: formData.tipo,
-          fechagasto: new Date(currentDate[0]),
-        });
+      const currentDate = new Date().toISOString().split('T');
 
-        return true;
-      }
+      gastos.value.push({
+        descripcion: formData.descripcion,
+        id: result.id,
+        monto: formData.monto,
+        tipo: formData.tipo,
+        fechagasto: new Date(currentDate[0]),
+      });
 
-      return false;
+      return true;
     } catch (error) {
+      Toast.error('Error al guardar el gasto');
       return false;
     }
   };
@@ -51,14 +51,14 @@ export const useGastosStore = defineStore('gastos', () => {
     try {
       const result = await DeleteGasto(gastoId);
 
-      if (result) {
-        gastos.value = gastos.value.filter((gasto) => gasto.id !== gastoId);
-        Toast.success('Gasto eliminado');
-        return true;
-      }
+      if (!result) throw Error();
 
-      return false;
+      gastos.value = gastos.value.filter((gasto) => gasto.id !== gastoId);
+      Toast.success('Gasto eliminado');
+
+      return true;
     } catch (error) {
+      Toast.error('Error al eliminar el gasto');
       return false;
     }
   };

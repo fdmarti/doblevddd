@@ -1,51 +1,27 @@
 <template>
   <ul
     tabindex="0"
-    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral rounded-box w-52"
+    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52"
   >
     <li>
       <RouterLink to="/"> Home </RouterLink>
     </li>
-    <li>
+    <li v-for="head in navBarRoutes" :key="head.name">
       <details>
-        <summary>Formularios</summary>
+        <summary>{{ head.name }}</summary>
         <ul class="p-2 bg-neutral">
-          <li>
-            <RouterLink :to="{ name: 'list-categories' }">Categorias</RouterLink>
-          </li>
-          <li>
-            <RouterLink :to="{ name: 'list-extras' }">Extras</RouterLink>
-          </li>
-          <li>
-            <RouterLink :to="{ name: 'list-products' }">Productos</RouterLink>
-          </li>
-        </ul>
-      </details>
-    </li>
-    <li>
-      <details>
-        <summary>Finanzas</summary>
-        <ul class="p-2 bg-neutral">
-          <li><a>Balance</a></li>
-          <li>
-            <RouterLink :to="{ name: 'list-gastos' }">Gastos</RouterLink>
-          </li>
-          <li>
-            <RouterLink :to="{ name: 'list-pagos' }">Pagos</RouterLink>
-          </li>
-        </ul>
-      </details>
-    </li>
-    <li>
-      <details>
-        <summary>Configuración</summary>
-        <ul class="p-2 bg-neutral">
-          <li>
-            <RouterLink :to="{ name: 'cotizacion-view' }">Cotización</RouterLink>
-          </li>
+          <LinkRouterLink
+            v-for="link in head.routes"
+            :key="link.text"
+            :name-route="link.routeName"
+            :text="link.text"
+          />
         </ul>
       </details>
     </li>
   </ul>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import LinkRouterLink from './LinkRouterLink.vue';
+import { navBarRoutes } from '@/config/navbarModulesLinks';
+</script>

@@ -1,23 +1,19 @@
 <template>
-  <TitleComponent text="Listado de Pedidos" />
+  <TitleComponent text="Historial de Pedidos" />
 
   <TableComponent
-    :arr-length="pedidosStore.pedidosPendientes.length"
+    :arr-length="pedidosStore.pedidosAll.length"
     :is-loading="pedidosStore.isLoading"
-    :table-head-arr="thPedido"
+    :table-head-arr="thPedidoHistorial"
   >
     <template #tbody>
       <tbody>
-        <tr v-for="pedido in pedidosStore.pedidosPendientes" :key="pedido.id">
+        <tr v-for="pedido in pedidosStore.pedidosAll" :key="pedido.id">
           <th>#{{ pedido.id }}</th>
           <td>{{ pedido.cliente }}</td>
           <td>{{ pedido.contacto }}</td>
           <td>{{ pedido.fechacreacion }}</td>
           <td>{{ pedido.productos }}</td>
-          <td>
-            <PaymentProgess :completion="pedido.completion" />
-          </td>
-
           <td>{{ pedido.estado }}</td>
           <td>
             <RouterLink :to="{ name: 'pedido', params: { id: pedido.id } }" class="btn btn-outline"
@@ -28,40 +24,26 @@
       </tbody>
     </template>
   </TableComponent>
-
-  <FabButton @click="onHandleNewPedido">
-    <PlusIcon />
-  </FabButton>
 </template>
-
-<script setup lang="ts">
+<script lang="ts" setup>
+import { TitleComponent } from '@common/components/Text';
 import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { PlusIcon } from '@common/components/icons';
-import PaymentProgess from '@pedidos/components/PaymentProgress.vue';
 
-const thPedido = [
+const thPedidoHistorial = [
   'Codigo',
   'Cliente',
   'Contacto',
   'Fecha creación',
   'Cantidad productos',
-  'Pago',
   'Estado',
   'Acciones',
 ];
 
 const pedidosStore = usePedidosStore();
-const router = useRouter();
 
 onMounted(async () => {
-  const status = await pedidosStore.getPedidos();
-  if (!status) router.replace({ name: 'login' });
+  await pedidosStore.getPedidos();
 });
-
-const onHandleNewPedido = () => {
-  router.push({ name: 'nuevo-pedido' });
-};
 </script>
