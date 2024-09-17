@@ -28,9 +28,9 @@
         </section>
       </div>
 
-      <div class="divider"></div>
+      <DividerComponent />
       <StackStatsPedido :detalle="producto.detalle" />
-      <div class="divider"></div>
+      <DividerComponent />
       <ActionsPedido :itemid="producto.itemid" />
     </div>
   </div>
@@ -38,11 +38,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { calcPercentage } from '@utils/index';
 import { PuzzleCompleteIcon } from '@common/components/icons';
 import { StackStatsPedido, ActionsPedido } from '@pedidos/components';
-import { RadialProgressComponent } from '@/modules/common/components/progress';
+import { RadialProgressComponent } from '@common/components/progress';
+import { DividerComponent } from '@common/components/content';
 import type { Producto } from '@pedidos/interfaces';
-import { calcPercentage } from '@utils/index';
 
 interface Props {
   producto: Producto;

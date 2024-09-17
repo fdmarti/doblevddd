@@ -1,19 +1,23 @@
 <template>
-  <TitleDividerComponent title="Cotización" />
-  <section class="grid md:grid-cols-2 gap-5 w-full mt-5">
-    <CardDetailLayout v-for="block in detailsBlocks" :key="block.primaryText">
-      <CardDetailContent
-        :component-icon="block.icon"
-        :primary-text="block.primaryText"
-        :primary-value="block.primaryValue"
-      />
-    </CardDetailLayout>
-  </section>
-  <TotalPrecioProducto :precio="precio" />
+  <DividerComponent text="Cotización" />
+  <div class="flex flex-col gap-2">
+    <section class="grid md:grid-cols-2 gap-5 w-full mt-5 mb-7">
+      <CardDetailLayout v-for="block in detailsBlocks" :key="block.primaryText">
+        <CardDetailContent
+          :component-icon="block.icon"
+          :primary-text="block.primaryText"
+          :primary-value="block.primaryValue"
+        />
+      </CardDetailLayout>
+    </section>
+    <section>
+      <TotalPrecioProducto :precio="precio" />
+    </section>
+  </div>
 </template>
 <script lang="ts" setup>
 import { TotalPrecioProducto } from '@productos/components';
-import { TitleDividerComponent } from '@common/components/Text';
+import { DividerComponent } from '@common/components/content';
 import { TimeIcon, WeightIcon, DiamondIcon, MoneyBagIcon } from '@common/components/icons';
 import { CardDetailContent, CardDetailLayout } from '@common/components/Card';
 import type { CotizacionTotal, Precio } from '@productos/interfaces/producto.response';

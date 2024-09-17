@@ -3,10 +3,12 @@
     <h1 class="text-xl font-bold">{{ text }}</h1>
     <slot name="action"> </slot>
   </div>
-  <div class="divider"></div>
+  <DividerComponent />
 </template>
 
 <script lang="ts" setup>
+import { DividerComponent } from '@common/components/content';
+
 interface Props {
   text?: string;
 }

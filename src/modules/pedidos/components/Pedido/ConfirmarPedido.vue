@@ -5,7 +5,7 @@
     <p class="text-2xl font-semibold">Contacto : {{ pedidoStore.newPedido.contacto }}</p>
   </section>
 
-  <div class="divider"></div>
+  <DividerComponent />
 
   <TableComponent
     :arr-length="pedidoStore.newPedido.productos.length"
@@ -55,6 +55,7 @@
 import { TitleComponent, StatBlock } from '@common/components/Text';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 import { TableComponent } from '@common/components/Table';
+import { DividerComponent } from '@common/components/content';
 
 const pedidoStore = usePedidosStore();
 

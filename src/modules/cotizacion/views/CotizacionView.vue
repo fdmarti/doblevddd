@@ -1,19 +1,14 @@
 <template>
   <section class="flex items-center justify-between">
-    <h1 class="mb-5 text-xl font-bold">Cotizaciones</h1>
-    <button
-      class="btn btn-outline btn-primary text-lg font-bold"
-      @click="cotizacionStore.saveCotizacion"
-    >
-      Guardar Cotizaciones
-    </button>
+    <h1 class="mb-5 text-2xl font-bold">Cotizaciones</h1>
+    <DButton color="primary" @click="cotizacionStore.saveCotizacion">Guardar Cotizaciones</DButton>
   </section>
-  <div class="divider"></div>
+  <DividerComponent />
 
   <form class="grid sm:grid-cols-2 gap-5" id="cotizacion-form" name="cotizacion-form">
     <label
       class="form-control w-full"
-      v-for="(cotizacion, index) in cotizacionStore.cotizaciones"
+      v-for="(_, index) in cotizacionStore.cotizaciones"
       :key="index"
     >
       <div class="label">
@@ -34,6 +29,8 @@
 import { onMounted } from 'vue';
 import { useCotizacionStore } from '@cotizacion/store/cotizacionesStore';
 import { splitCamelCase } from '@cotizacion/utils';
+import { DividerComponent } from '@common/components/content';
+import { DButton } from '@common/components/Buttons';
 
 const cotizacionStore = useCotizacionStore();
 

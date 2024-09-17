@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import BlockMainContent from '@common/components/content/BlockMainContent.vue';
+import { BlockMainContent } from '@common/components/content';
 </script>

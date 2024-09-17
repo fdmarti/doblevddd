@@ -4,7 +4,7 @@
       <p>Generar Factura</p>
       <FacturaView :pedido="pedidoStore.pedido" />
     </div>
-    <div class="divider"></div>
+    <DividerComponent />
     <div class="flex justify-between items-center">
       <p>Entregar pedido</p>
       <DButton
@@ -15,7 +15,7 @@
         Entregar
       </DButton>
     </div>
-    <div class="divider"></div>
+    <DividerComponent />
     <div class="flex justify-between items-center">
       <p>Cancelar Pedido</p>
       <DButton @click="toggleCancelPedido" color="error">Cancelar</DButton>
@@ -33,6 +33,7 @@ import { Toast } from '@/utils';
 import CancelPedidoModal from '@pedidos/components/Popups/CancelPedidoModal.vue';
 import FacturaView from '@factura/view/FacturaView.vue';
 import { DButton } from '@common/components/Buttons';
+import { DividerComponent } from '@common/components/content';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
 const cancelPedido = ref(false);

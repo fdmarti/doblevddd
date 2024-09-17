@@ -48,11 +48,11 @@
           </select>
         </label>
       </section>
-      <div class="flex justify-end">
-        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+      <div class="flex justify-end mt-2">
+        <DButton color="primary" type="submit">Confirmar</DButton>
       </div>
     </form>
-    <div class="divider"></div>
+    <DividerComponent />
     <form @submit.prevent="onHandleDeleteItems">
       <label class="form-control w-full max-w-xs">
         <div class="label">
@@ -67,8 +67,8 @@
           id="cantidad-errores-pedido"
         />
       </label>
-      <div class="flex justify-end">
-        <button type="submit" class="btn btn-error mt-2">Guardar error</button>
+      <div class="flex justify-end mt-2">
+        <DButton color="error" type="submit">Guardar error</DButton>
       </div>
     </form>
   </div>
@@ -76,6 +76,8 @@
 <script lang="ts" setup>
 import { arrayStates } from '@pedidos/utils';
 import { useChangeItemsState } from '@pedidos/composables/useChangeItemsState';
+import { DButton } from '@common/components/Buttons';
+import { DividerComponent } from '@common/components/content';
 
 interface Props {
   itemid: string;
