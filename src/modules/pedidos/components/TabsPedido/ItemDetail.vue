@@ -29,9 +29,8 @@
       </div>
 
       <DividerComponent />
-      <StackStatsPedido :detalle="producto.detalle" />
-      <DividerComponent />
-      <ActionsPedido :itemid="producto.itemid" />
+      <StackStatsPedido :detalle="producto.detalle" :itemid="producto.itemid" />
+      <ErroresPedido :itemid="producto.itemid" :detalle="producto.detalle" />
     </div>
   </div>
 </template>
@@ -40,7 +39,7 @@
 import { computed } from 'vue';
 import { calcPercentage } from '@utils/index';
 import { PuzzleCompleteIcon } from '@common/components/icons';
-import { StackStatsPedido, ActionsPedido } from '@pedidos/components';
+import { StackStatsPedido, ErroresPedido } from '@pedidos/components';
 import { RadialProgressComponent } from '@common/components/progress';
 import type { Producto } from '@pedidos/interfaces';
 

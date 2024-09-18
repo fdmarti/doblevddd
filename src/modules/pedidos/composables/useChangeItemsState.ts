@@ -1,7 +1,6 @@
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { Toast } from '@utils/index';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import type { NewItemState } from '@pedidos/interfaces/NuevoEstadoItem';
 
 const dataChangeStateInitial = {
   estadoAnterior: '',
@@ -12,11 +11,32 @@ const dataChangeStateInitial = {
 export const useChangeItemsState = (itemId: string) => {
   const pedidoStore = usePedidosStore();
 
-  const formDataChangeState = reactive<NewItemState>({ ...dataChangeStateInitial });
+  const formDataChangeState = reactive({ ...dataChangeStateInitial });
+  const currentStateArr = ref<string[]>([]);
+  const bgColorSelected = 'bg-accent';
 
   const formDataErrores = reactive({
     cantidad: 0,
   });
+
+  const addStateForItem = (state: string) => {
+    if (currentStateArr.value.includes(state)) {
+      const index = currentStateArr.value.indexOf(state);
+      currentStateArr.value.splice(index, 1);
+      return;
+    }
+
+    if (currentStateArr.value.length == 2) {
+      currentStateArr.value[0] = currentStateArr.value[1];
+      currentStateArr.value.pop();
+    }
+
+    currentStateArr.value.push(state);
+  };
+
+  const addClassIsInStateArr = (currentState: string) => {
+    return currentStateArr.value.includes(currentState) ? bgColorSelected : '';
+  };
 
   const onHandleChangeItemsState = async () => {
     if (formDataChangeState.cantidad! <= 0 || !formDataChangeState.cantidad) {
@@ -24,20 +44,18 @@ export const useChangeItemsState = (itemId: string) => {
       return;
     }
 
-    if (!formDataChangeState.estadoAnterior) {
+    if (!currentStateArr.value[0]) {
       Toast.error('Debe ingresar el estado anterior');
       return;
     }
 
-    if (!formDataChangeState.estadoNuevo) {
+    if (!currentStateArr.value[1]) {
       Toast.error('Debe ingresar un nuevo estado');
       return;
     }
 
-    if (formDataChangeState.estadoAnterior === formDataChangeState.estadoNuevo) {
-      Toast.error('Los estados no pueden ser iguales');
-      return;
-    }
+    formDataChangeState.estadoAnterior = currentStateArr.value[0];
+    formDataChangeState.estadoNuevo = currentStateArr.value[1];
 
     const result = await pedidoStore.updateItemsPedido(itemId, formDataChangeState);
 
@@ -46,18 +64,17 @@ export const useChangeItemsState = (itemId: string) => {
       return;
     }
 
-    Object.assign(formDataChangeState, dataChangeStateInitial);
+    currentStateArr.value = [];
+    formDataChangeState.cantidad = 0;
 
-    pedidoStore.pedido.productos?.forEach((item) => {
-      if (item.itemid === itemId) {
-        Object.assign(item.detalle, result.detalle);
-      }
+    pedidoStore.pedido.productos.forEach((item) => {
+      if (item.itemid === itemId) Object.assign(item.detalle, result.detalle);
     });
 
     Toast.success('Cambio realizado de forma correcta');
   };
 
-  const onHandleDeleteItems = async () => {
+  const onHandleErroresItems = async () => {
     if (formDataErrores.cantidad <= 0 || !formDataErrores.cantidad) {
       Toast.error('Debe ingresar una cantidad valida');
       return;
@@ -93,10 +110,13 @@ export const useChangeItemsState = (itemId: string) => {
   };
 
   return {
-    formDataChangeState,
     formDataErrores,
+    formDataChangeState,
+    currentStateArr,
 
     onHandleChangeItemsState,
-    onHandleDeleteItems,
+    onHandleErroresItems,
+    addClassIsInStateArr,
+    addStateForItem,
   };
 };

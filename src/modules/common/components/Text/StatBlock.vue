@@ -1,6 +1,6 @@
 <template>
-  <div class="stat">
-    <div class="stat-title">{{ text }}</div>
+  <div class="stat cursor-pointer hover:shadow-2xl">
+    <div class="stat-title font-bold">{{ text }}</div>
     <div :class="`stat-value text-center ${textColor} text-[2rem]`">{{ value }}</div>
     <div class="stat-desc"><slot name="desc"></slot></div>
   </div>
@@ -27,7 +27,7 @@ const textColor = computed(() => {
       return 'text-warning';
 
     default:
-      return '';
+      return 'text-neutral';
   }
 });
 </script>
