@@ -15,7 +15,7 @@
         </tr>
       </tbody>
       <slot name="tbody" v-else> </slot>
-      <slot name="tfoot"> </slot>
+      <slot name="tfoot" v-if="!isLoading"> </slot>
     </table>
   </div>
 </template>

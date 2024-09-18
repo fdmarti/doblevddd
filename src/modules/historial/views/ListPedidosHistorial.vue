@@ -14,10 +14,18 @@
           <td>{{ pedido.contacto }}</td>
           <td>{{ pedido.fechacreacion }}</td>
           <td>{{ pedido.productos }}</td>
-          <td>{{ pedido.estado }}</td>
           <td>
-            <RouterLink :to="{ name: 'pedido', params: { id: pedido.id } }" class="btn btn-outline"
-              >Detalle
+            <div class="stat">
+              <div class="text-lg stat-value">{{ formatCurrency(pedido.preciototal) }}</div>
+              <div class="stat-desc">Seña: {{ formatCurrency(pedido.senia) }}</div>
+            </div>
+          </td>
+          <td>
+            <span class="stat-value text-sm"> {{ pedido.estado }}</span>
+          </td>
+          <td>
+            <RouterLink :to="{ name: 'pedido', params: { id: pedido.id } }" class="btn btn-outline">
+              Detalle
             </RouterLink>
           </td>
         </tr>
@@ -30,6 +38,7 @@ import { TitleComponent } from '@common/components/Text';
 import { onMounted } from 'vue';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
+import { formatCurrency } from '@/utils/numbers/format-currency';
 
 const thPedidoHistorial = [
   'Codigo',
@@ -37,6 +46,7 @@ const thPedidoHistorial = [
   'Contacto',
   'Fecha creación',
   'Cantidad productos',
+  'Precio Total',
   'Estado',
   'Acciones',
 ];

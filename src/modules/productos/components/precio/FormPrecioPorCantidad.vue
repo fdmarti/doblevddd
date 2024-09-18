@@ -28,18 +28,21 @@
         <div>
           <p class="text-lg font-semibold">Cantidad : {{ priceByAmount.unidades }}</p>
           <p class="text-lg font-semibold">
-            Precio por unidad : $ {{ priceByAmount.unidad.toFixed(2) }}
+            Precio por unidad : {{ formatCurrency(priceByAmount.unidad) }}
           </p>
           <p class="text-lg font-semibold">
             Descuento : {{ priceByAmount.descuento.toFixed(2) }} %
           </p>
-          <p class="text-lg font-semibold">Precio Total : $ {{ priceByAmount.total.toFixed(2) }}</p>
+          <p class="text-lg font-semibold">
+            Precio Total : {{ formatCurrency(priceByAmount.total) }}
+          </p>
         </div>
       </section>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
+import { formatCurrency } from '@/utils/numbers/format-currency';
 import { useFormPrecioCantidad } from '@productos/composables';
 
 const { priceByAmount, isSearching, handleSubmitFormCantidad } = useFormPrecioCantidad();

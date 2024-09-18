@@ -24,7 +24,7 @@
         <tr class="hover" v-for="extra in extrasStore.extras" :key="extra.id">
           <th>#{{ extra.id }}</th>
           <td>{{ extra.descripcion }}</td>
-          <td>$ {{ extra.precio }}</td>
+          <td>{{ formatCurrency(extra.precio) }}</td>
           <td class="flex justify-center gap-2">
             <button class="btn" @click="emits('edit', extra)">
               <EditIcon />
@@ -53,12 +53,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { SearchIcon, EditIcon, TrashIcon } from '@common/components/icons';
-import PaginationComponent from '@/modules/common/components/PaginationComponent.vue';
+import PaginationComponent from '@common/components/PaginationComponent.vue';
 import { ExtraModalDelete } from '@extras/components';
+import { formatCurrency } from '@/utils/numbers/format-currency';
 
 import type { Extra } from '@extras/interface/extras.response';
-
 import { useExtrasStore } from '@extras/store/extrasStore';
+
 const extrasStore = useExtrasStore();
 const { nextPageExtras, prevPageExtras } = extrasStore;
 

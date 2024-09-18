@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import type { Gasto, GastoForm } from '@gastos/interfaces/Gastos';
 import { GetGastos, SaveGasto, DeleteGasto } from '@gastos/actions';
 import { Toast } from '@/utils';
+import { sleep } from '@/utils/sleep';
 
 export const useGastosStore = defineStore('gastos', () => {
   const isLoading = ref(true);
@@ -15,6 +16,7 @@ export const useGastosStore = defineStore('gastos', () => {
       if (!result) throw Error();
 
       gastos.value = result.gastos;
+      await sleep();
       isLoading.value = false;
       return true;
     } catch (error) {
@@ -65,15 +67,7 @@ export const useGastosStore = defineStore('gastos', () => {
 
   return {
     gastos: computed(() => gastos.value),
-    totalGastos: computed(() => {
-      let total = 0;
-
-      gastos.value.forEach((gasto) => {
-        total += gasto.monto;
-      });
-
-      return total;
-    }),
+    totalGastos: computed(() => gastos.value.reduce((el, acc) => el + acc.monto, 0)),
     isLoading,
 
     getGastos,
