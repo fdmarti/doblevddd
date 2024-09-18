@@ -2,7 +2,6 @@
   <div>
     <TitleComponent text="Pagos" />
     <FormPagos :pedido-id="pedidoId" />
-    <div class="divider"></div>
     <ListHistorialPagos :pedido-id="pedidoId" />
   </div>
 </template>

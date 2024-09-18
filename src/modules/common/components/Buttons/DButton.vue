@@ -5,7 +5,6 @@
   </button>
 </template>
 <script setup lang="ts">
-import { LoadingSpinner } from '@common/components/Loading';
 import { computed } from 'vue';
 
 interface Props {

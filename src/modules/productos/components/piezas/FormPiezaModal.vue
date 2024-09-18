@@ -53,7 +53,7 @@
           </div>
         </form>
 
-        <div class="divider"></div>
+        <DividerComponent />
 
         <input
           type="file"
@@ -73,8 +73,6 @@ import { reactive } from 'vue';
 import { Toast } from '@utils/index';
 import type { Pieza } from '@productos/interfaces/Pieza';
 import { PuzzleIcon } from '@common/components/icons';
-import { PopupComponent } from '@common/components/Popup';
-import { DButton } from '@common/components/Buttons';
 import { useGCODEFile } from '@common/composables';
 import { cleanInputFile } from '@/utils/Files';
 

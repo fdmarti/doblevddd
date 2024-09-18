@@ -18,7 +18,8 @@
       "@pedidos/*": ["./src/modules/pedidos/*"],
       "@productos/*": ["./src/modules/productos/*"],
       "@pagos/*": ["./src/modules/pagos/*"],
-      "@factura/*": ["./src/modules/factura/*"]
+      "@factura/*": ["./src/modules/factura/*"],
+      "@historial/*": ["./src/modules/historial/*"]
     }
   }
 }

@@ -41,7 +41,6 @@ import { onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { TrashIcon, EditIcon } from '@common/components/icons';
-import LoadingComponent from '@common/components/LoadingComponent.vue';
 import {
   DetalleProducto,
   PiezasExtraProducto,

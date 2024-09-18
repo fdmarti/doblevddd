@@ -2,10 +2,10 @@ import { useFetch } from '@common/composables';
 
 import type { Pedidos } from '@pedidos/interfaces/pedidos.response';
 
-export const GetPedidosActions = async (): Promise<Pedidos | null> => {
-  const { data, error } = await useFetch('/ventas');
+export const GetPedidosActions = async (): Promise<Pedidos[] | []> => {
+  const { data, error } = await useFetch('/pedidos');
 
-  if (error) return null;
+  if (error) return [];
 
   return data;
 };

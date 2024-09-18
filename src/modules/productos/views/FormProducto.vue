@@ -38,7 +38,7 @@
                 {{ categoria.descripcion }}
               </option>
             </select>
-            <div class="divider"></div>
+            <DividerComponent />
             <h2 class="mt-2 font-bold text-lg">Extras</h2>
 
             <CheckExtras
@@ -48,10 +48,10 @@
             />
           </div>
         </section>
-        <div class="divider divider-horizontal"></div>
+        <DividerComponent direction="divider-horizontal" />
         <section class="w-full">
           <h2>Listado de Piezas</h2>
-          <div class="divider"></div>
+          <DividerComponent />
           <div class="flex gap-2 flex-wrap">
             <CardPieza
               v-for="(pieza, index) in product.piezas"
@@ -73,7 +73,6 @@
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-import LoadingComponent from '@common/components/LoadingComponent.vue';
 import { BoxIcon } from '@common/components/icons';
 import { CardPieza, FormPiezaModal } from '@productos/components/piezas';
 import { CheckExtras } from '@productos/components/extras';

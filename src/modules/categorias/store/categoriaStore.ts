@@ -25,10 +25,11 @@ export const useCategoriaStore = defineStore('categoria', () => {
     try {
       const result = await GetCategorias();
 
-      if (!result) throw false;
+      if (!result) throw Error();
 
       categorias.value = result.categorias;
       isLoading.value = false;
+      return true;
     } catch (error) {
       isLoading.value = false;
       return false;
@@ -38,8 +39,8 @@ export const useCategoriaStore = defineStore('categoria', () => {
   const saveCategoria = async (category: NewCategoria): Promise<boolean> => {
     try {
       const result = await SaveCategory(category);
-      if (!result.status) return false;
-      if (!categorias.value) return false;
+      if (!result.status) throw Error();
+      if (!categorias.value) throw Error();
 
       if (!category.id) {
         categorias.value.push({
@@ -73,7 +74,7 @@ export const useCategoriaStore = defineStore('categoria', () => {
     try {
       const result = await DeleteCategoria(categoryId);
 
-      if (!result.status) return false;
+      if (!result.status) throw Error();
 
       categorias.value = categorias.value!.filter((c) => c.id !== categoryId);
 
@@ -87,9 +88,9 @@ export const useCategoriaStore = defineStore('categoria', () => {
     try {
       const result = await ToggleStateCatalogo(categoryId);
 
-      if (result.status) return true;
+      if (!result.status) throw Error();
 
-      return false;
+      return true;
     } catch (error) {
       return false;
     }

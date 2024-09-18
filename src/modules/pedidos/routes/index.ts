@@ -14,18 +14,18 @@ export const pedidosRoutes: RouteRecordRaw[] = [
       {
         path: 'pedidos',
         name: 'list-pedidos',
-        component: () => import('@/modules/pedidos/views/PedidosView.vue'),
+        component: () => import('@pedidos/views/PedidosView.vue'),
       },
       {
         path: 'pedidos/:id',
         name: 'pedido',
         props: true,
-        component: () => import('@/modules/pedidos/views/PedidoView.vue'),
+        component: () => import('@pedidos/views/PedidoView.vue'),
       },
       {
         path: 'nuevo-pedido',
         name: 'nuevo-pedido',
-        component: () => import('@/modules/pedidos/views/NuevoPedido.vue'),
+        component: () => import('@pedidos/views/NuevoPedido.vue'),
       },
     ],
   },

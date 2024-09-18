@@ -20,10 +20,11 @@ export const useExtrasStore = defineStore('extra', () => {
     try {
       const result = await GetExtras();
 
-      if (!result) throw new Error();
+      if (!result) throw Error();
 
       extras.value = result.extras;
       isLoading.value = false;
+      return true;
     } catch (error) {
       resetExtras();
     }
@@ -32,8 +33,8 @@ export const useExtrasStore = defineStore('extra', () => {
   const saveExtra = async (extra: Extra): Promise<boolean> => {
     try {
       const result = await SaveExtra(extra);
-      if (!result.status) return false;
-      if (!extras.value) return false;
+      if (!result.status) throw Error();
+      if (!extras.value) throw Error();
 
       if (!extra.id) {
         extras.value!.push({
@@ -63,6 +64,8 @@ export const useExtrasStore = defineStore('extra', () => {
   const deleteExtra = async (extraId: number): Promise<boolean> => {
     try {
       const result = await DeleteExtra(extraId);
+
+      if (!result.status) throw Error();
 
       extras.value = extras.value!.filter((extra) => extra.id !== extraId);
 

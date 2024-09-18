@@ -1,9 +1,7 @@
 <template>
-    <BlockMainContent>
-        <RouterView></RouterView>
-    </BlockMainContent>
+  <BlockMainContent>
+    <RouterView></RouterView>
+  </BlockMainContent>
 </template>
 
-<script setup lang="ts">
-import BlockMainContent from '@common/components/content/BlockMainContent.vue'
-</script>
+<script setup lang="ts"></script>

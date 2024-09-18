@@ -8,8 +8,7 @@
   <BackgroundModal v-if="open" />
 </template>
 <script lang="ts" setup>
-import BackgroundModal from '@common/components/content/BackgroundModal.vue';
-import { TitleComponent } from '@common/components/Text';
+import { BackgroundModal } from '@common/components/content';
 
 interface Props {
   id: string;

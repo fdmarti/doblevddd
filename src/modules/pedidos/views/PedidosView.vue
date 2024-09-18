@@ -2,13 +2,13 @@
   <TitleComponent text="Listado de Pedidos" />
 
   <TableComponent
-    :arr-length="pedidosStore.pedidos.length"
+    :arr-length="pedidosStore.pedidosPendientes.length"
     :is-loading="pedidosStore.isLoading"
     :table-head-arr="thPedido"
   >
     <template #tbody>
       <tbody>
-        <tr v-for="pedido in pedidosStore.pedidos" :key="pedido.id">
+        <tr v-for="pedido in pedidosStore.pedidosPendientes" :key="pedido.id">
           <th>#{{ pedido.id }}</th>
           <td>{{ pedido.cliente }}</td>
           <td>{{ pedido.contacto }}</td>
@@ -39,11 +39,8 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { TitleComponent } from '@common/components';
-import { FabButton } from '@common/components/Buttons';
 import { PlusIcon } from '@common/components/icons';
 import PaymentProgess from '@pedidos/components/PaymentProgress.vue';
-import { TableComponent } from '@common/components/Table';
 
 const thPedido = [
   'Codigo',

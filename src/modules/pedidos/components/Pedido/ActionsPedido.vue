@@ -9,6 +9,7 @@
           <select
             class="select select-bordered"
             id="dropdown-current-state-item"
+            :disabled="!pedidoStore.isAvailable"
             v-model="formDataChangeState.estadoAnterior"
           >
             <option disabled selected value="">Seleccionar una opción</option>
@@ -26,6 +27,7 @@
             type="number"
             step="1"
             placeholder="0"
+            :disabled="!pedidoStore.isAvailable"
             id="cantidad-productos-items"
             class="input input-bordered w-full max-w-xs text-right"
             v-model="formDataChangeState.cantidad"
@@ -39,6 +41,7 @@
           <select
             class="select select-bordered"
             id="dropdown-new-state-item"
+            :disabled="!pedidoStore.isAvailable"
             v-model="formDataChangeState.estadoNuevo"
           >
             <option disabled selected value="">Seleccionar una opción</option>
@@ -48,11 +51,11 @@
           </select>
         </label>
       </section>
-      <div class="flex justify-end">
-        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+      <div class="flex justify-end mt-2" v-if="pedidoStore.isAvailable">
+        <DButton color="primary" type="submit">Confirmar</DButton>
       </div>
     </form>
-    <div class="divider"></div>
+    <DividerComponent />
     <form @submit.prevent="onHandleDeleteItems">
       <label class="form-control w-full max-w-xs">
         <div class="label">
@@ -62,13 +65,14 @@
           type="number"
           step="1"
           placeholder="0"
+          :disabled="!pedidoStore.isAvailable"
           class="input input-bordered w-full max-w-xs text-right"
           v-model="formDataErrores.cantidad"
           id="cantidad-errores-pedido"
         />
       </label>
-      <div class="flex justify-end">
-        <button type="submit" class="btn btn-error mt-2">Guardar error</button>
+      <div class="flex justify-end mt-2" v-if="pedidoStore.isAvailable">
+        <DButton color="error" type="submit">Guardar error</DButton>
       </div>
     </form>
   </div>
@@ -76,6 +80,9 @@
 <script lang="ts" setup>
 import { arrayStates } from '@pedidos/utils';
 import { useChangeItemsState } from '@pedidos/composables/useChangeItemsState';
+import { usePedidosStore } from '@pedidos/store/pedidosStore';
+
+const pedidoStore = usePedidosStore();
 
 interface Props {
   itemid: string;

@@ -54,7 +54,7 @@
   <BackgroundModal v-if="open" />
 </template>
 <script lang="ts" setup>
-import BackgroundModal from '@common/components/content/BackgroundModal.vue';
+import { BackgroundModal } from '@common/components/content';
 import { DolarIcon } from '@common/components/icons';
 import { InitialGastoState, tiposGastos } from '@gastos/utils';
 import { useGastosForm } from '../composables/useGastosForm';

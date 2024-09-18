@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const styleValueRadialProgress = computed(() => {
-  return `--value: ${props.value}; --size: 4rem`;
+  return `--value: ${props.value}; --size: 3rem`;
 });
 
 const styleProgressByValue = computed(() => {
@@ -45,6 +45,6 @@ const styleProgressByValue = computed(() => {
       break;
   }
 
-  return `radial-progress font-semibold ${defautColorText} text-sm`;
+  return `radial-progress font-semibold ${defautColorText} text-xs`;
 });
 </script>

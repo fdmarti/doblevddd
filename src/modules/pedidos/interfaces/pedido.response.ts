@@ -25,5 +25,6 @@ export interface Detalle {
   errores: number;
   imprimiendo: number;
   listo: number;
+  estado: string;
   pendiente: number;
 }

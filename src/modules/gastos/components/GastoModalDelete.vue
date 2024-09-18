@@ -6,7 +6,7 @@
           ¿Seguro que queres eliminar el gasto # {{ deletedGasto }}?
         </p>
         <div class="border-t border-t-blue-300 pt-5 flex items-center justify-between">
-          <ButtonError @click="emits('close')">Cancelar</ButtonError>
+          <DButton @click="emits('close')" color="error">Cancelar</DButton>
           <DButton type="button" @click="handleDeleteGasto">Confirmar</DButton>
         </div>
       </div>
@@ -14,8 +14,6 @@
   </PopupComponent>
 </template>
 <script lang="ts" setup>
-import { PopupComponent } from '@common/components/Popup';
-import { ButtonError, DButton } from '@common/components/Buttons';
 import { useGastosStore } from '@gastos/store/gastosStore';
 
 const gastosStore = useGastosStore();

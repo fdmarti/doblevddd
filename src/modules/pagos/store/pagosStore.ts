@@ -1,5 +1,7 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
+import { sleep } from '@/utils/sleep';
+
 import { GetPagosByPedido, DeleteGasto, GetMediosPagos, SavePago, GetPagos } from '@pagos/actions';
 import type { MediosDePago, Pagos, FormPagos, PagosList } from '@pagos/interfaces';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
@@ -19,7 +21,7 @@ export const usePagosStore = defineStore('pagos', () => {
       if (!result) throw new Error('Error al cargar los pagos');
 
       pagos.value = result;
-
+      await sleep(0.5);
       isLoading.value = false;
       return true;
     } catch (error) {
@@ -102,6 +104,7 @@ export const usePagosStore = defineStore('pagos', () => {
 
   return {
     pagos: computed(() => pagos.value),
+    pagosTotal: computed(() => pagos.value.reduce((el, acc) => el + acc.monto, 0)),
     precioRestanteAPagar: computed(() => {
       let paid = 0;
 

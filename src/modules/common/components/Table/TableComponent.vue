@@ -15,12 +15,11 @@
         </tr>
       </tbody>
       <slot name="tbody" v-else> </slot>
-      <slot name="tfoot"> </slot>
+      <slot name="tfoot" v-if="!isLoading"> </slot>
     </table>
   </div>
 </template>
 <script setup lang="ts">
-import { LoadingComponent } from '@common/components';
 import { TableHeader } from '@common/components/Table';
 
 interface Props {

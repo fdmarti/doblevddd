@@ -10,7 +10,7 @@
           <th># {{ pago.id }}</th>
           <td>{{ pago.descripcion }}</td>
           <td>{{ formatShortDate(pago.fechapago) }}</td>
-          <td>$ {{ pago.monto }}</td>
+          <td>{{ formatCurrency(pago.monto) }}</td>
           <td class="flex justify-center">
             <button class="btn" @click="handleDeletePago(pago.id)">
               <TrashIcon :size="25" />
@@ -24,9 +24,9 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from 'vue';
 import { formatShortDate, Toast } from '@utils/index';
+import { formatCurrency } from '@/utils/numbers/format-currency';
 import { usePagosStore } from '@pagos/store/pagosStore';
 import { TrashIcon } from '@common/components/icons';
-import { TableComponent } from '@common/components/Table';
 const pagosStore = usePagosStore();
 
 const thPagos = ['Código', 'Descripción', 'Fecha', 'Monto', 'Acciones'];

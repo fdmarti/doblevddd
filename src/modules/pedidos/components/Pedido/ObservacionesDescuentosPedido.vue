@@ -48,9 +48,7 @@
   </TableComponent>
 </template>
 <script lang="ts" setup>
-import { TitleComponent } from '@common/components';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
-import { TableComponent } from '@common/components/Table';
 
 const pedidosStore = usePedidosStore();
 

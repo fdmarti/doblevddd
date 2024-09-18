@@ -10,13 +10,13 @@
         <tr v-for="(pieza, index) in piezas" :key="pieza.descripcion" class="[&_td]:text-sm">
           <th>#{{ index + 1 }}</th>
           <td>{{ pieza.descripcion }}</td>
-          <td>$ {{ pieza.cotizacion.electricidad }}</td>
-          <td>$ {{ pieza.cotizacion.plastico }}</td>
-          <td>$ {{ pieza.cotizacion.costoAmortizacion }}</td>
-          <td>$ {{ pieza.cotizacion.tazaFallos }}</td>
+          <td>{{ formatCurrency(pieza.cotizacion.electricidad) }}</td>
+          <td>{{ formatCurrency(pieza.cotizacion.plastico) }}</td>
+          <td>{{ formatCurrency(pieza.cotizacion.costoAmortizacion) }}</td>
+          <td>{{ formatCurrency(pieza.cotizacion.tazaFallos) }}</td>
           <td>{{ pieza.peso }}g</td>
           <td>{{ pieza.horas }}hr {{ pieza.minutos }}m</td>
-          <td>$ {{ pieza.cotizacion.costoPieza }}</td>
+          <td>{{ formatCurrency(pieza.cotizacion.costoPieza) }}</td>
         </tr>
       </tbody>
     </template>
@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
+import { formatCurrency } from '@/utils/numbers/format-currency';
 import type { Pieza } from '@productos/interfaces/producto.response';
-import { TableComponent } from '@common/components/Table';
 
 const colsHeader = [
   '',

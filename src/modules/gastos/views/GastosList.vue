@@ -20,8 +20,8 @@
           <th># {{ gasto.id }}</th>
           <td>{{ gasto.descripcion }}</td>
           <td>{{ gasto.tipo === 'G' ? 'Gasto' : 'Costo' }}</td>
-          <td>$ {{ gasto.monto }}</td>
           <td>{{ formatShortDate(gasto.fechagasto) }}</td>
+          <td>{{ formatCurrency(gasto.monto) }}</td>
           <td>
             <button @click="onToggleDeleteGastoPopup(gasto.id)">
               <TrashIcon />
@@ -35,7 +35,7 @@
         <tr class="bg-neutral">
           <td colspan="4" class="text-2xl text-gray-100">Total</td>
           <td colspan="2" class="text-2xl text-gray-100 font-bold">
-            $ {{ gastosStore.totalGastos }}
+            {{ formatCurrency(gastosStore.totalGastos) }}
           </td>
         </tr>
       </tfoot>
@@ -59,14 +59,13 @@
 
 <script lang="ts" setup>
 import { onMounted } from 'vue';
-import { TitleComponent } from '@common/components/Text';
-import { TableComponent } from '@common/components/Table';
-import { FabButton } from '@common/components/Buttons';
+import {} from '@common/components/Text';
 import { TrashIcon, DolarIcon, ChartCandleIcon } from '@common/components/icons';
 import { FormGastos, GastoModalDelete, FormFiltroGastos } from '@gastos/components';
 import { useGastosPopups } from '@gastos/composables/useGastosPopups';
 import { formatShortDate } from '@/utils';
 import { useGastosStore } from '@gastos/store/gastosStore';
+import { formatCurrency } from '@/utils/numbers/format-currency';
 
 const gastosStore = useGastosStore();
 
@@ -80,7 +79,7 @@ const {
   toggleFiltroGastosPopup,
 } = useGastosPopups();
 
-const gastosTh = ['Codigo', 'Descripcion', 'Tipo', 'Monto', 'Fecha', 'Acciones'];
+const gastosTh = ['Codigo', 'Descripcion', 'Tipo', 'Fecha', 'Monto', 'Acciones'];
 
 onMounted(async () => {
   await gastosStore.getGastos();
