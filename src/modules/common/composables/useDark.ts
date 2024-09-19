@@ -6,7 +6,7 @@ export const useDark = () => {
   const themeName = 'doblev-theme';
 
   const lightThemeName = 'emerald';
-  const darkThemeName = 'halloween';
+  const darkThemeName = 'dracula';
 
   const checkCurrentTheme = (): void => {
     if (
