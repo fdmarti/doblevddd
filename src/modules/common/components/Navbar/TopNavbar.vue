@@ -18,13 +18,14 @@
 </template>
 
 <script setup lang="ts">
-import { LogoNavbar, TestMarkup } from '@common/components';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { LogoNavbar, TestMarkup } from '@common/components/Navbar';
 import { MenuComponent, MobileMenuComponent } from '@common/components/Menu';
 import { BurgerIcon } from '@common/components/icons';
 
 import { useAuthStore } from '@/modules/auth/store/auth.store';
-import { useRouter } from 'vue-router';
-import { computed } from 'vue';
 
 const authStore = useAuthStore();
 const router = useRouter();

@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import { ref, toRefs } from 'vue';
 import type { Detalle } from '@pedidos/interfaces';
-import { StatBlock } from '@common/components';
+import { StatBlock } from '@common/components/Text';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 import { useChangeItemsState } from '@pedidos/composables/useChangeItemsState';
 

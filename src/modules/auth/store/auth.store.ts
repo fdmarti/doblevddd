@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
       mergeDefaults: true,
     }),
   );
-  const isLoading = ref(false);
+  const isLoading = ref<boolean>(false);
 
   const login = async (username: string, password: string): Promise<boolean> => {
     isLoading.value = true;

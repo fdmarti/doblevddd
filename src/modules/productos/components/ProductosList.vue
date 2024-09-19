@@ -68,7 +68,7 @@ import { useRoute } from 'vue-router';
 
 import { timeStamp } from '@/utils';
 import { useProductosStore } from '@productos/store/productosStore';
-import PaginationComponent from '@common/components/PaginationComponent.vue';
+import { PaginationComponent } from '@common/components/Pagination';
 import { SearchIcon, InfoIcon, AlertIcon } from '@common/components/icons';
 import { CheckProductoPedido } from '@pedidos/components';
 
