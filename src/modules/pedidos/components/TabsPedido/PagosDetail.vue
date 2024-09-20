@@ -6,7 +6,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { TitleComponent } from '@common/components';
+import { TitleComponent } from '@common/components/Text';
 import { ListHistorialPagos, FormPagos } from '@pagos/components';
 
 interface Props {

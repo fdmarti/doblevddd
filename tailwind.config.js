@@ -9,7 +9,7 @@ export default {
     extend: {},
   },
   daisyui: {
-    themes: ['light', 'night'],
+    themes: ['emerald', 'dracula'],
   },
   plugins: [daisyui],
 };

@@ -19,7 +19,24 @@
       <tr v-for="pago in pagosStore.pagos" :key="pago.id">
         <th>#{{ pago.id }}</th>
         <td>{{ pago.cliente }}</td>
-        <td>{{ pago.descripcion }}</td>
+        <td>
+          <select
+            class="select select-bordered"
+            :id="`medio-pago-${pago.id}`"
+            v-model="pago.idmediopago"
+            :disabled="pagosStore.isSaving"
+            @change="updateMedioDePagoInPago(pago.id, pago.idmediopago)"
+          >
+            <option disabled selected value="0">Seleccionar un medio de pago</option>
+            <option
+              v-for="mediopago in pagosStore.mediosPagos"
+              :key="mediopago.id"
+              :value="mediopago.id"
+            >
+              {{ mediopago.descripcion }}
+            </option>
+          </select>
+        </td>
         <td>{{ formatShortDate(pago.fechapago) }}</td>
         <td>
           <span class="text-lg font-bold">{{ formatCurrency(pago.monto) }}</span>
@@ -44,7 +61,7 @@ import { onMounted, ref } from 'vue';
 import { usePagosStore } from '@pagos/store/pagosStore';
 import { ChartCandleIcon } from '@common/components/icons';
 import { FormFiltroPagos } from '@pagos/components';
-import { formatShortDate } from '@/utils';
+import { formatShortDate, Toast } from '@/utils';
 import { formatCurrency } from '@/utils/numbers/format-currency';
 
 const pagosStore = usePagosStore();
@@ -56,7 +73,19 @@ const toggleFiltroPagosPopup = () => {
   showFiltroPagos.value = !showFiltroPagos.value;
 };
 
+const updateMedioDePagoInPago = async (pagoId: number, medioPagoId: number) => {
+  const result = await pagosStore.updateMedioPagoInPago(pagoId, medioPagoId);
+
+  if (!result) {
+    Toast.error('Error al cambiar el medio de pago.');
+    return;
+  }
+
+  Toast.success('Medio de pago modificado.');
+};
+
 onMounted(async () => {
+  await pagosStore.getMediosPagos();
   await pagosStore.getPagos();
 });
 </script>

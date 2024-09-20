@@ -2,7 +2,14 @@ import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { sleep } from '@/utils/sleep';
 
-import { GetPagosByPedido, DeleteGasto, GetMediosPagos, SavePago, GetPagos } from '@pagos/actions';
+import {
+  GetPagosByPedido,
+  DeleteGasto,
+  GetMediosPagos,
+  SavePago,
+  GetPagos,
+  UpdateMedioPagoInPago,
+} from '@pagos/actions';
 import type { MediosDePago, Pagos, FormPagos, PagosList } from '@pagos/interfaces';
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 
@@ -10,6 +17,8 @@ export const usePagosStore = defineStore('pagos', () => {
   const pedidosStore = usePedidosStore();
 
   const isLoading = ref(true);
+  const isSaving = ref(false);
+
   const pagosByPedido = ref<Pagos[]>([]);
   const pagos = ref<PagosList[]>([]);
   const mediosPagos = ref<MediosDePago[]>([]);
@@ -97,6 +106,21 @@ export const usePagosStore = defineStore('pagos', () => {
     }
   };
 
+  const updateMedioPagoInPago = async (pagoId: number, medioPagoId: number) => {
+    isSaving.value = true;
+    try {
+      const result = await UpdateMedioPagoInPago(pagoId, medioPagoId);
+
+      if (!result) throw Error();
+
+      isSaving.value = false;
+      return true;
+    } catch (error) {
+      isSaving.value = false;
+      return false;
+    }
+  };
+
   const clearPagosStore = () => {
     pagosByPedido.value = [];
     pagos.value = [];
@@ -116,6 +140,7 @@ export const usePagosStore = defineStore('pagos', () => {
     pagosByPedido,
     mediosPagos,
     isLoading,
+    isSaving,
 
     getPagos,
     getPagosByPedido,
@@ -123,5 +148,6 @@ export const usePagosStore = defineStore('pagos', () => {
     getMediosPagos,
     savePago,
     clearPagosStore,
+    updateMedioPagoInPago,
   };
 });

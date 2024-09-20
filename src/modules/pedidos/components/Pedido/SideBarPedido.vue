@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { usePedidosStore } from '@pedidos/store/pedidosStore';
 import { TrashIcon } from '@common/components/icons';
-import { TitleComponent } from '@common/components';
+import { TitleComponent } from '@common/components/Text';
 import type { Producto } from '@pedidos/interfaces/NuevoPedido';
 
 const pedidosStore = usePedidosStore();
