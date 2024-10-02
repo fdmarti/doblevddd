@@ -8,19 +8,18 @@ import { Toast } from '@utils/index';
 
 export const useCotizacionStore = defineStore('cotizacion', () => {
   const cotizaciones = reactive<Cotizaciones>({ ...cotizacionInitialState });
-  const isLoading = ref(true);
-  const isSaving = ref(false);
+  const isLoading = ref<boolean>(true);
+  const isSaving = ref<boolean>(false);
 
   const getCotizaciones = async () => {
     try {
       const result = await GetCotizaciones();
 
-      if (!result.status) throw Error();
+      if (!result.status) throw Error('Token');
 
       Object.assign(cotizaciones, result.cotizaciones);
-      isLoading.value = false;
     } catch (error) {
-      isLoading.value = false;
+      Toast.error('Error al traer las cotizaciones.');
       return false;
     }
   };
@@ -31,9 +30,9 @@ export const useCotizacionStore = defineStore('cotizacion', () => {
       const result = await SaveCotizacion(cotizaciones);
       if (!result.status) throw Error();
 
-      return Toast.success('Cotización actualizada');
+      return Toast.success('Cotización actualizada.');
     } catch (error) {
-      Toast.error('Error al actualizar la cotización');
+      Toast.error('Error al actualizar la cotización.');
       return false;
     }
   };

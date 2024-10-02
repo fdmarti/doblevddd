@@ -41,6 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
       authStatus.value = AuthStatus.Authenticated;
       return true;
     } catch (error) {
+      logout();
       return false;
     }
   };
