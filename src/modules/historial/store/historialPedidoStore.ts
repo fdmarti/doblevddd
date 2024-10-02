@@ -6,7 +6,7 @@ import { checkValues } from '@historial/utils/pedido-filtro-utils';
 export const useHistorialPedidoStore = defineStore('historial', () => {
   const pedidosStore = usePedidosStore();
   const filterOptions = ref<string[]>([...checkValues]);
-  const filterFormDate = ref();
+  const filterFormDate = ref<string>();
 
   onMounted(() => {
     const currentDate = new Date();

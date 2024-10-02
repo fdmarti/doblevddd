@@ -14,7 +14,7 @@ export const useExtrasStore = defineStore('extra', () => {
     totalPages: 0,
   });
 
-  const isLoading = ref(true);
+  const isLoading = ref<boolean>(true);
 
   const getExtras = async () => {
     try {

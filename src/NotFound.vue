@@ -8,8 +8,9 @@
         <router-link
           class="bg-blue-600 hover:bg-blue-400 text-white p-3 rounded-md xl:inline lg:inline md:inline sm:block"
           to="/"
-          >Volver al inicio</router-link
         >
+          Volver al inicio
+        </router-link>
       </div>
     </div>
   </div>
