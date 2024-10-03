@@ -12,7 +12,7 @@ export const useHistorialPedidoStore = defineStore('historial', () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month =
-      currentDate.getMonth() < 10 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1;
+      currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1;
 
     filterFormDate.value = `${year}-${month}`;
   });
